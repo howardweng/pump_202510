@@ -1,0 +1,16 @@
+.react-datepicker-wrapper {
+  width: 100% !important;
+  /* Force full width */
+}
+
+.react-datepicker__input-container {
+  width: 100% !important;
+  /* Force input container to full width */
+}
+
+.react-datepicker-ignore-onclickoutside {
+  width: 100% !important;
+  /* Force input to full width */
+  box-sizing: border-box;
+  /* Prevent padding issues */
+}

@@ -1,0 +1,35 @@
+warning: the compiler differs from the one used to build the kernel
+  The kernel was built by: x86_64-linux-gnu-gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04) 12.3.0
+  You are using:           gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04) 12.3.0
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:355:35: error: initialization of ‘int (*)(struct tty_struct *, int)’ from incompatible pointer type ‘void (*)(struct tty_struct *, int)’ [-Werror=incompatible-pointer-types]
+  355 |         .break_ctl              = mxu1_break,
+      |                                   ^~~~~~~~~~
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:355:35: note: (near initialization for ‘mxu1110_1port_device.break_ctl’)
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:387:35: error: initialization of ‘int (*)(struct tty_struct *, int)’ from incompatible pointer type ‘void (*)(struct tty_struct *, int)’ [-Werror=incompatible-pointer-types]
+  387 |         .break_ctl              = mxu1_break,
+      |                                   ^~~~~~~~~~
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:387:35: note: (near initialization for ‘mxu1130_1port_device.break_ctl’)
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:419:35: error: initialization of ‘int (*)(struct tty_struct *, int)’ from incompatible pointer type ‘void (*)(struct tty_struct *, int)’ [-Werror=incompatible-pointer-types]
+  419 |         .break_ctl              = mxu1_break,
+      |                                   ^~~~~~~~~~
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:419:35: note: (near initialization for ‘mxu1150_1port_device.break_ctl’)
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:451:35: error: initialization of ‘int (*)(struct tty_struct *, int)’ from incompatible pointer type ‘void (*)(struct tty_struct *, int)’ [-Werror=incompatible-pointer-types]
+  451 |         .break_ctl              = mxu1_break,
+      |                                   ^~~~~~~~~~
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:451:35: note: (near initialization for ‘mxu1151_1port_device.break_ctl’)
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:483:35: error: initialization of ‘int (*)(struct tty_struct *, int)’ from incompatible pointer type ‘void (*)(struct tty_struct *, int)’ [-Werror=incompatible-pointer-types]
+  483 |         .break_ctl              = mxu1_break,
+      |                                   ^~~~~~~~~~
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:483:35: note: (near initialization for ‘mxu1131_1port_device.break_ctl’)
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:516:35: error: initialization of ‘int (*)(struct tty_struct *, int)’ from incompatible pointer type ‘void (*)(struct tty_struct *, int)’ [-Werror=incompatible-pointer-types]
+  516 |         .break_ctl              = mxu1_break,
+      |                                   ^~~~~~~~~~
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:516:35: note: (near initialization for ‘mxu3001_1port_device.break_ctl’)
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:549:35: error: initialization of ‘int (*)(struct tty_struct *, int)’ from incompatible pointer type ‘void (*)(struct tty_struct *, int)’ [-Werror=incompatible-pointer-types]
+  549 |         .break_ctl              = mxu1_break,
+      |                                   ^~~~~~~~~~
+/home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.c:549:35: note: (near initialization for ‘mxu7001_1port_device.break_ctl’)
+cc1: some warnings being treated as errors
+make[3]: *** [scripts/Makefile.build:243: /home/user/quasar/air/temp/mxu11x0/driver/mxu11x0.o] Error 1
+make[2]: *** [/usr/src/linux-headers-6.8.0-52-generic/Makefile:1925: /home/user/quasar/air/temp/mxu11x0/driver] Error 2
+make[1]: *** [Makefile:240: __sub-make] Error 2

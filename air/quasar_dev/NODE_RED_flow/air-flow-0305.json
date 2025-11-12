@@ -1,0 +1,3763 @@
+[
+    {
+        "id": "b0b3c47fa0d46b39",
+        "type": "tab",
+        "label": "RELAY",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "dfc0afdeb999cefa",
+        "type": "tab",
+        "label": "Heater",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5ccd1e502ce8883b",
+        "type": "tab",
+        "label": "Air Flow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "61f3de7b3c23e744",
+        "type": "tab",
+        "label": "temperture test",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "99b883a8cf81ecbd",
+        "type": "group",
+        "z": "5ccd1e502ce8883b",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "9c9fca43ae744cee",
+            "984d480f9eb47412",
+            "0713f41a925c8ae3",
+            "229046f011c5b7a7",
+            "c629150271da5b49",
+            "86a1b36cb6829c68",
+            "be29ebc5a78ac91e",
+            "1e071679ebc0aeba",
+            "c344a081a92b9ff8",
+            "452cee40ea828151",
+            "5f58e6b1e44e412f",
+            "ce652b80621666bf",
+            "21b96c5ae1e74442"
+        ],
+        "x": 84,
+        "y": 79,
+        "w": 822,
+        "h": 682
+    },
+    {
+        "id": "39d606440ec9912d",
+        "type": "group",
+        "z": "dfc0afdeb999cefa",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "b3337ef1f5dc383a",
+            "8e177b92cc2b6d98",
+            "0d30ce61c17e1d1b",
+            "3bca2ad44db5b481",
+            "3e91695b044000da",
+            "d91edfe5ad63720d",
+            "e17a15c77d1e813b",
+            "f7108cffdb3ba22b",
+            "9542bfca7038a9e4",
+            "8063e1d1fdef1b54",
+            "46d9471fae2cbe55",
+            "7e42e4282b254865",
+            "0f3fd6d5c8d88f92",
+            "1819e2c55e6bf292",
+            "5da23a32b523a0a5",
+            "35982f9860b7ea73",
+            "7d6b237a32281b31",
+            "466f99d4a4d03e74",
+            "d0ea6d0bf36d7981",
+            "574a4ad0b51884a8",
+            "2ea25ff7cc6490d2",
+            "8beb19d3b92c2d2e",
+            "d4f17e14e48768fa",
+            "df6a026d58d7f43d",
+            "e3a77cdef4b411a6",
+            "90b9d905bfa8d86d",
+            "3026c29de12e3bd0",
+            "812453654ff84907",
+            "d815a2367a485cc9",
+            "e127b7834fe13a09",
+            "57c45154ca7d670f",
+            "9f1bbfadc9840269",
+            "0603d6d37c80d347",
+            "6c8b944c9859ae43",
+            "9bd8e2b663123bda",
+            "47ed828508c7ef78",
+            "b63d97211b1a9ae4",
+            "95a4f4aaba0c45c6",
+            "1fdbf36d895afabb",
+            "4a19afc5ca106cb0",
+            "335bad685fe80941",
+            "539e0b85305f93d5",
+            "ef2a1651ad86a978",
+            "b1abd0a391d03a42",
+            "0001060277208da6",
+            "619cbeb6ac620dc2",
+            "6ad307b1826b58ce",
+            "266254e1ce738260",
+            "1320e08501f5f95b",
+            "c7d871dd7b0313f5",
+            "26f11beee9fbd3e1",
+            "c6f2e99a8bacd475",
+            "507a97ce02b2bcd5",
+            "b4f46394b3b47370",
+            "184740eabd2fad90",
+            "08a5beb9eda27808",
+            "766ee6899752bbba",
+            "c434333948caf41f",
+            "1c0c37158f8b6b42",
+            "d391c896beea1843",
+            "6733f0d0f650cd27",
+            "d311580d83e2d8a3",
+            "900dcecd958c1edd",
+            "a402b9dfa4e825b0",
+            "b2b93df12f4c9bb9",
+            "dd9b485e5ccc48c5",
+            "4b84eb29497c542b",
+            "f933f9dcdd82aa1a",
+            "07f62b0e376474c6",
+            "534de732282fe7c7",
+            "172747ec95520f11",
+            "7dff425a6226f540",
+            "333d6cf6eb506f87",
+            "a52674cba6994726",
+            "2cac331b601f8975",
+            "9f7ce404e58bbcd1",
+            "7f404341eb2b1a59",
+            "322ba5bdd016b86d",
+            "f7c9042548514b99",
+            "143b02bfc38f782a",
+            "bd0c3ba508b04a77",
+            "3a94efd2142fb546",
+            "24dc32502a44dc3a",
+            "920fa76d72927d17",
+            "98be07d05c918526",
+            "8440bdb04534e50b",
+            "ba44cfa6f92341d7",
+            "83cae57beb992ef7",
+            "8286c106197f13ab",
+            "c68396f9b254c6f5"
+        ],
+        "x": 214,
+        "y": 39,
+        "w": 1632,
+        "h": 2782
+    },
+    {
+        "id": "fc538192a2ad3825",
+        "type": "mqtt-broker",
+        "name": "cloud",
+        "broker": "ws://localhost:9500",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "0e2b0c30cfa669e9",
+        "type": "serial-port",
+        "name": "Heater Com1",
+        "serialport": "COM1",
+        "serialbaud": "115200",
+        "databits": 8,
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "10",
+        "bin": "bin",
+        "out": "interbyte",
+        "addchar": "",
+        "responsetimeout": "100"
+    },
+    {
+        "id": "99e26626c4414039",
+        "type": "serial-port",
+        "name": "AirFlow2",
+        "serialport": "COM2",
+        "serialbaud": "115200",
+        "databits": 8,
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "10",
+        "bin": "bin",
+        "out": "interbyte",
+        "addchar": "",
+        "responsetimeout": "100"
+    },
+    {
+        "id": "89c84ad3356f84c3",
+        "type": "exec",
+        "z": "b0b3c47fa0d46b39",
+        "command": "C:\\Users\\GhM\\air_boot\\usbrelay-v1.0.3\\usbrelay.exe -status",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 500,
+        "y": 100,
+        "wires": [
+            [
+                "f2b2757c2dfa836a",
+                "fe3973076d8f731a"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "cb5bff344312606b",
+        "type": "inject",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "0.3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 160,
+        "wires": [
+            [
+                "89c84ad3356f84c3"
+            ]
+        ]
+    },
+    {
+        "id": "f2b2757c2dfa836a",
+        "type": "function",
+        "z": "b0b3c47fa0d46b39",
+        "name": "function 3",
+        "func": "// Ensure msg.payload is a string\nlet payloadStr = msg.payload.toString().trim();\n\n// Split the input into lines\nlet lines = payloadStr.split(\"\\n\");\nlet messages = [];\n\n// Process each line of relay states\nlines.forEach(line => {\n    // Skip the first line (headers) and any empty lines, or lines that contain dashes only\n    if (line.startsWith(\"Serial\") || line.trim() === \"\" || line.includes(\"------\")) {\n        return;\n    }\n\n    // Split the line by spaces to separate the serial number from the relay states\n    let parts = line.split(/\\s+/); // Split by any number of spaces/tabs\n    if (parts.length > 1) {\n        let relayName = parts[0].trim();  // First part is the serial number\n        let relayStates = parts.slice(1, 5); // Only consider the first 4 relays (C1 to C4)\n\n        // Loop through the first 4 relay states\n        relayStates.forEach((state, index) => {\n            // Construct relay topic by combining serial and relay index (C1 -> _1)\n            let relayTopic = `usbrelay/state/${relayName}_${index + 1}`;\n\n            // Convert the state to 1 (ON) or 0 (OFF)\n            let relayValue = (state === \"ON\") ? 1 : 0;\n\n            // Create the MQTT message\n            messages.push({ topic: relayTopic, payload: relayValue, qos: 0, retain: true });\n        });\n    }\n});\n\n// Return all messages to MQTT\nreturn [messages];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 180,
+        "wires": [
+            [
+                "f78747fa07b430e2",
+                "6701af0fe7aa3d8a",
+                "a3f3c4f3.94f1a8"
+            ]
+        ]
+    },
+    {
+        "id": "f78747fa07b430e2",
+        "type": "mqtt out",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fc538192a2ad3825",
+        "x": 970,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "1cbb0e8bb3eeaf5f",
+        "type": "function",
+        "z": "b0b3c47fa0d46b39",
+        "name": "function 4",
+        "func": "let command = msg.payload.toLowerCase().trim();\n\nif (command === \"on\") {\n    msg.payload = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ open 255\";\n} else if (command === \"off\") {\n    msg.payload = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ close 255\";\n} else {\n    return null; // Ignore invalid commands\n}\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1060,
+        "wires": [
+            [
+                "d577eb6907dad9c0",
+                "088eb50783440918"
+            ]
+        ]
+    },
+    {
+        "id": "d577eb6907dad9c0",
+        "type": "exec",
+        "z": "b0b3c47fa0d46b39",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 610,
+        "y": 1060,
+        "wires": [
+            [],
+            [],
+            [
+                "9d921e9128e33c04"
+            ]
+        ]
+    },
+    {
+        "id": "9d921e9128e33c04",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "91096df357cfe4da",
+        "type": "inject",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "on",
+        "payloadType": "str",
+        "x": 210,
+        "y": 1040,
+        "wires": [
+            [
+                "1cbb0e8bb3eeaf5f"
+            ]
+        ]
+    },
+    {
+        "id": "981fe7d4548a85d9",
+        "type": "inject",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "off",
+        "payloadType": "str",
+        "x": 210,
+        "y": 1100,
+        "wires": [
+            [
+                "1cbb0e8bb3eeaf5f"
+            ]
+        ]
+    },
+    {
+        "id": "12211b51100913f4",
+        "type": "mqtt in",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "topic": "usbrelay/control/all",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fc538192a2ad3825",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 1160,
+        "wires": [
+            [
+                "1cbb0e8bb3eeaf5f",
+                "da9b63672347a502"
+            ]
+        ]
+    },
+    {
+        "id": "da9b63672347a502",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "a3e12f85f35d6fae",
+        "type": "comment",
+        "z": "b0b3c47fa0d46b39",
+        "name": "update state 0.5 seconds",
+        "info": "",
+        "x": 170,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "de317e5680d4ad17",
+        "type": "function",
+        "z": "b0b3c47fa0d46b39",
+        "name": "function 5",
+        "func": "// Extract relay name from topic (e.g., \"QAAMZ_2\")\nlet relay = msg.topic.split(\"/\").pop();\nif (!relay) return null;\n\n// Extract the relay number (e.g., \"2\" from \"QAAMZ_2\")\nlet relayNumber = relay.split(\"_\")[1];\nif (!relayNumber) return null;\n\n// Get the current relay array from flow context (default to [0,0,0,0])\nlet relayArray = flow.get(\"relayArray\") || [0, 0, 0, 0];\n\n// Convert relay number to a zero-based index\nlet index = parseInt(relayNumber, 10) - 1;\n\n// Get the current state for that relay; default to 0 (OFF)\nlet currentState = relayArray[index] || 0;\n\n// Toggle the relay state: if currently ON (1) then turn OFF (0), otherwise turn ON (1)\nlet newState = currentState === 1 ? 0 : 1;\n\n// Update the relay state in the array\nrelayArray[index] = newState;\n\n// Save the updated array back into flow context\nflow.set(\"relayArray\", relayArray);\n\n// Pad the relay number to two digits (e.g., \"2\" becomes \"02\")\nlet paddedRelayNumber = relayNumber.padStart(2, \"0\");\n\n// Construct the command based on newState; use \"open\" if newState is 1, otherwise \"close\"\nmsg.payload = `C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ ${newState === 1 ? \"open\" : \"close\"} ${paddedRelayNumber}`;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 440,
+        "wires": [
+            [
+                "b1ccde08bd38c02b",
+                "f5ec3947e11d3554"
+            ]
+        ]
+    },
+    {
+        "id": "d298f5f7763d747e",
+        "type": "mqtt in",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "topic": "usbrelay/control/#",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fc538192a2ad3825",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 440,
+        "wires": [
+            [
+                "de317e5680d4ad17",
+                "be320f28e927e584"
+            ]
+        ]
+    },
+    {
+        "id": "b1ccde08bd38c02b",
+        "type": "exec",
+        "z": "b0b3c47fa0d46b39",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 770,
+        "y": 440,
+        "wires": [
+            [],
+            [],
+            [
+                "05332808e81fc208",
+                "d26a71d84732d62a"
+            ]
+        ]
+    },
+    {
+        "id": "05332808e81fc208",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "f5ec3947e11d3554",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "9cd6083b8508742d",
+        "type": "comment",
+        "z": "b0b3c47fa0d46b39",
+        "name": "usbrelay/control/QAAMZ_1  ==>  toggle",
+        "info": "",
+        "x": 270,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "6d479b600715162b",
+        "type": "comment",
+        "z": "b0b3c47fa0d46b39",
+        "name": "usbrelay/control/all  ==> on & off",
+        "info": "",
+        "x": 250,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "fe3973076d8f731a",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "6701af0fe7aa3d8a",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "4ec044ea73fcee42",
+        "type": "inject",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 260,
+        "y": 540,
+        "wires": [
+            [
+                "ba4ca6b86b5158c8"
+            ]
+        ]
+    },
+    {
+        "id": "ba4ca6b86b5158c8",
+        "type": "function",
+        "z": "b0b3c47fa0d46b39",
+        "name": "function 1",
+        "func": "msg.topic = \"usbrelay/control/QAAMZ_1\"\nmsg.payload = \"toggle\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 540,
+        "wires": [
+            [
+                "de317e5680d4ad17"
+            ]
+        ]
+    },
+    {
+        "id": "be320f28e927e584",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "debug 14",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "088eb50783440918",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "d3e0dc7809f538cd",
+        "type": "function",
+        "z": "b0b3c47fa0d46b39",
+        "name": "FLOW AUTO1",
+        "func": "// Function to send both relay command and test stage message\nconst sendCommand = (relayCommand, stageMessage) => {\n    const messages = [\n        { topic: \"usbrelay/command\", payload: relayCommand },\n        { topic: \"autotest/flow1/stage\", payload: stageMessage }\n    ];\n    node.send(messages); // Send both messages as an array\n};\n\n// Define the sequence of steps (each with a delay in ms, the relay command, and the stage message)\nconst steps = [\n    {\n        delay: 0,\n        command: \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ close 255\",\n        stage: \"測試開始: 全部關閉\"\n    },\n    {\n        delay: 200,\n        command: \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ open 02\",\n        stage: \"開啟全開2號\"\n    },\n    {\n        delay: 6000,\n        command: \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ close 255\",\n        stage: \"全部關閉\"\n    },\n    {\n        delay: 200,\n        command: \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ open 03\",\n        stage: \"開啟左側3號\"\n    },\n    {\n        delay: 6000,\n        command: \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ close 255\",\n        stage: \"全部關閉\"\n    },\n    {\n        delay: 200,\n        command: \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ open 01\",\n        stage: \"開啟右側1號\"\n    },\n    {\n        delay: 6000,\n        command: \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ close 255\",\n        stage: \"測試結束: 全部關閉\"\n    }\n];\n\n// Recursive function to execute commands sequentially based on the steps array\nconst scheduleCommands = (steps, index) => {\n    if (index >= steps.length) return;\n    const step = steps[index];\n    setTimeout(() => {\n        sendCommand(step.command, step.stage);\n        scheduleCommands(steps, index + 1);\n    }, step.delay);\n};\n\n// Start the command sequence\nscheduleCommands(steps, 0);\n\nreturn null;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 1320,
+        "wires": [
+            [
+                "c85575f71f84062d",
+                "d577eb6907dad9c0"
+            ],
+            [
+                "d48fd16e570425bf",
+                "050b53f4de5d9bb4"
+            ]
+        ]
+    },
+    {
+        "id": "f4d1e528bae63380",
+        "type": "inject",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 400,
+        "y": 1220,
+        "wires": [
+            [
+                "d3e0dc7809f538cd"
+            ]
+        ]
+    },
+    {
+        "id": "c85575f71f84062d",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "050b53f4de5d9bb4",
+        "type": "mqtt out",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fc538192a2ad3825",
+        "x": 830,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "d48fd16e570425bf",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "72fb0f85a74d758b",
+        "type": "mqtt in",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "topic": "autotest/flow1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fc538192a2ad3825",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 1320,
+        "wires": [
+            [
+                "693bff484e0c6ab1"
+            ]
+        ]
+    },
+    {
+        "id": "693bff484e0c6ab1",
+        "type": "switch",
+        "z": "b0b3c47fa0d46b39",
+        "name": "start",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "start",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 390,
+        "y": 1320,
+        "wires": [
+            [
+                "d3e0dc7809f538cd"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "5d18a9ebdc7249c7",
+        "type": "function",
+        "z": "b0b3c47fa0d46b39",
+        "name": "function 7",
+        "func": "let command = msg.payload.toLowerCase().trim();\nif (command === \"on\") {\n    msg.payload = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\usbrelay-v1.0.3\\\\usbrelay.exe -serial QAAMZ -on 1 2 3 4\";\n} else if (command === \"off\") {\n    msg.payload = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\usbrelay-v1.0.3\\\\usbrelay.exe -serial QAAMZ -off 1 2 3 4\";\n} else {\n    return null; // Ignore invalid commands\n}\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "36615a574cf853ab",
+        "type": "inject",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 900,
+        "wires": [
+            [
+                "990d1576229adc12"
+            ]
+        ]
+    },
+    {
+        "id": "990d1576229adc12",
+        "type": "function",
+        "z": "b0b3c47fa0d46b39",
+        "name": "function 13",
+        "func": "let relayState = flow.get(\"relayState\");\n\nmsg.payload = relayState\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 900,
+        "wires": [
+            [
+                "22370602ae618176"
+            ]
+        ]
+    },
+    {
+        "id": "22370602ae618176",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "debug 28",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "fda5e6f2.bbd2a8",
+        "type": "inject",
+        "z": "b0b3c47fa0d46b39",
+        "name": "Simulate QAAMZ_3 ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "usbrelay/state/QAAMZ_3",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 560,
+        "y": 200,
+        "wires": [
+            [
+                "a3f3c4f3.94f1a8"
+            ]
+        ]
+    },
+    {
+        "id": "a3f3c4f3.94f1a8",
+        "type": "function",
+        "z": "b0b3c47fa0d46b39",
+        "name": "Update Relay Array",
+        "func": "// Get the current relayArray from flow context (or default to [0,0,0,0])\nvar relayArray = flow.get('relayArray') || [0, 0, 0, 0];\n\n// Extract the relay number from msg.topic (assumes topic format \"usbrelay/state/QAAMZ_X\")\nvar topicParts = msg.topic.split(\"_\");\nvar relayStr = topicParts[topicParts.length - 1]; // e.g. \"QAAMZ_3\" split: last part \"3\" if topic is \"usbrelay/state/QAAMZ_3\"\nif (isNaN(relayStr)) {\n    // In case the topic includes a prefix, try to extract the digit from the string\n    relayStr = relayStr.replace(/\\D/g, \"\"); // Remove non-digits\n}\nvar relayIndex = parseInt(relayStr, 10) - 1; // Convert to zero-based index\n\n// Update the corresponding relay value with msg.payload\nrelayArray[relayIndex] = msg.payload;\n\n// Save the updated array in flow context\nflow.set('relayArray', relayArray);\n\n// Optionally, attach the updated array to the output message\nmsg.payload = relayArray;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 260,
+        "wires": [
+            [
+                "4a4b9e2c.0c8f7"
+            ]
+        ]
+    },
+    {
+        "id": "4a4b9e2c.0c8f7",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "Output Relay Array",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 990,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "ff56db87ed1a500f",
+        "type": "function",
+        "z": "b0b3c47fa0d46b39",
+        "name": "function 14",
+        "func": "// Extract relay name from topic (e.g., \"QAAMZ_2\")\nlet relay = msg.topic.split(\"/\").pop();\nif (!relay) return null;\n\n// Get the current relay states from flow context\nlet relayState = flow.get(\"relayState\") || {};\n\n// Toggle the relay state (if current is ON (1), then turn OFF (0); otherwise, turn ON (1))\nlet relayNumber = relay.split(\"_\")[1];  // Extract the relay number (e.g., \"1\", \"2\", etc.)\nlet currentState = relayState[relay] || 0;  // Default to 0 (OFF) if not found\n\n// New state after toggle\nlet newState = currentState === 1 ? 0 : 1;\n\n// Update the stored state in flow context\nrelayState[relay] = newState;\nflow.set(\"relayState\", relayState);\n\n// Pad the relay number to two digits (e.g., \"3\" becomes \"03\")\nlet paddedRelayNumber = relayNumber.padStart(2, '0');\n\n// Construct the command with the new command structure.\n// If newState is 1 (ON), the command uses \"open\", otherwise \"close\".\nmsg.payload = `C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ ${newState === 1 ? \"open\" : \"close\"} ${paddedRelayNumber}`;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d26a71d84732d62a",
+        "type": "switch",
+        "z": "b0b3c47fa0d46b39",
+        "name": "",
+        "property": "payload.code",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 930,
+        "y": 420,
+        "wires": [
+            [
+                "a60b003780694365"
+            ]
+        ]
+    },
+    {
+        "id": "a60b003780694365",
+        "type": "debug",
+        "z": "b0b3c47fa0d46b39",
+        "name": "手動 relay ERROR 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "b3337ef1f5dc383a",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1400,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "8e177b92cc2b6d98",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "0.2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "20",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 260,
+        "wires": [
+            [
+                "322ba5bdd016b86d",
+                "143b02bfc38f782a"
+            ]
+        ]
+    },
+    {
+        "id": "0d30ce61c17e1d1b",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "function 8",
+        "func": "// Retrieve previous stored temperatures from Node-RED flow memory\nlet storedTemps = flow.get(\"temps\") || {};\n\n// Merge new data\nlet newData = msg.payload;\nlet mergedData = { ...storedTemps, ...newData };\n\n// Round all temperature values to 2 decimal places\nfor (let key in mergedData) {\n    mergedData[key] = Math.round(mergedData[key] * 100) / 100;\n}\n\n// Store the merged data in flow context\nflow.set(\"temps\", mergedData);\n\n// Always publish the latest temperature readings to MQTT\nreturn { payload: JSON.stringify(mergedData) };\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1200,
+        "y": 260,
+        "wires": [
+            [
+                "d91edfe5ad63720d",
+                "83cae57beb992ef7"
+            ]
+        ]
+    },
+    {
+        "id": "3bca2ad44db5b481",
+        "type": "mqtt out",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "topic": "heater/temperature",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fc538192a2ad3825",
+        "x": 1710,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "3e91695b044000da",
+        "type": "comment",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "{\"temp2\":26.1,\"temp3\":26.7,\"temp4\":26.7,\"temp1\":23.9}",
+        "info": "",
+        "x": 1380,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "d91edfe5ad63720d",
+        "type": "delay",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1500,
+        "y": 140,
+        "wires": [
+            [
+                "b3337ef1f5dc383a"
+            ]
+        ]
+    },
+    {
+        "id": "e17a15c77d1e813b",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "啟動",
+        "func": "// Function to convert hex string to Buffer\nfunction hexToBuffer(hexString) {\n    return Buffer.from(hexString.replace(/\\s/g, \"\"), \"hex\");\n}\n\n// Heater initialization command\nlet initCommand = \"02 10 00 64 00 02 04 00 00 00 01 3A F0\";\n\n// Send initialization command\nmsg.payload = hexToBuffer(initCommand);\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 820,
+        "wires": [
+            [
+                "f7108cffdb3ba22b"
+            ]
+        ]
+    },
+    {
+        "id": "9542bfca7038a9e4",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 900,
+        "y": 700,
+        "wires": [
+            [
+                "e17a15c77d1e813b"
+            ]
+        ]
+    },
+    {
+        "id": "8063e1d1fdef1b54",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "function 9",
+        "func": "let buffer = Buffer.from(msg.payload);\nlet responseHex = buffer.toString(\"hex\").toUpperCase();\n\nif (buffer.length > 0) {\n    node.warn(\"Received Modbus Response: \" + responseHex);\n\n    // Check if the response matches the expected value\n    if (responseHex === \"0210006400020024\") {\n        msg.payload = \"啟動中\";  // \"Activating\" or \"Started\"\n    } else {\n        msg.payload = \"啟動異常\";  // \"Activation abnormal\" or \"Error\"\n    }\n\n    // Set the MQTT topic\n    msg.topic = \"heater/stage\";\n    return msg;\n} else {\n    node.warn(\"No response received.\");\n    return null;\n}\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1520,
+        "y": 820,
+        "wires": [
+            [
+                "574a4ad0b51884a8"
+            ]
+        ]
+    },
+    {
+        "id": "46d9471fae2cbe55",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "停止",
+        "func": "// Function to convert hex string to Buffer\nfunction hexToBuffer(hexString) {\n    return Buffer.from(hexString.replace(/\\s/g, \"\"), \"hex\");\n}\n\n// Stop Modbus command\nlet stopCommand = \"02 10 00 6C 00 02 04 00 00 00 01 3B 56\";\n\n// Send stop command\nmsg.payload = hexToBuffer(stopCommand);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 960,
+        "wires": [
+            [
+                "0f3fd6d5c8d88f92"
+            ]
+        ]
+    },
+    {
+        "id": "7e42e4282b254865",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "stop",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 870,
+        "y": 780,
+        "wires": [
+            [
+                "46d9471fae2cbe55"
+            ]
+        ]
+    },
+    {
+        "id": "1819e2c55e6bf292",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "function 11",
+        "func": "let buffer = Buffer.from(msg.payload);\nlet responseHex = buffer.toString(\"hex\").toUpperCase();\n\nif (buffer.length > 0) {\n    node.warn(\"Received Modbus Response: \" + responseHex);\n\n    // Check if the response matches the expected value\n    if (responseHex === \"0210006C0002EFBFBDEFBFBD\") {\n        msg.payload = \"停止加熱\";  // \"Activating\" or \"Started\"\n    } else {\n        msg.payload = \"停止加熱指令異常\";  // \"Activation abnormal\" or \"Error\"\n    }\n\n    // Set the MQTT topic\n    msg.topic = \"heater/stage\";\n    return msg;\n} else {\n    node.warn(\"No response received.\");\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1530,
+        "y": 960,
+        "wires": [
+            [
+                "574a4ad0b51884a8"
+            ]
+        ]
+    },
+    {
+        "id": "5da23a32b523a0a5",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "加熱",
+        "func": "// Function to convert hex string to Buffer\nfunction hexToBuffer(hexString) {\n    return Buffer.from(hexString.replace(/\\s/g, \"\"), \"hex\");\n}\n\n// Heater ON command (start heating)\nlet heaterOnCommand = \"02 10 00 6C 00 02 04 00 00 00 00 FA 96\";\n\n// Send heater ON command\nmsg.payload = hexToBuffer(heaterOnCommand);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 880,
+        "wires": [
+            [
+                "466f99d4a4d03e74"
+            ]
+        ]
+    },
+    {
+        "id": "35982f9860b7ea73",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 880,
+        "y": 740,
+        "wires": [
+            [
+                "5da23a32b523a0a5"
+            ]
+        ]
+    },
+    {
+        "id": "7d6b237a32281b31",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1480,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "d0ea6d0bf36d7981",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "function 10",
+        "func": "let buffer = Buffer.from(msg.payload);\nlet responseHex = buffer.toString(\"hex\").toUpperCase();\n\nif (buffer.length > 0) {\n    node.warn(\"Received Modbus Response: \" + responseHex);\n\n    // Check if the response matches the expected value\n    if (responseHex === \"0210006C0002EFBFBDEFBFBD\") {\n        msg.payload = \"加熱中,持續20秒\";  // \"Activating\" or \"Started\"\n    } else {\n        msg.payload = \"加熱指令異常\";  // \"Activation abnormal\" or \"Error\"\n    }\n\n    // Set the MQTT topic\n    msg.topic = \"heater/stage\";\n    return msg;\n} else {\n    node.warn(\"No response received.\");\n    return null;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1530,
+        "y": 880,
+        "wires": [
+            [
+                "574a4ad0b51884a8"
+            ]
+        ]
+    },
+    {
+        "id": "574a4ad0b51884a8",
+        "type": "mqtt out",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fc538192a2ad3825",
+        "x": 1770,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "2ea25ff7cc6490d2",
+        "type": "switch",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "init",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "heat",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "stop",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "open",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "close",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 850,
+        "y": 900,
+        "wires": [
+            [
+                "e17a15c77d1e813b"
+            ],
+            [
+                "5da23a32b523a0a5"
+            ],
+            [
+                "46d9471fae2cbe55"
+            ],
+            [
+                "e3a77cdef4b411a6"
+            ],
+            [
+                "9f1bbfadc9840269"
+            ]
+        ]
+    },
+    {
+        "id": "8beb19d3b92c2d2e",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "init",
+        "payloadType": "str",
+        "x": 690,
+        "y": 800,
+        "wires": [
+            [
+                "2ea25ff7cc6490d2"
+            ]
+        ]
+    },
+    {
+        "id": "d4f17e14e48768fa",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "heat",
+        "payloadType": "str",
+        "x": 690,
+        "y": 880,
+        "wires": [
+            [
+                "2ea25ff7cc6490d2"
+            ]
+        ]
+    },
+    {
+        "id": "df6a026d58d7f43d",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "x": 670,
+        "y": 940,
+        "wires": [
+            [
+                "2ea25ff7cc6490d2"
+            ]
+        ]
+    },
+    {
+        "id": "e3a77cdef4b411a6",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "開啟左右側氣道",
+        "func": "// Define the two relay commands using the new command structure\nconst relayCommand1 = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ open 01\";\nconst relayCommand2 = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ open 03\";\n\n// Define the MQTT stage message\nconst mqttTopic = \"heater/stage\";\nconst mqttPayload = \"停止加熱,開啟左右側氣道2秒\";\n\n// Immediately send the first relay command on output 1 and the MQTT message on output 2\nnode.send([\n    { payload: relayCommand1 },                    // Output 1: First relay command\n    { topic: mqttTopic, payload: mqttPayload }     // Output 2: MQTT Message\n]);\n\n// After 100ms, send the second relay command on output 1 (nothing on output 2)\nsetTimeout(() => {\n    node.send([\n        { payload: relayCommand2 }, // Output 1: Second relay command\n        null                      // Output 2: No message\n    ]);\n}, 300);\n\nreturn null;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 1200,
+        "wires": [
+            [
+                "3026c29de12e3bd0",
+                "d815a2367a485cc9"
+            ],
+            [
+                "812453654ff84907",
+                "57c45154ca7d670f"
+            ]
+        ]
+    },
+    {
+        "id": "90b9d905bfa8d86d",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1100,
+        "y": 1080,
+        "wires": [
+            [
+                "e3a77cdef4b411a6"
+            ]
+        ]
+    },
+    {
+        "id": "3026c29de12e3bd0",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "812453654ff84907",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1360,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "d815a2367a485cc9",
+        "type": "exec",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 1450,
+        "y": 1180,
+        "wires": [
+            [],
+            [],
+            [
+                "e127b7834fe13a09"
+            ]
+        ]
+    },
+    {
+        "id": "e127b7834fe13a09",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1620,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "57c45154ca7d670f",
+        "type": "mqtt out",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fc538192a2ad3825",
+        "x": 1510,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "9f1bbfadc9840269",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "關閉左右側氣道",
+        "func": "// Define the two relay commands using the new command structure for \"off\"\nconst relayCommand1 = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ close 01\";\nconst relayCommand2 = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ close 03\";\n\n// Define the MQTT stage message\nconst mqttTopic = \"heater/stage\";\nconst mqttPayload = \"關閉左右側氣道,測試結束\";\n\n// Immediately send the first relay command and the MQTT message\nnode.send([\n    { payload: relayCommand1 },                    // Output 1: First relay command (close relay 01)\n    { topic: mqttTopic, payload: mqttPayload }     // Output 2: MQTT Message\n]);\n\n// After 100ms, send the second relay command (close relay 03)\nsetTimeout(() => {\n    node.send([\n        { payload: relayCommand2 }, // Output 1: Second relay command (close relay 03)\n        null                      // Output 2: No MQTT message\n    ]);\n}, 300);\n\nreturn null;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 1420,
+        "wires": [
+            [
+                "6c8b944c9859ae43",
+                "d815a2367a485cc9"
+            ],
+            [
+                "9bd8e2b663123bda",
+                "57c45154ca7d670f"
+            ]
+        ]
+    },
+    {
+        "id": "0603d6d37c80d347",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1100,
+        "y": 1300,
+        "wires": [
+            [
+                "9f1bbfadc9840269"
+            ]
+        ]
+    },
+    {
+        "id": "6c8b944c9859ae43",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 20",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "9bd8e2b663123bda",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 21",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "47ed828508c7ef78",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "open",
+        "payloadType": "str",
+        "x": 670,
+        "y": 1020,
+        "wires": [
+            [
+                "2ea25ff7cc6490d2"
+            ]
+        ]
+    },
+    {
+        "id": "b63d97211b1a9ae4",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "close",
+        "payloadType": "str",
+        "x": 670,
+        "y": 1080,
+        "wires": [
+            [
+                "2ea25ff7cc6490d2"
+            ]
+        ]
+    },
+    {
+        "id": "95a4f4aaba0c45c6",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "function 12",
+        "func": "var payloads = [\n    { payload: \"init\", delay: 500 },\n    { payload: \"heat\", delay: 20000 },\n    { payload: \"stop\", delay: 1000 },\n    { payload: \"open\", delay: 20000 },\n    { payload: \"close\", delay: 0 }\n];\n\nlet index = 0;\n\nfunction sendNext() {\n    if (index < payloads.length) {\n        let item = payloads[index++];\n\n        node.send({ payload: item.payload });\n\n        setTimeout(sendNext, item.delay);\n    }\n}\n\n// Start the process\nsendNext();\n\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 560,
+        "wires": [
+            [
+                "4a19afc5ca106cb0",
+                "2ea25ff7cc6490d2"
+            ]
+        ]
+    },
+    {
+        "id": "1fdbf36d895afabb",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 560,
+        "y": 640,
+        "wires": [
+            [
+                "95a4f4aaba0c45c6"
+            ]
+        ]
+    },
+    {
+        "id": "4a19afc5ca106cb0",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "335bad685fe80941",
+        "type": "mqtt in",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "topic": "autotest/heat1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fc538192a2ad3825",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 310,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "539e0b85305f93d5",
+        "type": "switch",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "start",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "start",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 530,
+        "y": 500,
+        "wires": [
+            [
+                "95a4f4aaba0c45c6"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ef2a1651ad86a978",
+        "type": "mqtt in",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "topic": "heater/control",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fc538192a2ad3825",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 310,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b1abd0a391d03a42",
+        "type": "switch",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "stop",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "stop",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 390,
+        "y": 900,
+        "wires": [
+            [
+                "2ea25ff7cc6490d2"
+            ]
+        ]
+    },
+    {
+        "id": "0001060277208da6",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 32",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 860,
+        "y": 2620,
+        "wires": []
+    },
+    {
+        "id": "619cbeb6ac620dc2",
+        "type": "catch",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "Catch Any Error",
+        "scope": "group",
+        "uncaught": false,
+        "x": 360,
+        "y": 2740,
+        "wires": [
+            [
+                "6ad307b1826b58ce"
+            ]
+        ]
+    },
+    {
+        "id": "6ad307b1826b58ce",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "Increment Error Count",
+        "func": "// Retrieve the current error count from node context (initialize to 0 if not set)\nlet errorCount = context.get(\"errorCount\") || 0;\n\n// Increment the error count\nerrorCount++;\n\n// Store the updated count in context\ncontext.set(\"errorCount\", errorCount);\n\n// Prepare the MQTT message\nmsg.topic = \"error/count/heater\";\nmsg.payload = errorCount;\n\n// Set the filename for the file out node (adjust the path as needed)\nmsg.filename = \"./error_count.txt\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 2740,
+        "wires": [
+            [
+                "266254e1ce738260",
+                "1320e08501f5f95b",
+                "0001060277208da6"
+            ]
+        ]
+    },
+    {
+        "id": "266254e1ce738260",
+        "type": "mqtt out",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "Publish Error Count",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fc538192a2ad3825",
+        "x": 930,
+        "y": 2720,
+        "wires": []
+    },
+    {
+        "id": "1320e08501f5f95b",
+        "type": "file",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "Store Error Count",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": true,
+        "encoding": "utf8",
+        "x": 890,
+        "y": 2780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c7d871dd7b0313f5",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "控制指令集",
+        "func": "// Convert hex string to Buffer\nfunction hexToBuffer(hexString) {\n    return Buffer.from(hexString.replace(/\\s/g, \"\"), \"hex\");\n}\n\n// New command sequence with delays and statuses\nconst commandSequence = [\n    { cmd: \"02 10 00 64 00 02 04 00 00 00 01 3A F0\", delay: 1000, status: \"init\" }, //回儲存 1\n    { cmd: \"02 10 00 6C 00 02 04 00 00 00 00 FA 96\", delay: 16000, status: \"open\" },\t\t\t//啟動\n  //  { cmd: \"02 10 05 16 00 02 04 00 00 00 14 42 92\", delay: 0 },\t\t\t//儲存 1 输入1 的比例带[加热侧] 改2\n  //  { cmd: \"02 10 05 1A 00 02 04 00 00 00 01 83 08\", delay: 0 },\t\t\t//儲存 1 输入1 的微分时间 [加热侧] 改0.01\n  //  { cmd: \"02 10 05 26 00 02 04 FF FF FF CE 81 C9\", delay: 420, status: \"heat1\" },\t//儲存 1 输入1 的输出值限幅下限 [加热侧] 改-5\n //   { cmd: \"02 10 00 A2 00 02 04 00 00 00 64 76 A1\", delay: 5500, status: \"heat2\" },\t//儲存 1 输入1 的输出值限幅上限 [加热侧] 改10\n  //  { cmd: \"02 10 00 64 00 02 04 00 00 00 02 7A F1\", delay: 160, status: \"heat3\" },\t//回儲存 2\n  //  { cmd: \"02 10 00 A2 00 02 04 00 00 00 64 76 A1\", delay: 8000, status: \"heat4\" },\t//儲存 1 输入1 的输出值限幅上限 [加热侧] 改50\n //   { cmd: \"02 10 00 6C 00 02 04 00 00 00 01 3B 56\", delay: 2000, status: \"heat4\" },\t//停止 \n    { cmd: \"02 10 00 6C 00 02 04 00 00 00 01 3B 56\", delay: 0, status: \"close\" }\t//\n];\n\n// Function to send messages with delays\nfunction sendCommands(index) {\n    if (index >= commandSequence.length) return; // Stop if all commands are sent\n\n    let command = commandSequence[index];\n\n    // Create MQTT message for Output 1 (heater/control)\n    let msgOut1 = { payload: hexToBuffer(command.cmd) };\n\n    // Create MQTT message for Output 2 (heater/stage) if status exists\n    let msgOut2 = command.status ? { payload: command.status, topic: \"heater/stage\" } : null;\n\n    // Create Output 3 (Raw command string)\n    let msgOut3 = { payload: command.cmd, topic: \"heater/cmd_raw\" };\n\n    // Send messages to all outputs\n    node.send([msgOut1, msgOut2, msgOut3]); // Output 1, Output 2 (status), Output 3\n\n    setTimeout(() => {\n        sendCommands(index + 1); // Send the next command after delay\n    }, command.delay);\n}\n\n// Start sending commands\nsendCommands(0);\n",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 1700,
+        "wires": [
+            [
+                "26f11beee9fbd3e1"
+            ],
+            [
+                "184740eabd2fad90"
+            ],
+            [
+                "b4f46394b3b47370"
+            ]
+        ]
+    },
+    {
+        "id": "c6f2e99a8bacd475",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 34",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "507a97ce02b2bcd5",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 420,
+        "y": 1700,
+        "wires": [
+            [
+                "c7d871dd7b0313f5"
+            ]
+        ]
+    },
+    {
+        "id": "b4f46394b3b47370",
+        "type": "mqtt out",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fc538192a2ad3825",
+        "x": 930,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "184740eabd2fad90",
+        "type": "switch",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "init",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "heat",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "open",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "close",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 770,
+        "y": 1900,
+        "wires": [
+            [
+                "08a5beb9eda27808"
+            ],
+            [
+                "766ee6899752bbba"
+            ],
+            [
+                "a402b9dfa4e825b0"
+            ],
+            [
+                "172747ec95520f11"
+            ]
+        ]
+    },
+    {
+        "id": "08a5beb9eda27808",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "function 19",
+        "func": "msg.payload = \"啟動中\";  // \"Activating\" or \"Started\"\nmsg.topic = \"heater/stage\";\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 1860,
+        "wires": [
+            [
+                "c434333948caf41f"
+            ]
+        ]
+    },
+    {
+        "id": "766ee6899752bbba",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "function 20",
+        "func": "// Mapping of heat stages to descriptions\nconst statusDescriptions = {\n    heat1: \"加熱1, 持續0.42秒\",\n    heat2: \"加熱2, 持續4.5秒\",\n    heat3: \"加熱3, 持續0.16秒\",\n    heat4: \"加熱4, 持續8秒\"\n};\n\n// Check if msg.payload exists in the mapping\nif (statusDescriptions[msg.payload]) {\n    msg.payload = statusDescriptions[msg.payload];  // Replace with translated description\n    msg.topic = \"heater/stage\";  // Ensure topic is correct\n}\n\n// Return the modified message\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 1920,
+        "wires": [
+            [
+                "c434333948caf41f"
+            ]
+        ]
+    },
+    {
+        "id": "c434333948caf41f",
+        "type": "mqtt out",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fc538192a2ad3825",
+        "x": 1270,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "1c0c37158f8b6b42",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "open",
+        "payloadType": "str",
+        "x": 590,
+        "y": 1880,
+        "wires": [
+            [
+                "184740eabd2fad90"
+            ]
+        ]
+    },
+    {
+        "id": "d391c896beea1843",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "close",
+        "payloadType": "str",
+        "x": 590,
+        "y": 1940,
+        "wires": [
+            [
+                "184740eabd2fad90"
+            ]
+        ]
+    },
+    {
+        "id": "6733f0d0f650cd27",
+        "type": "mqtt in",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "topic": "autotest/heat3",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fc538192a2ad3825",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 390,
+        "y": 1600,
+        "wires": [
+            [
+                "d311580d83e2d8a3"
+            ]
+        ]
+    },
+    {
+        "id": "d311580d83e2d8a3",
+        "type": "switch",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "start",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "start",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 1600,
+        "wires": [
+            [
+                "900dcecd958c1edd",
+                "c7d871dd7b0313f5"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "900dcecd958c1edd",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 35",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 1540,
+        "wires": []
+    },
+    {
+        "id": "a402b9dfa4e825b0",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "開啟左右側氣道",
+        "func": "// Define the command strings using the new command structure\nconst closeAllCommand = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ close 255\";\nconst relayCommand1 = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ open 01\";\nconst relayCommand2 = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ open 03\";\n\n// Define the MQTT stage message details\nconst mqttTopic = \"heater/stage\";\nconst mqttPayload = \"停止加熱,開啟左右側氣道2秒\";\n\n// Step 1: Immediately send the \"close all\" command along with the MQTT message\nnode.send([\n    { payload: closeAllCommand },                   // Output 1: Close all command\n    { topic: mqttTopic, payload: mqttPayload }        // Output 2: MQTT Message\n]);\n\n// Step 2: After 100ms, send the open command for relay 01\nsetTimeout(() => {\n    node.send([\n        { payload: relayCommand1 },  // Output 1: Open relay 01\n        null                       // Output 2: No MQTT message\n    ]);\n}, 100);\n\n// Step 3: After 400ms, send the open command for relay 03\nsetTimeout(() => {\n    node.send([\n        { payload: relayCommand2 },  // Output 1: Open relay 03\n        null                       // Output 2: No MQTT message\n    ]);\n}, 400);\n\nreturn null;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 2180,
+        "wires": [
+            [
+                "dd9b485e5ccc48c5",
+                "f933f9dcdd82aa1a"
+            ],
+            [
+                "4b84eb29497c542b",
+                "534de732282fe7c7"
+            ]
+        ]
+    },
+    {
+        "id": "b2b93df12f4c9bb9",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 920,
+        "y": 2060,
+        "wires": [
+            [
+                "a402b9dfa4e825b0"
+            ]
+        ]
+    },
+    {
+        "id": "dd9b485e5ccc48c5",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 36",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 2060,
+        "wires": []
+    },
+    {
+        "id": "4b84eb29497c542b",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 37",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "f933f9dcdd82aa1a",
+        "type": "exec",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 1270,
+        "y": 2160,
+        "wires": [
+            [],
+            [],
+            [
+                "07f62b0e376474c6"
+            ]
+        ]
+    },
+    {
+        "id": "07f62b0e376474c6",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 38",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1440,
+        "y": 2140,
+        "wires": []
+    },
+    {
+        "id": "534de732282fe7c7",
+        "type": "mqtt out",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fc538192a2ad3825",
+        "x": 1330,
+        "y": 2240,
+        "wires": []
+    },
+    {
+        "id": "172747ec95520f11",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "關閉左右側氣道",
+        "func": "// Define the two relay commands using the new command structure for \"off\"\nconst relayCommand1 = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ close 01\";\nconst relayCommand2 = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\USB-RELAY2-module\\\\USBRelay\\\\TestApp\\\\CommandApp_USBRelay QAAMZ close 03\";\n\n// Define the MQTT stage message\nconst mqttTopic = \"heater/stage\";\nconst mqttPayload = \"關閉左右側氣道,測試結束\";\n\n// Immediately send the first relay command and the MQTT message\nnode.send([\n    { payload: relayCommand1 },                    // Output 1: First relay command (close relay 01)\n    { topic: mqttTopic, payload: mqttPayload }     // Output 2: MQTT Message\n]);\n\n// After 100ms, send the second relay command (close relay 03)\nsetTimeout(() => {\n    node.send([\n        { payload: relayCommand2 }, // Output 1: Second relay command (close relay 03)\n        null                      // Output 2: No MQTT message\n    ]);\n}, 300);\n\nreturn null;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 2400,
+        "wires": [
+            [
+                "333d6cf6eb506f87",
+                "f933f9dcdd82aa1a"
+            ],
+            [
+                "a52674cba6994726",
+                "534de732282fe7c7"
+            ]
+        ]
+    },
+    {
+        "id": "7dff425a6226f540",
+        "type": "inject",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 920,
+        "y": 2260,
+        "wires": [
+            [
+                "172747ec95520f11"
+            ]
+        ]
+    },
+    {
+        "id": "333d6cf6eb506f87",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 39",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "a52674cba6994726",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 40",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1140,
+        "y": 2480,
+        "wires": []
+    },
+    {
+        "id": "2cac331b601f8975",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "控制指令集",
+        "func": "// Convert hex string to Buffer\nfunction hexToBuffer(hexString) {\n    return Buffer.from(hexString.replace(/\\s/g, \"\"), \"hex\");\n}\n\n// New command sequence with delays and statuses\nconst commandSequence = [\n    { cmd: \"02 10 00 64 00 02 04 00 00 00 02 70 E3\", delay: 20, status: \"init\" },\n    { cmd: \"02 10 00 A2 00 02 04 00 00 03 E8 77 F4\", delay: 0 },\n    { cmd: \"02 10 00 64 00 02 04 00 00 00 01 3A F0\", delay: 0 },\n    { cmd: \"02 10 05 16 00 02 04 00 00 01 F4 42 8A\", delay: 0 },\n    { cmd: \"02 10 05 1A 00 02 04 00 00 27 10 58 F4\", delay: 0 },\n    { cmd: \"02 10 00 A2 00 02 04 00 00 04 1A F4 41\", delay: 0 },\n    { cmd: \"02 10 05 26 00 02 04 00 00 03 E8 41 37\", delay: 0 },\n    { cmd: \"02 10 00 6C 00 02 04 00 00 00 00 FA 96\", delay: 0 },\n    { cmd: \"02 10 05 16 00 02 04 00 00 00 14 42 92\", delay: 0 },\n    { cmd: \"02 10 05 1A 00 02 04 00 00 00 01 83 08\", delay: 0 },\n    // { cmd: \"02 10 00 A2 00 02 04 00 00 00 64 76 A1\", delay: 1000, status: \"heat1\" },\n    { cmd: \"02 10 05 26 00 02 04 FF FF FF CE 81 C9\", delay: 400, status: \"heat1\" },\n    { cmd: \"02 10 00 A2 00 02 04 00 00 00 64 76 A1\", delay: 4000, status: \"heat2\" },\n    { cmd: \"02 10 00 64 00 02 04 00 00 00 02 7A F1\", delay: 100, status: \"heat3\" },\n    { cmd: \"02 10 00 A2 00 02 04 00 00 00 64 76 A1\", delay: 6000, status: \"heat4\" },\n    { cmd: \"02 10 00 6C 00 02 04 00 00 00 01 3B 56\", delay: 6000, status: \"open\" },\n    { cmd: \"02 10 00 6C 00 02 04 00 00 00 01 3B 56\", delay: 0, status: \"close\" }\n];\n\n// Function to send messages with delays\nfunction sendCommands(index) {\n    if (index >= commandSequence.length) return; // Stop if all commands are sent\n\n    let command = commandSequence[index];\n\n    // Create MQTT message for Output 1 (heater/control)\n    let msgOut1 = { payload: hexToBuffer(command.cmd) };\n\n    // Create MQTT message for Output 2 (heater/stage) if status exists\n    let msgOut2 = command.status ? { payload: command.status, topic: \"heater/stage\" } : null;\n\n    // Create Output 3 (Raw command string)\n    let msgOut3 = { payload: command.cmd, topic: \"heater/cmd_raw\" };\n\n    // Send messages to all outputs\n    node.send([msgOut1, msgOut2, msgOut3]); // Output 1, Output 2 (status), Output 3\n\n    setTimeout(() => {\n        sendCommands(index + 1); // Send the next command after delay\n    }, command.delay);\n}\n\n// Start sending commands\nsendCommands(0);\n",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 1400,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9f7ce404e58bbcd1",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "控制指令集",
+        "func": "// Convert hex string to Buffer\nfunction hexToBuffer(hexString) {\n    return Buffer.from(hexString.replace(/\\s/g, \"\"), \"hex\");\n}\n\n// New command sequence with delays and statuses\nconst commandSequence = [\n    { cmd: \"02 10 00 64 00 02 04 00 00 00 02 70 E3\", delay: 0, status: \"init\" },\n    { cmd: \"02 10 00 A2 00 02 04 00 00 03 E8 77 F4\", delay: 0 },\n    { cmd: \"02 10 00 64 00 02 04 00 00 00 01 3A F0\", delay: 0 },\n    { cmd: \"02 10 05 16 00 02 04 00 00 01 F4 42 8A\", delay: 0 },\n    { cmd: \"02 10 05 1A 00 02 04 00 00 27 10 58 F4\", delay: 0 },\n    { cmd: \"02 10 00 A2 00 02 04 00 00 04 1A F4 41\", delay: 0 },\n    { cmd: \"02 10 05 26 00 02 04 00 00 03 E8 41 37\", delay: 0 },\n    { cmd: \"02 10 00 6C 00 02 04 00 00 00 00 FA 96\", delay: 0 },\n    { cmd: \"02 10 05 16 00 02 04 00 00 00 14 42 92\", delay: 0 },\n    { cmd: \"02 10 05 1A 00 02 04 00 00 00 01 83 08\", delay: 0 },\n    // { cmd: \"02 10 00 A2 00 02 04 00 00 00 64 76 A1\", delay: 1000, status: \"heat1\" },\n    { cmd: \"02 10 05 26 00 02 04 FF FF FF CE 81 C9\", delay: 420, status: \"heat1\" },\n    // { cmd: \"02 10 00 64 00 02 04 00 00 00 02 7A F1\", delay: 200, status: \"heat1\" },\n    { cmd: \"02 10 00 A2 00 02 04 00 00 00 64 76 A1\", delay: 5500, status: \"heat2\" },\n    { cmd: \"02 10 00 64 00 02 04 00 00 00 02 7A F1\", delay: 160, status: \"heat3\" },\n    { cmd: \"02 10 00 A2 00 02 04 00 00 00 64 76 A1\", delay: 8000, status: \"heat4\" },\n    { cmd: \"02 10 00 6C 00 02 04 00 00 00 01 3B 56\", delay: 2000, status: \"open\" },\n    { cmd: \"02 10 00 6C 00 02 04 00 00 00 01 3B 56\", delay: 0, status: \"close\" }\n];\n\n// Function to send messages with delays\nfunction sendCommands(index) {\n    if (index >= commandSequence.length) return; // Stop if all commands are sent\n\n    let command = commandSequence[index];\n\n    // Create MQTT message for Output 1 (heater/control)\n    let msgOut1 = { payload: hexToBuffer(command.cmd) };\n\n    // Create MQTT message for Output 2 (heater/stage) if status exists\n    let msgOut2 = command.status ? { payload: command.status, topic: \"heater/stage\" } : null;\n\n    // Create Output 3 (Raw command string)\n    let msgOut3 = { payload: command.cmd, topic: \"heater/cmd_raw\" };\n\n    // Send messages to all outputs\n    node.send([msgOut1, msgOut2, msgOut3]); // Output 1, Output 2 (status), Output 3\n\n    setTimeout(() => {\n        sendCommands(index + 1); // Send the next command after delay\n    }, command.delay);\n}\n\n// Start sending commands\nsendCommands(0);\n",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 1800,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "7f404341eb2b1a59",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "關閉左右側氣道",
+        "func": "// Define the relay command payload\nconst relayCommand = \"usbrelay QAAMZ_1=0 QAAMZ_3=0\";\n\n// Define the MQTT stage message\nconst mqttTopic = \"heater/stage\";\nconst mqttPayload = \"關閉左右側氣道,測試結束\";\n\n// Send both outputs\nreturn [\n    { payload: relayCommand }, // Output 1: Relay Command\n    { topic: mqttTopic, payload: mqttPayload } // Output 2: MQTT Message\n];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 1440,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f7108cffdb3ba22b",
+        "type": "serial request",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "heater USB0",
+        "serial": "0e2b0c30cfa669e9",
+        "x": 1270,
+        "y": 820,
+        "wires": [
+            [
+                "8063e1d1fdef1b54"
+            ]
+        ]
+    },
+    {
+        "id": "0f3fd6d5c8d88f92",
+        "type": "serial request",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "heater USB0",
+        "serial": "0e2b0c30cfa669e9",
+        "x": 1270,
+        "y": 960,
+        "wires": [
+            [
+                "1819e2c55e6bf292"
+            ]
+        ]
+    },
+    {
+        "id": "466f99d4a4d03e74",
+        "type": "serial request",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "heater USB0",
+        "serial": "0e2b0c30cfa669e9",
+        "x": 1270,
+        "y": 880,
+        "wires": [
+            [
+                "d0ea6d0bf36d7981"
+            ]
+        ]
+    },
+    {
+        "id": "26f11beee9fbd3e1",
+        "type": "serial request",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "heater USB0",
+        "serial": "0e2b0c30cfa669e9",
+        "x": 850,
+        "y": 1660,
+        "wires": [
+            [
+                "c6f2e99a8bacd475"
+            ]
+        ]
+    },
+    {
+        "id": "322ba5bdd016b86d",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "溫度1",
+        "func": "// Function to calculate Modbus CRC16\nfunction calculateCRC(buffer) {\n    let crc = 0xFFFF;\n    for (let i = 0; i < buffer.length; i++) {\n        crc ^= buffer[i];\n        for (let j = 0; j < 8; j++) {\n            if (crc & 1) {\n                crc = (crc >> 1) ^ 0xA001;\n            } else {\n                crc >>= 1;\n            }\n        }\n    }\n    return Buffer.from([crc & 0xFF, (crc >> 8) & 0xFF]);\n}\n\n// Correct Modbus request for Temp1 (Device 1)\nlet payload = Buffer.from([0x02, 0x03, 0x00, 0x00, 0x00, 0x02]); // Read 2 registers from 0x0000\nlet crc = calculateCRC(payload);\nlet fullPayload = Buffer.concat([payload, crc]);\n\nmsg.payload = fullPayload;\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 200,
+        "wires": [
+            [
+                "3a94efd2142fb546"
+            ]
+        ]
+    },
+    {
+        "id": "f7c9042548514b99",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "function 2",
+        "func": "// Check for minimum response length\nif (msg.payload.length >= 9) {\n    let tempBytes = msg.payload.slice(3, 7); // Extract 4 bytes of temperature\n    let rawTemp = (tempBytes[0] << 24) | (tempBytes[1] << 16) | (tempBytes[2] << 8) | tempBytes[3]; // Read as big-endian\n\n    let tempC = rawTemp / 10.0; // Convert raw value to Celsius\n    return { payload: { temp1: tempC } };\n} else {\n    return null;  // Ignore invalid responses\n}\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 200,
+        "wires": [
+            [
+                "920fa76d72927d17",
+                "0d30ce61c17e1d1b"
+            ]
+        ]
+    },
+    {
+        "id": "143b02bfc38f782a",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "溫度2-4",
+        "func": "// Function to calculate Modbus CRC16\nfunction calculateCRC(buffer) {\n    let crc = 0xFFFF;\n    for (let i = 0; i < buffer.length; i++) {\n        crc ^= buffer[i];\n        for (let j = 0; j < 8; j++) {\n            if (crc & 1) {\n                crc = (crc >> 1) ^ 0xA001;\n            } else {\n                crc >>= 1;\n            }\n        }\n    }\n    return Buffer.from([crc & 0xFF, (crc >> 8) & 0xFF]);\n}\n\n// Modbus request for Temp2-4 (Device 2)\nlet payload = Buffer.from([0x01, 0x03, 0x00, 0x28, 0x00, 0x03]); // Read 3 registers (2 bytes per temp)\nlet crc = calculateCRC(payload);\nlet fullPayload = Buffer.concat([payload, crc]);\n\nmsg.payload = fullPayload;\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 320,
+        "wires": [
+            [
+                "24dc32502a44dc3a"
+            ]
+        ]
+    },
+    {
+        "id": "bd0c3ba508b04a77",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "function 3",
+        "func": "// Retrieve input payload (expected as an array of bytes)\nlet bytes = msg.payload;\n\n// Ensure the payload has at least 9 bytes (1 ID, 1 Function, 1 Byte Count, 6 Data)\nif (bytes.length < 9) {\n    node.error(\"Invalid Modbus response\", msg);\n    return null;\n}\n\n// Extract temperature values (bytes 3-8: 3 registers, 2 bytes each)\nlet temp2 = (bytes[3] << 8) | bytes[4]; // First temperature\nlet temp3 = (bytes[5] << 8) | bytes[6]; // Second temperature\nlet temp4 = (bytes[7] << 8) | bytes[8]; // Third temperature\n\n// Convert to Celsius (assuming scale factor 0.1)\ntemp2 = Math.round(temp2 / 10 * 10) / 10;\ntemp3 = Math.round(temp3 / 10 * 10) / 10;\ntemp4 = Math.round(temp4 / 10 * 10) / 10;\n\n// Return the decoded temperatures in the expected format\nreturn { payload: { temp2: temp2, temp3: temp3, temp4: temp4 } };\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 320,
+        "wires": [
+            [
+                "98be07d05c918526",
+                "0d30ce61c17e1d1b"
+            ]
+        ]
+    },
+    {
+        "id": "3a94efd2142fb546",
+        "type": "serial request",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "heater USB1",
+        "serial": "0e2b0c30cfa669e9",
+        "x": 710,
+        "y": 180,
+        "wires": [
+            [
+                "8440bdb04534e50b",
+                "f7c9042548514b99"
+            ]
+        ]
+    },
+    {
+        "id": "24dc32502a44dc3a",
+        "type": "serial request",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "heater USB1",
+        "serial": "0e2b0c30cfa669e9",
+        "x": 690,
+        "y": 320,
+        "wires": [
+            [
+                "ba44cfa6f92341d7",
+                "bd0c3ba508b04a77"
+            ]
+        ]
+    },
+    {
+        "id": "920fa76d72927d17",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 8",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "98be07d05c918526",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "8440bdb04534e50b",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "ba44cfa6f92341d7",
+        "type": "debug",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "debug 11",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "83cae57beb992ef7",
+        "type": "delay",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "0.2",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.2",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": true,
+        "outputs": 1,
+        "x": 1450,
+        "y": 260,
+        "wires": [
+            [
+                "3bca2ad44db5b481",
+                "c68396f9b254c6f5"
+            ]
+        ]
+    },
+    {
+        "id": "8286c106197f13ab",
+        "type": "function",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "開啟左右側氣道",
+        "func": "// Define the relay command payload using the new command structure\nconst relayCommand = \"C:\\\\Users\\\\GhM\\\\air_boot\\\\usbrelay-v1.0.3\\\\usbrelay.exe -serial QAAMZ -on 1 3\";\n\n// Define the MQTT stage message\nconst mqttTopic = \"heater/stage\";\nconst mqttPayload = \"停止加熱,開啟左右側氣道2秒\";\n\n// Send both outputs\nreturn [\n    { payload: relayCommand }, // Output 1: Relay Command\n    { topic: mqttTopic, payload: mqttPayload } // Output 2: MQTT Message\n];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 2200,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c68396f9b254c6f5",
+        "type": "delay",
+        "z": "dfc0afdeb999cefa",
+        "g": "39d606440ec9912d",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1460,
+        "y": 340,
+        "wires": [
+            [
+                "7d6b237a32281b31"
+            ]
+        ]
+    },
+    {
+        "id": "984d480f9eb47412",
+        "type": "function",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "flow request",
+        "func": "// Function: Build and send a Modbus RTU request\n\n// CRC16 (Modbus) calculation function\nfunction calculateCRC(buffer) {\n    let crc = 0xFFFF;\n    for (let pos = 0; pos < buffer.length; pos++) {\n        crc ^= buffer[pos];\n        for (let i = 0; i < 8; i++) {\n            if (crc & 0x0001) {\n                crc = (crc >> 1) ^ 0xA001;\n            } else {\n                crc = crc >> 1;\n            }\n        }\n    }\n    return crc;\n}\n\n// Define Modbus parameters\nconst slaveId = 0x01;           // Modbus slave ID\nconst functionCode = 0x03;      // Read Holding Registers\nconst startRegister = 0x0000;   // Starting register address\nconst registerCount = 3;        // Number of registers to read\n\n// Create a Buffer for Slave ID (1), Function Code (1), Start Register (2), and Count (2)\nlet reqBuf = Buffer.alloc(6);\nreqBuf.writeUInt8(slaveId, 0);\nreqBuf.writeUInt8(functionCode, 1);\nreqBuf.writeUInt16BE(startRegister, 2);\nreqBuf.writeUInt16BE(registerCount, 4);\n\n// Calculate the CRC and append (CRC is 2 bytes, little-endian)\nconst crc = calculateCRC(reqBuf);\nlet crcBuf = Buffer.alloc(2);\ncrcBuf.writeUInt16LE(crc, 0);\n\n// Combine the request buffer and the CRC buffer\nconst packet = Buffer.concat([reqBuf, crcBuf]);\n\n// Set the packet as the payload to be sent out via the serial out node\nmsg.payload = packet;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "9c9fca43ae744cee"
+            ]
+        ]
+    },
+    {
+        "id": "0713f41a925c8ae3",
+        "type": "inject",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "20",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 120,
+        "wires": [
+            [
+                "984d480f9eb47412"
+            ]
+        ]
+    },
+    {
+        "id": "229046f011c5b7a7",
+        "type": "debug",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "c629150271da5b49",
+        "type": "debug",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "debug 12",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "86a1b36cb6829c68",
+        "type": "function",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "function 6",
+        "func": "// Function: Process the Modbus RTU response\n\n// CRC16 (Modbus) calculation function\nfunction calculateCRC(buffer) {\n    let crc = 0xFFFF;\n    for (let pos = 0; pos < buffer.length; pos++) {\n        crc ^= buffer[pos];\n        for (let i = 0; i < 8; i++) {\n            if (crc & 0x0001) {\n                crc = (crc >> 1) ^ 0xA001;\n            } else {\n                crc = crc >> 1;\n            }\n        }\n    }\n    return crc;\n}\n\n// If msg.payload is a string, convert it to a Buffer.\nlet buf = msg.payload;\nif (typeof buf === \"string\") {\n    buf = Buffer.from(buf, \"binary\");\n}\n\n// Ensure the response is long enough (minimum expected length: address(1) + function(1) + byte count(1) + data (2 bytes * count) + CRC(2))\nif (buf.length < 7) {\n    node.error(\"Incomplete response.\", msg);\n    return null;\n}\n\n// The third byte holds the number of data bytes returned.\nconst byteCount = buf[2];\n\n// Check if the full message is present: header + data bytes + CRC\nif (buf.length < 3 + byteCount + 2) {\n    node.error(\"Incomplete response data.\", msg);\n    return null;\n}\n\n// Extract the data portion and the received CRC\nconst dataBuf = buf.slice(3, 3 + byteCount);\nconst receivedCrc = buf.readUInt16LE(buf.length - 2);\n\n// Calculate the CRC on all bytes except the last two (the CRC itself)\nconst calculatedCrc = calculateCRC(buf.slice(0, buf.length - 2));\n\nif (calculatedCrc !== receivedCrc) {\n    node.error(\n        \"CRC mismatch. Calculated: \" +\n        calculatedCrc.toString(16) +\n        \", Received: \" +\n        receivedCrc.toString(16),\n        msg\n    );\n    return null;\n}\n\n// Decode registers: each register is 2 bytes in big-endian order.\nlet registers = [];\nfor (let i = 0; i < dataBuf.length; i += 2) {\n    registers.push(dataBuf.readUInt16BE(i));\n}\n\nif (registers.length < 3) {\n    node.error(\"Not enough registers returned.\", msg);\n    return null;\n}\n\n// Interpret the registers:\n// - First register: instantaneous flow (divide by 10 for scaling)\n// - Next two registers: cumulative flow (combine high and low registers, then scale)\nconst instantaneous_flow = registers[0] / 10.0;\nconst cumulative_flow = ((registers[1] << 16) | registers[2]) / 10.0;\n\n// Output a JSON object with the decoded values\nmsg.payload = {\n    instantaneous_flow: instantaneous_flow,\n    cumulative_flow: cumulative_flow\n};\n\n// Convert to string explicitly if desired\nmsg.payload = JSON.stringify(msg.payload);\n\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 220,
+        "wires": [
+            [
+                "1e071679ebc0aeba",
+                "be29ebc5a78ac91e",
+                "229046f011c5b7a7"
+            ]
+        ]
+    },
+    {
+        "id": "be29ebc5a78ac91e",
+        "type": "mqtt out",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "",
+        "topic": "air/flow",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fc538192a2ad3825",
+        "x": 460,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "1e071679ebc0aeba",
+        "type": "delay",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 260,
+        "wires": [
+            [
+                "229046f011c5b7a7"
+            ]
+        ]
+    },
+    {
+        "id": "c344a081a92b9ff8",
+        "type": "debug",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "452cee40ea828151",
+        "type": "catch",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "Catch Any Error",
+        "scope": "group",
+        "uncaught": false,
+        "x": 320,
+        "y": 680,
+        "wires": [
+            [
+                "5f58e6b1e44e412f"
+            ]
+        ]
+    },
+    {
+        "id": "5f58e6b1e44e412f",
+        "type": "function",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "Increment Error Count",
+        "func": "// Retrieve the current error count from node context (initialize to 0 if not set)\nlet errorCount = context.get(\"errorCount\") || 0;\n\n// Increment the error count\nerrorCount++;\n\n// Store the updated count in context\ncontext.set(\"errorCount\", errorCount);\n\n// Prepare the MQTT message\nmsg.topic = \"error/count/flow\";\nmsg.payload = errorCount;\n\n// Set the filename for the file out node (adjust the path as needed)\nmsg.filename = \"./error_count.txt\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 680,
+        "wires": [
+            [
+                "ce652b80621666bf",
+                "21b96c5ae1e74442",
+                "c344a081a92b9ff8"
+            ]
+        ]
+    },
+    {
+        "id": "ce652b80621666bf",
+        "type": "mqtt out",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "Publish Error Count",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fc538192a2ad3825",
+        "x": 790,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "21b96c5ae1e74442",
+        "type": "file",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "Store Error Count",
+        "filename": "",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": true,
+        "encoding": "utf8",
+        "x": 750,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9c9fca43ae744cee",
+        "type": "serial request",
+        "z": "5ccd1e502ce8883b",
+        "g": "99b883a8cf81ecbd",
+        "name": "air Flow USB2",
+        "serial": "99e26626c4414039",
+        "x": 580,
+        "y": 120,
+        "wires": [
+            [
+                "c629150271da5b49",
+                "86a1b36cb6829c68"
+            ]
+        ]
+    },
+    {
+        "id": "01ac4ed748a96dec",
+        "type": "function",
+        "z": "61f3de7b3c23e744",
+        "name": "溫度1",
+        "func": "// Function to calculate Modbus CRC16\nfunction calculateCRC(buffer) {\n    let crc = 0xFFFF;\n    for (let i = 0; i < buffer.length; i++) {\n        crc ^= buffer[i];\n        for (let j = 0; j < 8; j++) {\n            if (crc & 1) {\n                crc = (crc >> 1) ^ 0xA001;\n            } else {\n                crc >>= 1;\n            }\n        }\n    }\n    return Buffer.from([crc & 0xFF, (crc >> 8) & 0xFF]);\n}\n\n// Correct Modbus request for Temp1 (Device 1)\nlet payload = Buffer.from([0x02, 0x03, 0x00, 0x00, 0x00, 0x02]); // Read 2 registers from 0x0000\nlet crc = calculateCRC(payload);\nlet fullPayload = Buffer.concat([payload, crc]);\n\nmsg.payload = fullPayload;\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 80,
+        "wires": [
+            [
+                "e5e366e8d3f20f04"
+            ]
+        ]
+    },
+    {
+        "id": "7cc37787b2ced61f",
+        "type": "function",
+        "z": "61f3de7b3c23e744",
+        "name": "function 17",
+        "func": "// Check for minimum response length\nif (msg.payload.length >= 9) {\n    let tempBytes = msg.payload.slice(3, 7); // Extract 4 bytes of temperature\n    let rawTemp = (tempBytes[0] << 24) | (tempBytes[1] << 16) | (tempBytes[2] << 8) | tempBytes[3]; // Read as big-endian\n\n    let tempC = rawTemp / 10.0; // Convert raw value to Celsius\n    return { payload: { temp1: tempC } };\n} else {\n    return null;  // Ignore invalid responses\n}\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 80,
+        "wires": [
+            [
+                "e6bb0c10f2392eca"
+            ]
+        ]
+    },
+    {
+        "id": "515e792c784a631d",
+        "type": "function",
+        "z": "61f3de7b3c23e744",
+        "name": "溫度2-4",
+        "func": "// Function to calculate Modbus CRC16\nfunction calculateCRC(buffer) {\n    let crc = 0xFFFF;\n    for (let i = 0; i < buffer.length; i++) {\n        crc ^= buffer[i];\n        for (let j = 0; j < 8; j++) {\n            if (crc & 1) {\n                crc = (crc >> 1) ^ 0xA001;\n            } else {\n                crc >>= 1;\n            }\n        }\n    }\n    return Buffer.from([crc & 0xFF, (crc >> 8) & 0xFF]);\n}\n\n// Modbus request for Temp2-4 (Device 2)\nlet payload = Buffer.from([0x01, 0x03, 0x00, 0x28, 0x00, 0x03]); // Read 3 registers (2 bytes per temp)\nlet crc = calculateCRC(payload);\nlet fullPayload = Buffer.concat([payload, crc]);\n\nmsg.payload = fullPayload;\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "05c34b729b93fa9f"
+            ]
+        ]
+    },
+    {
+        "id": "49d5abd873c1bb89",
+        "type": "inject",
+        "z": "61f3de7b3c23e744",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "20",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "01ac4ed748a96dec"
+            ]
+        ]
+    },
+    {
+        "id": "31bc29ff19ca85e4",
+        "type": "function",
+        "z": "61f3de7b3c23e744",
+        "name": "function 18",
+        "func": "// Retrieve input payload (expected as an array of bytes)\nlet bytes = msg.payload;\n\n// Ensure the payload has at least 9 bytes (1 ID, 1 Function, 1 Byte Count, 6 Data)\nif (bytes.length < 9) {\n    node.error(\"Invalid Modbus response\", msg);\n    return null;\n}\n\n// Extract temperature values (bytes 3-8: 3 registers, 2 bytes each)\nlet temp2 = (bytes[3] << 8) | bytes[4]; // First temperature\nlet temp3 = (bytes[5] << 8) | bytes[6]; // Second temperature\nlet temp4 = (bytes[7] << 8) | bytes[8]; // Third temperature\n\n// Convert to Celsius (assuming scale factor 0.1)\ntemp2 = Math.round(temp2 / 10 * 10) / 10;\ntemp3 = Math.round(temp3 / 10 * 10) / 10;\ntemp4 = Math.round(temp4 / 10 * 10) / 10;\n\n// Return the decoded temperatures in the expected format\nreturn { payload: { temp2: temp2, temp3: temp3, temp4: temp4 } };\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 200,
+        "wires": [
+            [
+                "c5c3adecaaf0001a"
+            ]
+        ]
+    },
+    {
+        "id": "e5e366e8d3f20f04",
+        "type": "serial request",
+        "z": "61f3de7b3c23e744",
+        "name": "heater USB1",
+        "serial": "0e2b0c30cfa669e9",
+        "x": 530,
+        "y": 80,
+        "wires": [
+            [
+                "6d4126eff3f8870d",
+                "7cc37787b2ced61f"
+            ]
+        ]
+    },
+    {
+        "id": "05c34b729b93fa9f",
+        "type": "serial request",
+        "z": "61f3de7b3c23e744",
+        "name": "heater USB1",
+        "serial": "0e2b0c30cfa669e9",
+        "x": 530,
+        "y": 200,
+        "wires": [
+            [
+                "b355fc6a5f81709f",
+                "31bc29ff19ca85e4"
+            ]
+        ]
+    },
+    {
+        "id": "e6bb0c10f2392eca",
+        "type": "debug",
+        "z": "61f3de7b3c23e744",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "c5c3adecaaf0001a",
+        "type": "debug",
+        "z": "61f3de7b3c23e744",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "6d4126eff3f8870d",
+        "type": "debug",
+        "z": "61f3de7b3c23e744",
+        "name": "debug 26",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "b355fc6a5f81709f",
+        "type": "debug",
+        "z": "61f3de7b3c23e744",
+        "name": "debug 27",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "645d20b7ea9c16aa",
+        "type": "inject",
+        "z": "61f3de7b3c23e744",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "20",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "515e792c784a631d"
+            ]
+        ]
+    },
+    {
+        "id": "44e19c0be1b71bd2",
+        "type": "function",
+        "z": "61f3de7b3c23e744",
+        "name": "function 21",
+        "func": "let buffer = Buffer.from(msg.payload);\nif (buffer.length >= 9) {  // Expected response length\n    let temp2 = buffer.readUInt16BE(3) / 10.0;\n    let temp3 = buffer.readUInt16BE(5) / 10.0;\n    let temp4 = buffer.readUInt16BE(7) / 10.0;\n\n    return { payload: { temp2: temp2, temp3: temp3, temp4: temp4 } };\n} else {\n    return null;  // Ignore invalid responses\n}\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "058981fec7db1c24",
+        "type": "function",
+        "z": "61f3de7b3c23e744",
+        "name": "function 22",
+        "func": "let buffer = Buffer.from(msg.payload);\n\n// Check for minimum response length\nif (buffer.length >= 9) {\n    let tempBytes = buffer.slice(3, 7); // Extract 4 bytes of temperature\n    let rawTemp = tempBytes.readUInt32BE(0); // Read as big-endian (check Modbus spec)\n\n    let tempC = rawTemp / 10.0; // Convert raw value to Celsius\n    return { payload: { temp1: tempC } };\n} else {\n    return null;  // Ignore invalid responses\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2f55e86a26f8ee04",
+        "type": "exec",
+        "z": "61f3de7b3c23e744",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 430,
+        "y": 680,
+        "wires": [
+            [],
+            [],
+            [
+                "311e2442ea890a82"
+            ]
+        ]
+    },
+    {
+        "id": "b90e8f71f92038ee",
+        "type": "inject",
+        "z": "61f3de7b3c23e744",
+        "name": "close 01",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "C:\\Users\\GhM\\air_boot\\USB-RELAY2-module\\USBRelay\\TestApp\\CommandApp_USBRelay QAAMZ close 01",
+        "payloadType": "str",
+        "x": 220,
+        "y": 620,
+        "wires": [
+            [
+                "2f55e86a26f8ee04"
+            ]
+        ]
+    },
+    {
+        "id": "311e2442ea890a82",
+        "type": "debug",
+        "z": "61f3de7b3c23e744",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "3ee030db704b69f7",
+        "type": "inject",
+        "z": "61f3de7b3c23e744",
+        "name": "open 01",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "C:\\Users\\GhM\\air_boot\\USB-RELAY2-module\\USBRelay\\TestApp\\CommandApp_USBRelay QAAMZ open 01",
+        "payloadType": "str",
+        "x": 220,
+        "y": 700,
+        "wires": [
+            [
+                "2f55e86a26f8ee04"
+            ]
+        ]
+    },
+    {
+        "id": "02cf3012baec5d97",
+        "type": "inject",
+        "z": "61f3de7b3c23e744",
+        "name": "fail",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "C:\\Users\\GhM\\air_boot\\USB-RELAY2-module\\USBRelay\\TestApp\\CommandApp_USBRelay QAAMZ open 03 01",
+        "payloadType": "str",
+        "x": 210,
+        "y": 780,
+        "wires": [
+            [
+                "2f55e86a26f8ee04"
+            ]
+        ]
+    }
+]

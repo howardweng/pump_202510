@@ -1,11 +1,12 @@
 // pages/MainDashboard/index.jsx
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTest } from '../../context/TestContext';
 import { useMQTT } from '../../hooks/useMQTT';
 import StatusIndicator from '../../components/StatusIndicator';
 import RealtimeValueCard from '../../components/RealtimeValueCard';
 import Toast from '../../components/Toast';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { exportTestData, saveTestToLocalStorage, saveReferenceToLocalStorage } from '../../utils/exportData';
 
 function MainDashboard() {
   const {
@@ -27,6 +28,7 @@ function MainDashboard() {
 
   const { publishCommand } = useMQTT();
   const [toastMessage, setToastMessage] = useState('');
+  const chartRef = useRef(null);
 
   // 啟動測試
   const handleStart = () => {
@@ -104,6 +106,88 @@ function MainDashboard() {
     } else {
       const unit = testMode === 'vacuum' || testMode === 'positive' ? 'L/min' : 'm³/h';
       return { value: realtimeFlow.toFixed(1), unit, color: 'text-green-600' };
+    }
+  };
+
+  // 匯出測試數據
+  const handleExport = async () => {
+    if (chartData.length === 0) {
+      setToastMessage('⚠️ 沒有可匯出的數據');
+      return;
+    }
+
+    const result = await exportTestData({
+      chartData,
+      testConfig,
+      testMode,
+      testType,
+      chartElement: chartRef.current
+    });
+
+    if (result.success) {
+      setToastMessage(`✅ 數據已匯出: ${result.filename}`);
+    } else {
+      setToastMessage(`❌ 匯出失敗: ${result.error}`);
+    }
+  };
+
+  // 儲存為測試數據
+  const handleSaveTest = () => {
+    if (chartData.length === 0) {
+      setToastMessage('⚠️ 沒有可儲存的數據');
+      return;
+    }
+
+    const testData = {
+      id: Date.now(),
+      pumpModel: testConfig.pumpModel,
+      testMode: testMode === 'vacuum' ? '真空幫浦' : testMode === 'positive' ? '正壓幫浦' : '手動模式',
+      testType: testType === 'pressure' ? '壓力測試' : '流量測試',
+      date: new Date().toISOString().split('T')[0],
+      chartData: chartData,
+      avgValue: chartData.length > 0
+        ? (chartData.reduce((sum, d) => sum + (testType === 'pressure' ? d.pressure : d.flow), 0) / chartData.length).toFixed(2)
+        : 0,
+      avgCurrent: chartData.length > 0
+        ? (chartData.reduce((sum, d) => sum + d.current, 0) / chartData.length).toFixed(2)
+        : 0,
+      duration: chartData.length > 0 ? chartData[chartData.length - 1].time : 0
+    };
+
+    if (saveTestToLocalStorage(testData)) {
+      setToastMessage('✅ 測試數據已儲存');
+    } else {
+      setToastMessage('❌ 儲存失敗');
+    }
+  };
+
+  // 儲存為參考數據
+  const handleSaveReference = () => {
+    if (chartData.length === 0) {
+      setToastMessage('⚠️ 沒有可儲存的數據');
+      return;
+    }
+
+    const referenceData = {
+      id: Date.now(),
+      pumpModel: testConfig.pumpModel,
+      testMode: testMode === 'vacuum' ? '真空幫浦' : testMode === 'positive' ? '正壓幫浦' : '手動模式',
+      testType: testType === 'pressure' ? '壓力測試' : '流量測試',
+      date: new Date().toISOString().split('T')[0],
+      chartData: chartData,
+      avgValue: chartData.length > 0
+        ? (chartData.reduce((sum, d) => sum + (testType === 'pressure' ? d.pressure : d.flow), 0) / chartData.length).toFixed(2)
+        : 0,
+      avgCurrent: chartData.length > 0
+        ? (chartData.reduce((sum, d) => sum + d.current, 0) / chartData.length).toFixed(2)
+        : 0,
+      duration: chartData.length > 0 ? chartData[chartData.length - 1].time : 0
+    };
+
+    if (saveReferenceToLocalStorage(referenceData)) {
+      setToastMessage('✅ 參考數據已儲存');
+    } else {
+      setToastMessage('❌ 儲存失敗');
     }
   };
 
@@ -251,7 +335,7 @@ function MainDashboard() {
       </div>
 
       {/* 圖表區域 */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+      <div ref={chartRef} className="bg-white rounded-lg shadow-md p-6 mb-6">
         <h2 className="text-xl font-bold text-gray-800 mb-4">
           {testType === 'pressure' ? '壓力' : '流量'}曲線圖
         </h2>
@@ -285,6 +369,31 @@ function MainDashboard() {
             />
           </LineChart>
         </ResponsiveContainer>
+
+        {/* 匯出與儲存按鈕 */}
+        <div className="mt-6 flex gap-3">
+          <button
+            onClick={handleExport}
+            disabled={chartData.length === 0}
+            className="px-6 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            匯出 CSV + 圖表
+          </button>
+          <button
+            onClick={handleSaveTest}
+            disabled={chartData.length === 0}
+            className="px-6 py-2 bg-green-600 text-white rounded font-medium hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            儲存為測試數據
+          </button>
+          <button
+            onClick={handleSaveReference}
+            disabled={chartData.length === 0}
+            className="px-6 py-2 bg-purple-600 text-white rounded font-medium hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            儲存為參考數據
+          </button>
+        </div>
       </div>
 
       {/* 測試資訊 */}

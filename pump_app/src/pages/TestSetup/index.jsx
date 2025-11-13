@@ -1,6 +1,7 @@
 // pages/TestSetup/index.jsx
 import React, { useState } from 'react';
 import { useTest } from '../../context/TestContext';
+import { PUMP_MODELS, filterPumpModels, getModelSpec } from '../../constants/pumpModels';
 
 function TestSetup() {
   const { testConfig, setTestConfig } = useTest();
@@ -15,9 +16,27 @@ function TestSetup() {
     saveTarget: testConfig.saveTarget || 'test'
   });
 
+  // 搜尋相關狀態
+  const [showModelSuggestions, setShowModelSuggestions] = useState(false);
+  const [filteredModels, setFilteredModels] = useState(PUMP_MODELS);
+
   const handleSave = () => {
     setTestConfig(formData);
     alert('測試配置已儲存！');
+  };
+
+  // 處理型號輸入
+  const handleModelInput = (e) => {
+    const value = e.target.value;
+    setFormData({ ...formData, pumpModel: value });
+    setShowModelSuggestions(true);
+    setFilteredModels(filterPumpModels(value));
+  };
+
+  // 選擇型號
+  const selectModel = (model) => {
+    setFormData({ ...formData, pumpModel: model });
+    setShowModelSuggestions(false);
   };
 
   return (
@@ -25,18 +44,63 @@ function TestSetup() {
       <h1 className="text-3xl font-bold text-gray-800 mb-6">測試設定</h1>
 
       <div className="bg-white rounded-lg shadow p-6 max-w-3xl mx-auto">
-        {/* 幫浦型號 */}
-        <div className="mb-6">
+        {/* 幫浦型號 - 可搜尋下拉選單 */}
+        <div className="mb-6 relative">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            幫浦型號 *
+            幫浦型號 * <span className="text-xs text-gray-500">(可搜尋或手動輸入)</span>
           </label>
           <input
             type="text"
             value={formData.pumpModel}
-            onChange={(e) => setFormData({ ...formData, pumpModel: e.target.value })}
-            placeholder="輸入幫浦型號 (例: DMM9200)"
+            onChange={handleModelInput}
+            onFocus={() => {
+              setShowModelSuggestions(true);
+              setFilteredModels(filterPumpModels(formData.pumpModel));
+            }}
+            onBlur={() => setTimeout(() => setShowModelSuggestions(false), 200)}
+            placeholder="搜尋或輸入幫浦型號 (例: DMM9200)"
             className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+
+          {/* 下拉建議列表 */}
+          {showModelSuggestions && filteredModels.length > 0 && (
+            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg max-h-80 overflow-y-auto">
+              <div className="p-2 bg-gray-50 border-b text-xs text-gray-600 sticky top-0">
+                找到 {filteredModels.length} 個型號
+              </div>
+              {filteredModels.map((model, index) => {
+                const spec = getModelSpec(model);
+                return (
+                  <div
+                    key={index}
+                    onClick={() => selectModel(model)}
+                    className="px-4 py-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+                  >
+                    <div className="font-medium text-gray-800">{model}</div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      <span className="inline-block px-2 py-0.5 bg-blue-100 text-blue-800 rounded mr-2">
+                        {spec.type}
+                      </span>
+                      {spec.description}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* 當前選擇的型號資訊 */}
+          {formData.pumpModel && !showModelSuggestions && (
+            <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded text-sm">
+              <span className="font-medium text-gray-700">已選擇:</span>
+              <span className="ml-2 font-bold text-blue-800">{formData.pumpModel}</span>
+              {getModelSpec(formData.pumpModel).description !== '無規格說明' && (
+                <div className="mt-1 text-gray-600">
+                  {getModelSpec(formData.pumpModel).description}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* 測試模式 */}

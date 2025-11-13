@@ -323,8 +323,8 @@ function MainDashboard() {
         </div>
       ) : (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">當前測試配置</h2>
-          <div className="grid grid-cols-4 gap-4 text-sm">
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">當前測試配置</h3>
+          <div className="grid grid-cols-5 gap-4 text-sm">
             <div>
               <span className="text-gray-600">型號:</span>
               <span className="ml-2 font-bold text-gray-800">{testConfig.pumpModel}</span>
@@ -339,13 +339,17 @@ function MainDashboard() {
             </div>
             <div>
               <span className="text-gray-600">測試狀態:</span>
-              <span className={`ml-2 font-medium ${
+              <span className={`ml-2 font-bold ${
                 testStatus === 'running' ? 'text-green-600' :
                 testStatus === 'paused' ? 'text-yellow-600' :
                 'text-gray-600'
               }`}>
                 {testStatus === 'running' ? '運行中' : testStatus === 'paused' ? '已暫停' : '待機'}
               </span>
+            </div>
+            <div>
+              <span className="text-gray-600">數據點數:</span>
+              <span className="ml-2 font-medium text-gray-800">{chartData.length}</span>
             </div>
           </div>
         </div>
@@ -438,36 +442,6 @@ function MainDashboard() {
         </div>
       </div>
 
-      {/* 測試資訊 */}
-      {testConfig.pumpModel && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">當前測試配置</h3>
-          <div className="grid grid-cols-3 gap-4 text-sm">
-            <div>
-              <span className="text-gray-600">型號:</span>
-              <span className="ml-2 font-medium text-gray-800">{testConfig.pumpModel}</span>
-            </div>
-            <div>
-              <span className="text-gray-600">電源:</span>
-              <span className="ml-2 font-medium text-gray-800">{testConfig.powerSource || '-'}</span>
-            </div>
-            <div>
-              <span className="text-gray-600">額定功率:</span>
-              <span className="ml-2 font-medium text-gray-800">{testConfig.ratedPower} W</span>
-            </div>
-            <div>
-              <span className="text-gray-600">測試狀態:</span>
-              <span className="ml-2 font-bold text-blue-600">
-                {testStatus === 'idle' ? '待機' : testStatus === 'running' ? '執行中' : testStatus === 'paused' ? '暫停' : '停止'}
-              </span>
-            </div>
-            <div>
-              <span className="text-gray-600">數據點數:</span>
-              <span className="ml-2 font-medium text-gray-800">{chartData.length}</span>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Toast 通知 */}
       {toastMessage && (

@@ -58,12 +58,55 @@ function TestSetup() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">測試設定</h1>
+    <div className="container mx-auto px-4 py-3">
+      <h1 className="text-2xl font-bold text-gray-800 mb-3">測試設定</h1>
 
-      <div className="bg-white rounded-lg shadow p-6 max-w-3xl mx-auto">
+      {/* 當前配置 */}
+      {testConfig.pumpModel && (
+        <div className="mb-3 bg-blue-50 border border-blue-200 rounded-lg p-3 max-w-3xl mx-auto">
+          <h2 className="text-base font-semibold text-gray-800 mb-2">當前測試配置</h2>
+          <div className="grid grid-cols-4 gap-3 text-sm">
+            <div>
+              <span className="text-gray-600">型號:</span>
+              <span className="ml-2 font-medium text-gray-800">{testConfig.pumpModel}</span>
+            </div>
+            <div>
+              <span className="text-gray-600">測試模式:</span>
+              <span className="ml-2 font-medium text-gray-800">
+                {testConfig.testMode === 'vacuum' ? '真空幫浦' : testConfig.testMode === 'positive' ? '正壓幫浦' : '手動模式'}
+              </span>
+            </div>
+            <div>
+              <span className="text-gray-600">測試類型:</span>
+              <span className="ml-2 font-medium text-gray-800">
+                {testConfig.testType === 'pressure' ? '壓力測試' : '流量測試'}
+              </span>
+            </div>
+            <div>
+              <span className="text-gray-600">電源:</span>
+              <span className="ml-2 font-medium text-gray-800">{testConfig.powerSource || '-'}</span>
+            </div>
+            <div>
+              <span className="text-gray-600">額定功率:</span>
+              <span className="ml-2 font-medium text-gray-800">{testConfig.ratedPower} W</span>
+            </div>
+            <div>
+              <span className="text-gray-600">最大電流:</span>
+              <span className="ml-2 font-medium text-gray-800">{testConfig.maxCurrent} A</span>
+            </div>
+            <div>
+              <span className="text-gray-600">儲存目標:</span>
+              <span className="ml-2 font-medium text-gray-800">
+                {testConfig.saveTarget === 'test' ? '測試數據' : '參考數據'}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="bg-white rounded-lg shadow p-4 max-w-3xl mx-auto">
         {/* 幫浦型號 - 可搜尋下拉選單 */}
-        <div className="mb-6 relative">
+        <div className="mb-4 relative">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             幫浦型號 * <span className="text-xs text-gray-500">(可搜尋或手動輸入)</span>
           </label>
@@ -122,7 +165,7 @@ function TestSetup() {
         </div>
 
         {/* 測試模式 */}
-        <div className="mb-6">
+        <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             測試模式 *
           </label>
@@ -138,7 +181,7 @@ function TestSetup() {
         </div>
 
         {/* 測試類型 */}
-        <div className="mb-6">
+        <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             測試類型 *
           </label>
@@ -153,7 +196,7 @@ function TestSetup() {
         </div>
 
         {/* 電源類型 */}
-        <div className="mb-6">
+        <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             電源類型 *
           </label>
@@ -171,7 +214,7 @@ function TestSetup() {
         </div>
 
         {/* 額定功率 */}
-        <div className="mb-6">
+        <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             額定功率 (W) *
           </label>
@@ -187,7 +230,7 @@ function TestSetup() {
         </div>
 
         {/* 最大電流 */}
-        <div className="mb-6">
+        <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             最大電流 (A) *
           </label>
@@ -203,7 +246,7 @@ function TestSetup() {
         </div>
 
         {/* 儲存目標 */}
-        <div className="mb-6">
+        <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             儲存目標 *
           </label>
@@ -218,10 +261,10 @@ function TestSetup() {
         </div>
 
         {/* 按鈕 */}
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           <button
             onClick={handleSave}
-            className="flex-1 px-6 py-3 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 transition"
+            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 transition"
           >
             儲存配置
           </button>
@@ -235,49 +278,12 @@ function TestSetup() {
               maxCurrent: 0,
               saveTarget: 'test'
             })}
-            className="px-6 py-3 bg-gray-300 text-gray-800 rounded font-medium hover:bg-gray-400 transition"
+            className="px-4 py-2 bg-gray-300 text-gray-800 rounded font-medium hover:bg-gray-400 transition"
           >
             重置
           </button>
         </div>
       </div>
-
-      {/* 當前配置 */}
-      {testConfig.pumpModel && (
-        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-3xl mx-auto">
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">當前測試配置</h2>
-          <div className="grid grid-cols-2 gap-3 text-sm">
-            <div>
-              <span className="text-gray-600">型號:</span>
-              <span className="ml-2 font-medium text-gray-800">{testConfig.pumpModel}</span>
-            </div>
-            <div>
-              <span className="text-gray-600">測試模式:</span>
-              <span className="ml-2 font-medium text-gray-800">
-                {testConfig.testMode === 'vacuum' ? '真空幫浦' : testConfig.testMode === 'positive' ? '正壓幫浦' : '手動模式'}
-              </span>
-            </div>
-            <div>
-              <span className="text-gray-600">測試類型:</span>
-              <span className="ml-2 font-medium text-gray-800">
-                {testConfig.testType === 'pressure' ? '壓力測試' : '流量測試'}
-              </span>
-            </div>
-            <div>
-              <span className="text-gray-600">電源:</span>
-              <span className="ml-2 font-medium text-gray-800">{testConfig.powerSource || '-'}</span>
-            </div>
-            <div>
-              <span className="text-gray-600">額定功率:</span>
-              <span className="ml-2 font-medium text-gray-800">{testConfig.ratedPower} W</span>
-            </div>
-            <div>
-              <span className="text-gray-600">最大電流:</span>
-              <span className="ml-2 font-medium text-gray-800">{testConfig.maxCurrent} A</span>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

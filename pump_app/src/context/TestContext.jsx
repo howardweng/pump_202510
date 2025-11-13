@@ -23,6 +23,7 @@ export function TestProvider({ children }) {
   const [sensorStatus, setSensorStatus] = useState('正常'); // 統一感測器狀態 (壓力/流量)
   const [currentSensorStatus, setCurrentSensorStatus] = useState('正常');
   const [relayStatus, setRelayStatus] = useState('正常');
+  const [coverClosed, setCoverClosed] = useState(false); // 測試蓋關閉狀態
 
   // 電磁閥狀態
   const [valveStatus, setValveStatus] = useState({ A: false, B: false, C: false, D: false });
@@ -56,6 +57,7 @@ export function TestProvider({ children }) {
     sensorStatus, setSensorStatus,
     currentSensorStatus, setCurrentSensorStatus,
     relayStatus, setRelayStatus,
+    coverClosed, setCoverClosed,
     valveStatus, setValveStatus,
     selectedReference, setSelectedReference,
     referenceDataList, setReferenceDataList,

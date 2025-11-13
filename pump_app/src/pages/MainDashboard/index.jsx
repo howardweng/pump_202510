@@ -21,6 +21,7 @@ function MainDashboard() {
     sensorStatus,
     currentSensorStatus,
     relayStatus,
+    coverClosed, setCoverClosed,
     valveStatus, setValveStatus,
     startTimeRef,
     testConfig
@@ -34,6 +35,11 @@ function MainDashboard() {
   const handleStart = () => {
     if (!testConfig.pumpModel) {
       setToastMessage('⚠️ 請先在「測試設定」頁面配置測試參數');
+      return;
+    }
+
+    if (!coverClosed) {
+      setToastMessage('⚠️ 請關閉測試保護蓋才能啟動測試');
       return;
     }
 
@@ -197,95 +203,69 @@ function MainDashboard() {
     <div className="container mx-auto px-4 py-2">
       {/* 頂部狀態列 + 控制區 */}
       <div className="bg-white rounded-lg shadow-md p-4 mb-3">
-        {/* 狀態指示燈 */}
-        <div className="flex gap-4 mb-3">
-          <StatusIndicator
-            status={sensorStatus === '正常' ? 'normal' : 'error'}
-            label={sensorStatus === '正常' ? (testType === 'pressure' ? '壓力偵測正常' : '流量偵測正常') : (testType === 'pressure' ? '壓力傳輸錯誤' : '流量傳輸錯誤')}
-            size="md"
-          />
-          <StatusIndicator
-            status={currentSensorStatus === '正常' ? 'normal' : 'error'}
-            label={currentSensorStatus === '正常' ? '電流偵測正常' : '電流傳輸錯誤'}
-            size="md"
-          />
-          <StatusIndicator
-            status={relayStatus === '正常' ? 'normal' : 'error'}
-            label={relayStatus === '正常' ? '繼電器正常' : '繼電器異常'}
-            size="md"
-          />
-        </div>
-
-        {/* 測試模式與類型選擇 */}
-        <div className="flex gap-6 mb-3">
-          <div>
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">測試模式</h3>
-            <div className="flex gap-2">
-              {['vacuum', 'positive', 'manual'].map((mode) => (
-                <button
-                  key={mode}
-                  onClick={() => setTestMode(mode)}
-                  disabled={testStatus === 'running'}
-                  className={`px-4 py-2 rounded font-medium transition ${
-                    testMode === mode
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                  } ${testStatus === 'running' ? 'opacity-50 cursor-not-allowed' : ''}`}
-                >
-                  {mode === 'vacuum' ? '真空幫浦' : mode === 'positive' ? '正壓幫浦' : '手動測試'}
-                </button>
-              ))}
-            </div>
+        <div className="flex justify-between mb-3">
+          {/* 狀態指示燈 */}
+          <div className="flex gap-4">
+            <StatusIndicator
+              status={sensorStatus === '正常' ? 'normal' : 'error'}
+              label={sensorStatus === '正常' ? (testType === 'pressure' ? '壓力偵測正常' : '流量偵測正常') : (testType === 'pressure' ? '壓力傳輸錯誤' : '流量傳輸錯誤')}
+              size="md"
+            />
+            <StatusIndicator
+              status={currentSensorStatus === '正常' ? 'normal' : 'error'}
+              label={currentSensorStatus === '正常' ? '電流偵測正常' : '電流傳輸錯誤'}
+              size="md"
+            />
+            <StatusIndicator
+              status={relayStatus === '正常' ? 'normal' : 'error'}
+              label={relayStatus === '正常' ? '繼電器正常' : '繼電器異常'}
+              size="md"
+            />
           </div>
 
-          <div>
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">測試類型</h3>
-            <div className="flex gap-2">
-              {['pressure', 'flow'].map((type) => (
-                <button
-                  key={type}
-                  onClick={() => setTestType(type)}
-                  disabled={testStatus === 'running'}
-                  className={`px-4 py-2 rounded font-medium transition ${
-                    testType === type
-                      ? 'bg-green-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                  } ${testStatus === 'running' ? 'opacity-50 cursor-not-allowed' : ''}`}
-                >
-                  {type === 'pressure' ? '壓力測試' : '流量測試'}
-                </button>
-              ))}
-            </div>
+          {/* 測試蓋狀態 + 控制按鈕 */}
+          <div className="flex flex-col items-end gap-3">
+          {/* 測試蓋狀態 */}
+          <div className="flex items-center gap-4">
+            <StatusIndicator
+              status={coverClosed ? 'normal' : 'error'}
+              label={coverClosed ? '測試蓋已關閉' : '測試蓋未關閉'}
+              size="md"
+            />
+            <button
+              onClick={() => setCoverClosed(!coverClosed)}
+              className="px-4 py-1 bg-gray-600 text-white text-sm rounded hover:bg-gray-700 transition"
+            >
+              {coverClosed ? '模擬開蓋' : '模擬關蓋'}
+            </button>
           </div>
 
           {/* 控制按鈕 */}
-          <div className="ml-auto">
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">測試控制</h3>
-            <div className="flex gap-2">
-              <button
-                onClick={handleStart}
-                disabled={testStatus === 'running'}
-                className="px-6 py-2 bg-green-600 text-white rounded font-medium hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                啟動測試
-              </button>
-              <button
-                onClick={handlePause}
-                disabled={testStatus !== 'running'}
-                className="px-6 py-2 bg-yellow-600 text-white rounded font-medium hover:bg-yellow-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                暫停
-              </button>
-              <button
-                onClick={handleStop}
-                disabled={testStatus === 'idle'}
-                className="px-6 py-2 bg-red-600 text-white rounded font-medium hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                停止
-              </button>
-            </div>
+          <div className="flex gap-3">
+            <button
+              onClick={handleStart}
+              disabled={testStatus === 'running' || !coverClosed}
+              className="px-8 py-3 bg-green-600 text-white text-lg rounded-lg font-bold hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+            >
+              啟動測試
+            </button>
+            <button
+              onClick={handlePause}
+              disabled={testStatus !== 'running'}
+              className="px-8 py-3 bg-yellow-600 text-white text-lg rounded-lg font-bold hover:bg-yellow-700 transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+            >
+              暫停
+            </button>
+            <button
+              onClick={handleStop}
+              disabled={testStatus === 'idle'}
+              className="px-8 py-3 bg-red-600 text-white text-lg rounded-lg font-bold hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+            >
+              停止
+            </button>
           </div>
         </div>
+      </div>
 
         {/* 電磁閥狀態 */}
         <div className="border-t pt-4">
@@ -324,10 +304,22 @@ function MainDashboard() {
       ) : (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
           <h3 className="text-base font-semibold text-gray-800 mb-2">當前測試配置</h3>
-          <div className="grid grid-cols-5 gap-4 text-sm">
+          <div className="grid grid-cols-4 gap-3 text-sm">
             <div>
               <span className="text-gray-600">型號:</span>
               <span className="ml-2 font-bold text-gray-800">{testConfig.pumpModel}</span>
+            </div>
+            <div>
+              <span className="text-gray-600">測試模式:</span>
+              <span className="ml-2 font-medium text-gray-800">
+                {testConfig.testMode === 'vacuum' ? '真空幫浦' : testConfig.testMode === 'positive' ? '正壓幫浦' : '手動模式'}
+              </span>
+            </div>
+            <div>
+              <span className="text-gray-600">測試類型:</span>
+              <span className="ml-2 font-medium text-gray-800">
+                {testConfig.testType === 'pressure' ? '壓力測試' : '流量測試'}
+              </span>
             </div>
             <div>
               <span className="text-gray-600">電源:</span>
@@ -338,18 +330,14 @@ function MainDashboard() {
               <span className="ml-2 font-medium text-gray-800">{testConfig.ratedPower} W</span>
             </div>
             <div>
-              <span className="text-gray-600">測試狀態:</span>
-              <span className={`ml-2 font-bold ${
-                testStatus === 'running' ? 'text-green-600' :
-                testStatus === 'paused' ? 'text-yellow-600' :
-                'text-gray-600'
-              }`}>
-                {testStatus === 'running' ? '運行中' : testStatus === 'paused' ? '已暫停' : '待機'}
-              </span>
+              <span className="text-gray-600">最大電流:</span>
+              <span className="ml-2 font-medium text-gray-800">{testConfig.maxCurrent} A</span>
             </div>
             <div>
-              <span className="text-gray-600">數據點數:</span>
-              <span className="ml-2 font-medium text-gray-800">{chartData.length}</span>
+              <span className="text-gray-600">儲存目標:</span>
+              <span className="ml-2 font-medium text-gray-800">
+                {testConfig.saveTarget === 'test' ? '測試數據' : '參考數據'}
+              </span>
             </div>
           </div>
         </div>

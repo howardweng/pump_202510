@@ -21,6 +21,24 @@ function TestSetup() {
   const [filteredModels, setFilteredModels] = useState(PUMP_MODELS);
 
   const handleSave = () => {
+    // 驗證必填欄位
+    if (!formData.pumpModel || formData.pumpModel.trim() === '') {
+      alert('請輸入幫浦型號');
+      return;
+    }
+    if (!formData.powerSource) {
+      alert('請選擇電源類型');
+      return;
+    }
+    if (!formData.ratedPower || formData.ratedPower <= 0) {
+      alert('請輸入有效的額定功率 (必須大於 0)');
+      return;
+    }
+    if (!formData.maxCurrent || formData.maxCurrent <= 0) {
+      alert('請輸入有效的最大電流 (必須大於 0)');
+      return;
+    }
+
     setTestConfig(formData);
     alert('測試配置已儲存！');
   };
@@ -155,13 +173,15 @@ function TestSetup() {
         {/* 額定功率 */}
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            額定功率 (W)
+            額定功率 (W) *
           </label>
           <input
             type="number"
             value={formData.ratedPower}
             onChange={(e) => setFormData({ ...formData, ratedPower: parseFloat(e.target.value) || 0 })}
             placeholder="輸入額定功率"
+            min="0.1"
+            step="0.1"
             className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -169,13 +189,15 @@ function TestSetup() {
         {/* 最大電流 */}
         <div className="mb-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            最大電流 (A)
+            最大電流 (A) *
           </label>
           <input
             type="number"
             value={formData.maxCurrent}
             onChange={(e) => setFormData({ ...formData, maxCurrent: parseFloat(e.target.value) || 0 })}
             placeholder="輸入最大電流"
+            min="0.1"
+            step="0.1"
             className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>

@@ -13,13 +13,13 @@ function StatusIndicator({
   };
 
   return (
-    <div className="flex flex-col items-center bg-white p-3 rounded-lg shadow-md border border-gray-300 w-32 text-center">
-      <div className={`${sizeClasses[size]} rounded-full shadow-md transition-colors duration-500 ${
+    <div className="flex flex-col items-center bg-white p-3 rounded-lg shadow-md border-2 border-slate-300 w-32 text-center">
+      <div className={`${sizeClasses[size]} rounded-full shadow-lg transition-colors duration-500 ${
         status === 'normal'
-          ? 'bg-green-500 slow-flashing'
-          : 'bg-red-500 flashing'
+          ? 'bg-green-600 slow-flashing'
+          : 'bg-red-600 flashing'
       }`}></div>
-      <p className="mt-2 text-sm font-bold text-gray-800 break-words leading-tight whitespace-pre-wrap">
+      <p className="mt-2 text-sm font-bold text-slate-800 break-words leading-tight whitespace-pre-wrap">
         {label}
       </p>
     </div>

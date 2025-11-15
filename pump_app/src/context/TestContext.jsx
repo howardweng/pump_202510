@@ -40,7 +40,8 @@ export function TestProvider({ children }) {
     powerSource: '',
     ratedPower: 0,
     maxCurrent: 0,
-    saveTarget: 'test'
+    saveTarget: 'test',
+    notes: ''
   });
 
   const value = {

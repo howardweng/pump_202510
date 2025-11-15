@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  # MQTT Broker (Eclipse Mosquitto)
+  mqtt-broker:
+    image: eclipse-mosquitto:2.0
+    container_name: pump_mqtt_broker
+    restart: unless-stopped
+    ports:
+      - "1883:1883"   # MQTT TCP (Native Protocol) - 後端使用
+      - "8083:8083"   # MQTT WebSocket - 前端使用
+    volumes:
+      - ./mqtt/config/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./mqtt/data:/mosquitto/data
+      - ./mqtt/log:/mosquitto/log
+    networks:
+      - pump-network
+    healthcheck:
+      test: ["CMD", "mosquitto_sub", "-h", "localhost", "-t", "$$SYS/broker/uptime", "-C", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # PostgreSQL 資料庫 (生產環境建議)
+  postgres:
+    image: postgres:16-alpine
+    container_name: pump_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pump_testing
+      POSTGRES_USER: pump_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pump_password_change_me}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    networks:
+      - pump-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pump_user -d pump_testing"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgAdmin (可選，資料庫管理工具)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pump_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@pump.local
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin_change_me}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - pump-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - tools  # 使用 profile 控制，預設不啟動
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  pump-network:
+    driver: bridge
+    name: pump-network
+

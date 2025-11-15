@@ -1,12 +1,19 @@
 # MODBUS 設備模擬器架構設計
 ## MODBUS Device Simulator Architecture
 
-**文件版本**: 1.1  
+**文件版本**: 1.2  
 **建立日期**: 2025.11.15  
 **最後更新**: 2025.11.15  
 **狀態**: 設計階段（已確認規格符合性）
 
 **更新記錄**:
+- v1.2 (2025.11.15): 整合到統一基礎設施
+  - 更新 Docker Compose 配置，使用統一的 `pump-network` 網路
+  - 使用統一的 MQTT Broker 和 PostgreSQL 服務
+  - 更新環境變數配置，與後端架構保持一致
+  - Admin API 使用 PostgreSQL（而非 SQLite）
+  - Admin API 使用 aiomqtt（與後端相同的 MQTT 客戶端）
+  - 更新目錄結構說明，反映統一架構
 - v1.1 (2025.11.15): 補充所有設備的完整實作，確保完全符合 MODBUS_all_devices.md 規格
   - 新增壓力計模擬器實作（0x1000 寄存器，× 0.1 換算）
   - 新增單相電表模擬器實作（Int32 格式，0x1000 寄存器）
@@ -144,8 +151,21 @@
 
 **技術選型**:
 - FastAPI
-- SQLite (配置存儲)
+- **PostgreSQL** (使用統一的資料庫服務，與後端相同)
 - WebSocket (即時更新)
+- **aiomqtt** (與後端相同的 MQTT 客戶端)
+
+**環境變數配置**:
+```python
+# 從環境變數讀取（與後端相同）
+MQTT_BROKER = os.getenv("MQTT_BROKER", "mqtt-broker")  # 容器內使用服務名稱
+MQTT_PORT = int(os.getenv("MQTT_PORT", "1883"))
+POSTGRES_HOST = os.getenv("POSTGRES_HOST", "postgres")  # 容器內使用服務名稱
+POSTGRES_PORT = int(os.getenv("POSTGRES_PORT", "5432"))
+POSTGRES_DB = os.getenv("POSTGRES_DB", "pump_testing")
+POSTGRES_USER = os.getenv("POSTGRES_USER", "pump_user")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "pump_password_change_me")
+```
 
 **API 端點**:
 
@@ -165,7 +185,14 @@ DELETE /api/scenarios/{id}       # 刪除場景
 - React + Vite
 - Tailwind CSS
 - React Query (數據管理)
-- WebSocket (即時更新)
+- **MQTT over WebSocket** (使用統一的 MQTT Broker，Port 8083)
+
+**環境變數配置**:
+```javascript
+// .env 文件
+VITE_API_URL=http://localhost:8001
+VITE_MQTT_WS_URL=ws://localhost:8083  // 使用統一的 MQTT WebSocket
+```
 
 **功能頁面**:
 1. **設備狀態總覽**: 顯示所有設備的當前狀態
@@ -177,28 +204,50 @@ DELETE /api/scenarios/{id}       # 刪除場景
 
 ## 🐳 Docker Compose 架構
 
-### docker-compose.yml 結構
+### ⚠️ 重要說明
+
+**模擬器服務將整合到根目錄的統一 `docker-compose.yml` 中，使用與後端相同的基礎設施服務：**
+
+- **MQTT Broker**: 使用統一的 `mqtt-broker` 服務（Port 1883/8083）
+- **PostgreSQL**: 使用統一的 `postgres` 服務（Port 5432）
+- **網路**: 使用統一的 `pump-network` 網路
+- **環境變數**: 從 `.env` 文件讀取配置
+
+### 整合到統一 docker-compose.yml 的結構
 
 ```yaml
-version: '3.8'
+# 在根目錄的 docker-compose.yml 中添加以下服務
 
 services:
+  # ============================================
+  # 模擬器服務 (Simulator Services)
+  # ============================================
+
   # MODBUS 模擬器服務
   modbus-simulator:
     build: ./simulator
+    container_name: pump_modbus_simulator
+    restart: unless-stopped
     ports:
       - "5020-5027:5020-5027"  # Modbus TCP 端口
     volumes:
       - ./simulator/data:/app/data
       - ./simulator/config:/app/config
     environment:
-      - LOG_LEVEL=INFO
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - MQTT_BROKER=mqtt-broker  # 使用統一的 MQTT Broker
+      - MQTT_PORT=1883
+    depends_on:
+      mqtt-broker:
+        condition: service_healthy
     networks:
-      - simulator-network
+      - pump-network
 
   # 虛擬串口橋接器
   serial-bridge:
     build: ./serial-bridge
+    container_name: pump_serial_bridge
+    restart: unless-stopped
     privileged: true  # 需要創建虛擬串口
     devices:
       - /dev/ttySIM0:/dev/ttySIM0
@@ -208,56 +257,66 @@ services:
     depends_on:
       - modbus-simulator
     networks:
-      - simulator-network
+      - pump-network
 
   # Admin API
   simulator-admin-api:
     build: ./admin-api
+    container_name: pump_simulator_admin_api
+    restart: unless-stopped
     ports:
       - "8001:8001"
     volumes:
       - ./admin-api/data:/app/data
+    environment:
+      - MQTT_BROKER=mqtt-broker
+      - MQTT_PORT=1883
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${POSTGRES_DB:-pump_testing}
+      - POSTGRES_USER=${POSTGRES_USER:-pump_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-pump_password_change_me}
     depends_on:
       - modbus-simulator
+      - mqtt-broker:
+          condition: service_healthy
+      - postgres:
+          condition: service_healthy
     networks:
-      - simulator-network
+      - pump-network
 
   # Admin UI
   simulator-admin-ui:
     build: ./admin-ui
+    container_name: pump_simulator_admin_ui
+    restart: unless-stopped
     ports:
       - "3001:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8001
+      - VITE_MQTT_WS_URL=ws://localhost:8083
     depends_on:
       - simulator-admin-api
     networks:
-      - simulator-network
-
-  # MQTT Broker (共用)
-  mqtt-broker:
-    image: eclipse-mosquitto:latest
-    ports:
-      - "1883:1883"
-      - "8083:8083"
-    volumes:
-      - ./mqtt/config:/mosquitto/config
-      - ./mqtt/data:/mosquitto/data
-    networks:
-      - simulator-network
-
-networks:
-  simulator-network:
-    driver: bridge
+      - pump-network
 ```
+
+**注意**: 
+- 所有服務都使用 `pump-network` 網路（與後端和基礎設施服務相同）
+- MQTT 連接使用服務名稱 `mqtt-broker`（從容器內）或 `localhost`（從主機）
+- PostgreSQL 連接使用服務名稱 `postgres`（從容器內）或 `localhost`（從主機）
+- 環境變數從根目錄的 `.env` 文件讀取
 
 ---
 
 ## 📁 目錄結構
 
 ```
-pump_simulator/
+pump_202510/                      # 專案根目錄
 │
-├── docker-compose.yml
-├── README.md
+├── docker-compose.yml            # 統一 Docker Compose 配置
+├── .env                          # 環境變數（包含 MQTT 和資料庫配置）
+├── env.example                   # 環境變數範例
 │
 ├── simulator/                    # MODBUS 模擬器服務
 │   ├── Dockerfile
@@ -292,12 +351,13 @@ pump_simulator/
 │   │   ├── devices.py
 │   │   └── scenarios.py
 │   └── data/
-│       └── simulator.db
+│       └── .gitkeep
 │
 ├── admin-ui/                     # Admin UI
 │   ├── Dockerfile
 │   ├── package.json
 │   ├── vite.config.js
+│   ├── .env                      # 前端環境變數
 │   ├── src/
 │   │   ├── App.jsx
 │   │   ├── pages/
@@ -309,11 +369,20 @@ pump_simulator/
 │   │       └── DataGenerator.jsx
 │   └── public/
 │
-└── mqtt/                         # MQTT 配置
-    ├── config/
-    │   └── mosquitto.conf
-    └── data/
+└── infrastructure/               # 基礎設施配置（MQTT、PostgreSQL）
+    ├── mqtt/
+    │   ├── config/
+    │   │   └── mosquitto.conf
+    │   ├── data/
+    │   └── log/
+    └── postgres/
+        └── init/
+            └── 01-init.sql
 ```
+
+**注意**: 
+- MQTT 和 PostgreSQL 配置在 `infrastructure/` 目錄
+- 所有服務使用統一的 `docker-compose.yml` 和 `.env` 文件
 
 ---
 
@@ -862,8 +931,20 @@ class SerialBridge:
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Dict, Any
+import os
+import asyncpg
+from aiomqtt import Client  # 與後端相同的 MQTT 客戶端
 
 router = APIRouter(prefix="/api/devices", tags=["devices"])
+
+# 從環境變數讀取配置（與後端相同）
+MQTT_BROKER = os.getenv("MQTT_BROKER", "mqtt-broker")
+MQTT_PORT = int(os.getenv("MQTT_PORT", "1883"))
+POSTGRES_HOST = os.getenv("POSTGRES_HOST", "postgres")
+POSTGRES_PORT = int(os.getenv("POSTGRES_PORT", "5432"))
+POSTGRES_DB = os.getenv("POSTGRES_DB", "pump_testing")
+POSTGRES_USER = os.getenv("POSTGRES_USER", "pump_user")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "pump_password_change_me")
 
 class DeviceUpdate(BaseModel):
     enabled: bool = None
@@ -873,6 +954,7 @@ class DeviceUpdate(BaseModel):
 async def get_all_devices():
     """獲取所有設備狀態"""
     # 從模擬器服務獲取狀態
+    # 可選：從 PostgreSQL 讀取配置
     return {"devices": [...]}
 
 @router.get("/{device_id}")
@@ -885,6 +967,7 @@ async def get_device(device_id: str):
 async def update_device(device_id: str, update: DeviceUpdate):
     """更新設備模擬數據"""
     # 發送更新到模擬器服務
+    # 可選：保存到 PostgreSQL
     # ...
     pass
 ```
@@ -920,26 +1003,37 @@ async def update_device(device_id: str, update: DeviceUpdate):
 
 ### 1. 準備環境
 
-```bash
-# 創建項目目錄
-mkdir -p pump_simulator
-cd pump_simulator
+**⚠️ 重要**: 模擬器服務已整合到根目錄的統一 `docker-compose.yml` 中。
 
-# 創建目錄結構
-mkdir -p {simulator,serial-bridge,admin-api,admin-ui,mqtt}/{config,data}
+```bash
+# 從專案根目錄執行
+cd /home/datavan/pump_202510
+
+# 確保環境變數文件存在
+cp env.example .env
+
+# 創建模擬器目錄結構
+mkdir -p simulator/{data,config} serial-bridge admin-api/{data} admin-ui
 ```
 
 ### 2. 構建和啟動
 
 ```bash
-# 構建所有服務
-docker-compose build
+# 從專案根目錄執行
+cd /home/datavan/pump_202510
+
+# 構建所有服務（包括基礎設施和模擬器）
+docker compose build
 
 # 啟動所有服務
-docker-compose up -d
+docker compose up -d
+
+# 只啟動模擬器相關服務
+docker compose up -d modbus-simulator serial-bridge simulator-admin-api simulator-admin-ui
 
 # 查看日誌
-docker-compose logs -f
+docker compose logs -f modbus-simulator
+docker compose logs -f simulator-admin-api
 ```
 
 ### 3. 訪問服務
@@ -947,6 +1041,8 @@ docker-compose logs -f
 - **Admin UI**: http://localhost:3001
 - **Admin API**: http://localhost:8001
 - **API 文檔**: http://localhost:8001/docs
+- **MQTT Broker**: mqtt://localhost:1883 (TCP) 或 ws://localhost:8083 (WebSocket)
+- **PostgreSQL**: localhost:5432
 
 ---
 
@@ -987,19 +1083,25 @@ docker-compose logs -f
 ## 🔄 與真實設備的切換
 
 當有真實設備時，只需：
-1. 停止模擬器服務
+1. 停止模擬器服務: `docker compose stop modbus-simulator serial-bridge`
 2. 修改後端配置，將串口從 `/dev/ttySIM*` 改為真實串口
 3. 重新啟動後端服務
 
 **配置範例**:
 ```python
 # config/modbus_devices.py
-USE_SIMULATOR = False  # 切換為 False 使用真實設備
+USE_SIMULATOR = os.getenv("USE_SIMULATOR", "false").lower() == "true"
 
 if USE_SIMULATOR:
     FLOW_METER_PORT = "/dev/ttySIM1"
 else:
     FLOW_METER_PORT = "/dev/ttyUSB0"  # 真實串口
+```
+
+**環境變數配置** (`.env`):
+```bash
+# 模擬器開關
+USE_SIMULATOR=true  # 或 false 使用真實設備
 ```
 
 ---

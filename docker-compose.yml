@@ -1,0 +1,185 @@
+# ============================================
+# 幫浦測試平台 - 統一 Docker Compose 配置
+# Pump Testing Platform - Unified Docker Compose
+# ============================================
+# 注意: 新版本的 docker compose 不需要 version 欄位
+
+services:
+  # ============================================
+  # 基礎設施服務 (Infrastructure Services)
+  # ============================================
+
+  # MQTT Broker (Eclipse Mosquitto)
+  mqtt-broker:
+    image: eclipse-mosquitto:2.0
+    container_name: pump_mqtt_broker
+    restart: unless-stopped
+    ports:
+      - "1883:1883"   # MQTT TCP (Native Protocol) - 後端使用
+      - "8083:8083"   # MQTT WebSocket - 前端使用
+    volumes:
+      - ./infrastructure/mqtt/config/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./infrastructure/mqtt/data:/mosquitto/data
+      - ./infrastructure/mqtt/log:/mosquitto/log
+    networks:
+      - pump-network
+    healthcheck:
+      test: ["CMD", "mosquitto_sub", "-h", "localhost", "-t", "$$SYS/broker/uptime", "-C", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # PostgreSQL 資料庫 (生產環境建議)
+  postgres:
+    image: postgres:16-alpine
+    container_name: pump_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-pump_testing}
+      POSTGRES_USER: ${POSTGRES_USER:-pump_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pump_password_change_me}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/postgres/init:/docker-entrypoint-initdb.d:ro
+    networks:
+      - pump-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-pump_user} -d ${POSTGRES_DB:-pump_testing}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgAdmin (可選，資料庫管理工具)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pump_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@pump.local}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin_change_me}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - pump-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - tools  # 使用 profile 控制，預設不啟動
+
+  # ============================================
+  # 後端服務 (Backend Services)
+  # ============================================
+  # TODO: 後續添加後端服務
+  # backend:
+  #   build: ./pump_backend
+  #   ...
+
+  # ============================================
+  # 前端服務 (Frontend Services)
+  # ============================================
+  # TODO: 後續添加前端服務
+  # frontend:
+  #   build: ./pump_app
+  #   ...
+
+  # ============================================
+  # 模擬器服務 (Simulator Services)
+  # ============================================
+
+  # MODBUS 模擬器服務
+  modbus-simulator:
+    build: ./simulator
+    container_name: pump_modbus_simulator
+    restart: unless-stopped
+    ports:
+      - "5020-5027:5020-5027"  # Modbus TCP 端口
+    volumes:
+      - ./simulator/data:/app/data
+      - ./simulator/config:/app/config
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - MQTT_BROKER=mqtt-broker  # 使用統一的 MQTT Broker
+      - MQTT_PORT=1883
+    depends_on:
+      mqtt-broker:
+        condition: service_healthy
+    networks:
+      - pump-network
+
+  # 虛擬串口橋接器
+  serial-bridge:
+    build: ./serial-bridge
+    container_name: pump_serial_bridge
+    restart: unless-stopped
+    privileged: true  # 需要創建虛擬串口
+    devices:
+      - /dev/ttySIM0:/dev/ttySIM0
+      - /dev/ttySIM1:/dev/ttySIM1
+      - /dev/ttySIM2:/dev/ttySIM2
+      - /dev/ttySIM3:/dev/ttySIM3
+    depends_on:
+      - modbus-simulator
+    networks:
+      - pump-network
+
+  # Simulator Admin API
+  simulator-admin-api:
+    build: ./admin-api
+    container_name: pump_simulator_admin_api
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./admin-api/data:/app/data
+    environment:
+      - MQTT_BROKER=mqtt-broker
+      - MQTT_PORT=1883
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${POSTGRES_DB:-pump_testing}
+      - POSTGRES_USER=${POSTGRES_USER:-pump_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-pump_password_change_me}
+    depends_on:
+      - modbus-simulator
+      - mqtt-broker:
+          condition: service_healthy
+      - postgres:
+          condition: service_healthy
+    networks:
+      - pump-network
+
+  # Simulator Admin UI
+  simulator-admin-ui:
+    build: ./admin-ui
+    container_name: pump_simulator_admin_ui
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8001
+      - VITE_MQTT_WS_URL=ws://localhost:8083
+    depends_on:
+      - simulator-admin-api
+    networks:
+      - pump-network
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  pump-network:
+    driver: bridge
+    name: pump-network
+

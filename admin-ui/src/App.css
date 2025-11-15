@@ -1,0 +1,5 @@
+/* 自定義樣式 */
+.active-link {
+  @apply bg-blue-700 text-white;
+}
+

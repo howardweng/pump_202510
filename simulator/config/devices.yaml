@@ -1,0 +1,98 @@
+# MODBUS 設備模擬器配置
+# 根據 MODBUS_all_devices.md 規格
+
+devices:
+  # 流量計
+  flow_meter:
+    slave_id: 1
+    port: 5020
+    type: flow_meter
+    enabled: true
+    default_values:
+      instantaneous_flow: 0.0  # L/min
+      cumulative_flow: 0.0      # L
+
+  # 電表
+  dc_meter:
+    slave_id: 1
+    port: 5021
+    type: single_phase
+    meter_type: DC
+    enabled: true
+    default_values:
+      voltage: 0.0
+      current: 0.0
+      active_power: 0.0
+      reactive_power: 0.0
+
+  ac110v_meter:
+    slave_id: 2
+    port: 5022
+    type: single_phase
+    meter_type: AC110V
+    enabled: true
+    default_values:
+      voltage: 110.0
+      current: 0.0
+      active_power: 0.0
+      reactive_power: 0.0
+
+  ac220v_meter:
+    slave_id: 3
+    port: 5023
+    type: single_phase
+    meter_type: AC220V
+    enabled: true
+    default_values:
+      voltage: 220.0
+      current: 0.0
+      active_power: 0.0
+      reactive_power: 0.0
+
+  ac220v_3p_meter:
+    slave_id: 4
+    port: 5024
+    type: three_phase
+    enabled: true
+    default_values:
+      voltage_a: 220.0
+      voltage_b: 220.0
+      voltage_c: 220.0
+      current_a: 0.0
+      current_b: 0.0
+      current_c: 0.0
+      current_n: 0.0
+      power_a: 0.0
+      power_b: 0.0
+      power_c: 0.0
+      power_total: 0.0
+
+  # 壓力計
+  pressure_positive:
+    slave_id: 2
+    port: 5025
+    type: pressure
+    is_vacuum: false
+    enabled: true
+    default_values:
+      pressure: 0.0  # kg/cm²
+
+  pressure_vacuum:
+    slave_id: 3
+    port: 5026
+    type: pressure
+    is_vacuum: true
+    enabled: true
+    default_values:
+      pressure: 0.0  # kPa
+
+  # 繼電器 IO
+  relay_io:
+    slave_id: 1
+    port: 5027
+    type: relay_io
+    enabled: true
+    default_values:
+      relay_states: [false, false, false, false, false, false, false, false]
+      digital_inputs: 0x02  # Bit 1 = 1 (測試蓋關閉)
+

@@ -121,13 +121,12 @@ services:
     container_name: pump_serial_bridge
     restart: unless-stopped
     privileged: true  # 需要創建虛擬串口
-    devices:
-      - /dev/ttySIM0:/dev/ttySIM0
-      - /dev/ttySIM1:/dev/ttySIM1
-      - /dev/ttySIM2:/dev/ttySIM2
-      - /dev/ttySIM3:/dev/ttySIM3
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - MODBUS_SIMULATOR_HOST=modbus-simulator
     depends_on:
-      - modbus-simulator
+      modbus-simulator:
+        condition: service_started
     networks:
       - pump-network
 
@@ -141,6 +140,7 @@ services:
     volumes:
       - ./admin-api/data:/app/data
     environment:
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
       - MQTT_BROKER=mqtt-broker
       - MQTT_PORT=1883
       - POSTGRES_HOST=postgres
@@ -149,11 +149,12 @@ services:
       - POSTGRES_USER=${POSTGRES_USER:-pump_user}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-pump_password_change_me}
     depends_on:
-      - modbus-simulator
-      - mqtt-broker:
-          condition: service_healthy
-      - postgres:
-          condition: service_healthy
+      modbus-simulator:
+        condition: service_started
+      mqtt-broker:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
     networks:
       - pump-network
 
@@ -163,12 +164,13 @@ services:
     container_name: pump_simulator_admin_ui
     restart: unless-stopped
     ports:
-      - "3001:3000"
+      - "3001:80"
     environment:
       - VITE_API_URL=http://localhost:8001
       - VITE_MQTT_WS_URL=ws://localhost:8083
     depends_on:
-      - simulator-admin-api
+      simulator-admin-api:
+        condition: service_started
     networks:
       - pump-network
 

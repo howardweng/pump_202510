@@ -1,0 +1,5 @@
+# 串口橋接器依賴
+pymodbus>=3.5.0
+pyserial>=3.5
+loguru>=0.7.0
+

@@ -2,9 +2,10 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# 安裝系統依賴
+# 安裝系統依賴（包括 socat 用於創建虛擬串口）
 RUN apt-get update && apt-get install -y \
     gcc \
+    socat \
     && rm -rf /var/lib/apt/lists/*
 
 # 複製依賴文件

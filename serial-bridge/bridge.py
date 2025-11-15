@@ -9,9 +9,9 @@ import sys
 from typing import Tuple, Optional
 from loguru import logger
 from pymodbus.server import StartAsyncSerialServer
-from pymodbus.datastore import ModbusDeviceContext, ModbusServerContext
-from pymodbus.datastore import ModbusSequentialDataBlock
+from pymodbus.datastore import ModbusServerContext
 from pymodbus.client import AsyncModbusTcpClient
+from forwarding_store import ForwardingModbusContext
 
 
 class RTUToTCPBridge:
@@ -44,6 +44,8 @@ class RTUToTCPBridge:
         self.running = False
         self.master_fd: Optional[int] = None
         self.slave_name: Optional[str] = None
+        self.master_port: Optional[str] = None
+        self.socat_process: Optional[object] = None
         self.tcp_client: Optional[AsyncModbusTcpClient] = None
         
         # 轉換 parity 字串
@@ -55,22 +57,76 @@ class RTUToTCPBridge:
         self.parity_char = parity_map.get(self.parity, 'N')
     
     def create_virtual_serial(self):
-        """創建虛擬串口（使用 pty）"""
+        """創建虛擬串口（使用 socat 創建更標準的虛擬串口對）"""
         try:
-            # 創建 PTY 對
-            master_fd, slave_fd = pty.openpty()
-            self.master_fd = master_fd
-            self.slave_name = os.ttyname(slave_fd)
+            import subprocess
+            import time
             
-            # 創建符號連結到目標串口路徑
-            if os.path.exists(self.serial_port):
-                os.remove(self.serial_port)
-            os.symlink(self.slave_name, self.serial_port)
+            # 使用 socat 創建虛擬串口對
+            # socat 創建的虛擬串口對更兼容 pymodbus
+            master_port = f"/tmp/{os.path.basename(self.serial_port)}_master"
+            slave_port = self.serial_port
             
-            logger.info(f"✅ 創建虛擬串口: {self.serial_port} -> {self.slave_name}")
-            return True
+            # 如果串口已存在，先清理
+            if os.path.exists(slave_port):
+                if os.path.islink(slave_port):
+                    os.remove(slave_port)
+                elif os.path.exists(slave_port):
+                    logger.warning(f"⚠️ {slave_port} 已存在，嘗試刪除...")
+                    try:
+                        os.remove(slave_port)
+                    except:
+                        pass
+            
+            # 啟動 socat 進程創建虛擬串口對
+            # PTY,link= 創建一個 pty 並連結到指定路徑
+            cmd = [
+                "socat",
+                "-d", "-d",  # 調試輸出
+                f"PTY,link={slave_port},raw,echo=0",
+                f"PTY,link={master_port},raw,echo=0"
+            ]
+            
+            try:
+                # 啟動 socat 進程（後台運行）
+                process = subprocess.Popen(
+                    cmd,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE
+                )
+                
+                # 等待一下讓 socat 創建設備
+                time.sleep(0.5)
+                
+                # 檢查進程是否還在運行
+                if process.poll() is not None:
+                    stdout, stderr = process.communicate()
+                    logger.error(f"❌ socat 進程失敗: {stderr.decode()}")
+                    return False
+                
+                self.socat_process = process
+                self.master_port = master_port
+                self.slave_name = slave_port
+                
+                # 檢查設備是否創建成功
+                if not os.path.exists(slave_port):
+                    logger.error(f"❌ 虛擬串口設備未創建: {slave_port}")
+                    return False
+                
+                logger.info(f"✅ 創建虛擬串口: {slave_port} (使用 socat)")
+                return True
+                
+            except FileNotFoundError:
+                logger.error("❌ socat 未安裝，請在 Dockerfile 中安裝 socat")
+                return False
+            except Exception as e:
+                logger.error(f"❌ 啟動 socat 失敗: {e}")
+                return False
+                
         except Exception as e:
             logger.error(f"❌ 創建虛擬串口失敗: {e}")
+            import traceback
+            logger.debug(traceback.format_exc())
             return False
     
     async def start(self):
@@ -85,26 +141,18 @@ class RTUToTCPBridge:
         )
         await self.tcp_client.connect()
         
-        if not self.tcp_client.is_socket_open():
+        # 檢查連接狀態（pymodbus v3.x 使用 connected 屬性）
+        if not hasattr(self.tcp_client, 'connected') or not self.tcp_client.connected:
             logger.error(f"❌ 無法連接到 Modbus TCP 服務器: {self.tcp_host}:{self.tcp_port}")
             return False
         
         logger.info(f"✅ 已連接到 Modbus TCP 服務器: {self.tcp_host}:{self.tcp_port}")
         
-        # 創建一個轉發數據存儲，將請求轉發到 TCP 客戶端
-        # 這裡我們需要創建一個自定義的數據存儲來轉發請求
-        # 但 pymodbus 的架構不太適合這種轉發模式
+        # 獲取當前事件循環
+        loop = asyncio.get_event_loop()
         
-        # 更簡單的方案：使用 pymodbus 的 RTU 服務器，但數據存儲直接從 TCP 客戶端讀取
-        # 這需要自定義 ModbusDeviceContext
-        
-        # 暫時使用空的數據存儲，實際數據從 TCP 客戶端同步
-        store = ModbusDeviceContext(
-            di=ModbusSequentialDataBlock(0, [0]*100),
-            co=ModbusSequentialDataBlock(0, [0]*100),
-            hr=ModbusSequentialDataBlock(0, [0]*1000),
-            ir=ModbusSequentialDataBlock(0, [0]*100)
-        )
+        # 創建轉發數據存儲，攔截所有讀寫操作並轉發到 TCP 客戶端
+        store = ForwardingModbusContext(self.tcp_client, self.slave_id, loop)
         context = ModbusServerContext(devices={self.slave_id: store}, single=False)
         
         self.running = True
@@ -115,47 +163,52 @@ class RTUToTCPBridge:
         logger.info(f"   Slave ID: {self.slave_id}")
         
         # 啟動 RTU 服務器
-        await StartAsyncSerialServer(
-            context=context,
-            port=self.slave_name,  # 使用虛擬串口
-            baudrate=self.baudrate,
-            bytesize=self.databits,
-            parity=self.parity_char,
-            stopbits=self.stopbits,
-            timeout=1.0
-        )
+        # 使用 socat 創建的虛擬串口
+        try:
+            await StartAsyncSerialServer(
+                context=context,
+                port=self.slave_name,  # 使用虛擬串口路徑
+                baudrate=self.baudrate,
+                bytesize=self.databits,
+                parity=self.parity_char,
+                stopbits=self.stopbits,
+                timeout=1.0,
+                framer='rtu'
+            )
+        except Exception as e:
+            logger.error(f"❌ 啟動 RTU 服務器失敗: {e}")
+            import traceback
+            logger.debug(traceback.format_exc())
+            raise
     
     async def stop(self):
         """停止橋接器"""
         self.running = False
         if self.tcp_client:
             self.tcp_client.close()
+        if self.socat_process:
+            try:
+                self.socat_process.terminate()
+                self.socat_process.wait(timeout=2)
+            except:
+                try:
+                    self.socat_process.kill()
+                except:
+                    pass
         if self.master_fd:
             try:
                 os.close(self.master_fd)
             except:
                 pass
-        if self.serial_port and os.path.exists(self.serial_port):
-            try:
-                os.remove(self.serial_port)
-            except:
-                pass
-        logger.info(f"🛑 RTU 到 TCP 橋接器已停止: {self.serial_port}")
-    
-    async def _sync_data_from_tcp(self, store: ModbusDeviceContext):
-        """定期從 TCP 客戶端同步數據到本地存儲"""
-        while self.running:
-            try:
-                if self.tcp_client and self.tcp_client.is_socket_open():
-                    # 同步 Holding Registers (功能碼 0x03)
-                    # 這裡我們可以定期讀取一些關鍵寄存器
-                    # 但為了簡化，我們暫時跳過自動同步
-                    # 實際的讀取會通過 RTU 服務器轉發到 TCP 客戶端
+        # 清理虛擬串口設備
+        for port in [self.serial_port, self.master_port]:
+            if port and os.path.exists(port):
+                try:
+                    if os.path.islink(port):
+                        os.remove(port)
+                except:
                     pass
-                await asyncio.sleep(1.0)  # 每秒同步一次
-            except Exception as e:
-                logger.error(f"數據同步錯誤: {e}")
-                await asyncio.sleep(1.0)
+        logger.info(f"🛑 RTU 到 TCP 橋接器已停止: {self.serial_port}")
 
 
 async def main():

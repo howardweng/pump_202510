@@ -86,8 +86,10 @@ docker compose logs -f
 # 只啟動基礎設施
 docker compose up -d mqtt-broker postgres
 
-# 啟動模擬器系統
+# 啟動模擬器系統（不包含串口橋接器）
 docker compose up -d modbus-simulator simulator-admin-api simulator-admin-ui
+
+# 注意: serial-bridge 暫時停用，後端可直接使用 Modbus TCP 連接
 
 # 啟動包含 pgAdmin（資料庫管理工具）
 docker compose --profile tools up -d
@@ -127,7 +129,7 @@ docker compose down -v
 - ✅ 8 台設備模擬器（完全符合 MODBUS_all_devices.md 規格）
 - ✅ 設備狀態總覽和配置管理
 - ✅ 場景管理（創建、更新、刪除測試場景）
-- ✅ 串口橋接器（RTU 到 TCP）
+- ⚠️ 串口橋接器（RTU 到 TCP）- **暫時停用**（技術問題，後端可直接使用 Modbus TCP）
 
 ### 後端服務 (TODO)
 
@@ -286,9 +288,10 @@ docker compose exec postgres psql -U pump_user -d pump_testing -c "SELECT versio
 - **2025.11.15**: 
   - ✅ 完成 MODBUS 模擬器系統實作
     - MODBUS 模擬器服務（8台設備）
-    - 串口橋接器（RTU 到 TCP）
     - Admin API（FastAPI）
     - Admin UI（React）
+  - ⚠️ 串口橋接器暫時停用（技術問題：pymodbus 與 pty 設備兼容性問題）
+    - 後端可直接使用 Modbus TCP 連接模擬器（`modbus-simulator:5020-5027`）
   - ✅ 創建統一 Docker Compose 配置，整合基礎設施服務
 
 ---

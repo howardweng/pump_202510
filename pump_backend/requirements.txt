@@ -1,0 +1,27 @@
+# MQTT 通訊
+aiomqtt>=2.0.0                # 非同步 MQTT 客戶端
+
+# Modbus RTU 通訊
+pymodbus>=3.5.0               # Modbus 協議實作
+pyserial>=3.5                 # 串列埠通訊
+
+# 資料驗證與模型
+pydantic>=2.0.0               # 資料驗證框架
+python-dotenv>=1.0.0          # 環境變數管理
+
+# 資料庫 (可選，生產環境建議使用)
+sqlalchemy>=2.0.0             # ORM 框架
+aiosqlite>=0.19.0             # 非同步 SQLite
+
+# 日誌記錄
+loguru>=0.7.0                 # 進階日誌庫
+
+# 測試框架
+pytest>=7.4.0                 # 單元測試
+pytest-asyncio>=0.21.0        # 非同步測試支援
+pytest-mock>=3.11.0           # Mock 工具
+
+# 工具類
+crcmod>=1.7                   # CRC 計算
+tenacity>=8.2.0               # 重試機制
+

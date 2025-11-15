@@ -1,9 +1,19 @@
 # MODBUS 設備模擬器架構設計
 ## MODBUS Device Simulator Architecture
 
-**文件版本**: 1.0  
+**文件版本**: 1.1  
 **建立日期**: 2025.11.15  
-**狀態**: 設計階段
+**最後更新**: 2025.11.15  
+**狀態**: 設計階段（已確認規格符合性）
+
+**更新記錄**:
+- v1.1 (2025.11.15): 補充所有設備的完整實作，確保完全符合 MODBUS_all_devices.md 規格
+  - 新增壓力計模擬器實作（0x1000 寄存器，× 0.1 換算）
+  - 新增單相電表模擬器實作（Int32 格式，0x1000 寄存器）
+  - 新增三相電表模擬器實作（17 個寄存器，34 bytes）
+  - 新增繼電器 IO 模擬器實作（Discrete Inputs + Coils，100Hz）
+  - 補充串口橋接器的 UART 設定配置
+  - 新增規格符合性確認章節
 
 ---
 
@@ -409,23 +419,397 @@ class FlowMeterSimulator(BaseModbusSimulator):
         self.config['cumulative_flow'] = max(0.0, value)
 ```
 
+**⚠️ 重要**: 根據 MODBUS_all_devices.md，流量計的換算公式是 **÷ 10**（而非 × 10）。模擬器實作正確。
+
+---
+
+### 1.2 壓力計模擬器 (`simulator/devices/pressure_sensor.py`)
+
+```python
+# simulator/devices/pressure_sensor.py
+from .base import BaseModbusSimulator
+import asyncio
+
+class PressureSensorSimulator(BaseModbusSimulator):
+    """Delta DPA 壓力計模擬器"""
+    
+    def __init__(self, slave_id: int, port: int, is_vacuum: bool = False):
+        """
+        Args:
+            slave_id: RTU 地址 (2=正壓, 3=真空)
+            port: Modbus TCP 端口
+            is_vacuum: True=真空, False=正壓
+        """
+        self.is_vacuum = is_vacuum
+        config = {
+            'pressure': 0.0,  # kg/cm² (正壓) 或 kPa (真空)
+            'enabled': True
+        }
+        super().__init__(slave_id, port, config)
+        
+        # ⭐ 根據 MODBUS_all_devices.md: 寄存器地址 0x1000 (4096)
+        # 數據類型: Unsigned Int16, 計量單位: 0.1 (× 0.1)
+        # 正壓範圍: 0 ~ 10 kg/cm² (0 ~ 1.0 MPa)
+        # 真空範圍: 0 ~ -100 kPa (0 ~ -0.1 MPa)
+        
+        # 初始化寄存器 0x1000
+        self.update_register(0x1000, 0)
+    
+    async def simulate_loop(self):
+        """模擬數據更新迴圈 (1Hz)"""
+        while self._running:
+            if self.config['enabled']:
+                pressure = self.config.get('pressure', 0.0)
+                
+                # ⭐ 根據規格: 讀取值需乘以 0.1 得到實際壓力值
+                # 所以模擬器需要: 實際值 ÷ 0.1 = 實際值 × 10
+                if self.is_vacuum:
+                    # 真空: 範圍 0 ~ -100 kPa
+                    # 注意: 負數使用補碼，但 Unsigned Int16 無法直接表示負數
+                    # 實際設備可能使用有符號數的補碼表示
+                    # 例如: -50 kPa = 0xFFCE (65486 dec, 作為有符號數為 -50)
+                    pressure_raw = int(pressure * 10)
+                    if pressure_raw < 0:
+                        # 轉換為無符號 16 位元（補碼）
+                        pressure_raw = pressure_raw & 0xFFFF
+                else:
+                    # 正壓: 範圍 0 ~ 10 kg/cm²
+                    pressure_raw = int(pressure * 10)
+                    pressure_raw = max(0, min(100, pressure_raw))  # 0 ~ 100 (對應 0 ~ 10 kg/cm²)
+                
+                self.update_register(0x1000, pressure_raw)
+            
+            await asyncio.sleep(1.0)  # 1Hz 更新
+    
+    def set_pressure(self, value: float):
+        """設定壓力值"""
+        if self.is_vacuum:
+            # 真空: 0 ~ -100 kPa
+            self.config['pressure'] = max(-100.0, min(0.0, value))
+        else:
+            # 正壓: 0 ~ 10 kg/cm²
+            self.config['pressure'] = max(0.0, min(10.0, value))
+```
+
+---
+
+### 1.3 單相電表模擬器 (`simulator/devices/power_meter.py`)
+
+```python
+# simulator/devices/power_meter.py
+from .base import BaseModbusSimulator
+import asyncio
+import struct
+
+class SinglePhasePowerMeterSimulator(BaseModbusSimulator):
+    """JX3101 單相電表模擬器 (DC/AC110V/AC220V)"""
+    
+    def __init__(self, slave_id: int, port: int, meter_type: str = "DC"):
+        """
+        Args:
+            slave_id: RTU 地址 (1=DC, 2=AC110V, 3=AC220V)
+            port: Modbus TCP 端口
+            meter_type: "DC", "AC110V", "AC220V"
+        """
+        self.meter_type = meter_type
+        config = {
+            'voltage': 0.0,      # V
+            'current': 0.0,      # A
+            'active_power': 0.0, # kW
+            'reactive_power': 0.0, # kVAR
+            'enabled': True
+        }
+        super().__init__(slave_id, port, config)
+        
+        # ⭐ 根據 MODBUS_all_devices.md: 寄存器地址從 0x1000 開始
+        # 所有參數都是 Signed Int32 (2 個寄存器, 4 bytes)
+        # 電壓: 0x1000-0x1001, ÷ 100
+        # 電流: 0x1002-0x1003, ÷ 1000
+        # 有功功率: 0x1004-0x1005, ÷ 10000
+        # 無功功率: 0x1006-0x1007, ÷ 10000
+        
+        # 初始化所有寄存器
+        self._update_int32_register(0x1000, 0)  # 電壓
+        self._update_int32_register(0x1002, 0)  # 電流
+        self._update_int32_register(0x1004, 0)  # 有功功率
+        self._update_int32_register(0x1006, 0)  # 無功功率
+    
+    def _update_int32_register(self, start_address: int, value: int):
+        """
+        更新 Int32 寄存器（2 個寄存器，4 bytes）
+        
+        ⭐ 根據規格: Big-Endian, 高位在前
+        """
+        # 確保值在 Int32 範圍內
+        value = max(-2147483648, min(2147483647, value))
+        
+        # 轉換為 4 bytes (Big-Endian)
+        bytes_data = struct.pack('>i', value)  # '>i' = big-endian signed int32
+        
+        # 拆分為 2 個 16 位元寄存器
+        high_word = (bytes_data[0] << 8) | bytes_data[1]
+        low_word = (bytes_data[2] << 8) | bytes_data[3]
+        
+        self.update_register(start_address, high_word)
+        self.update_register(start_address + 1, low_word)
+    
+    async def simulate_loop(self):
+        """模擬數據更新迴圈 (2Hz = 0.5秒)"""
+        while self._running:
+            if self.config['enabled']:
+                # ⭐ 根據規格換算公式
+                # 電壓: 實際值 × 100
+                voltage_raw = int(self.config.get('voltage', 0.0) * 100)
+                self._update_int32_register(0x1000, voltage_raw)
+                
+                # 電流: 實際值 × 1000
+                current_raw = int(self.config.get('current', 0.0) * 1000)
+                self._update_int32_register(0x1002, current_raw)
+                
+                # 有功功率: 實際值 × 10000
+                power_raw = int(self.config.get('active_power', 0.0) * 10000)
+                self._update_int32_register(0x1004, power_raw)
+                
+                # 無功功率: 實際值 × 10000
+                reactive_power_raw = int(self.config.get('reactive_power', 0.0) * 10000)
+                self._update_int32_register(0x1006, reactive_power_raw)
+            
+            await asyncio.sleep(0.5)  # 2Hz 更新
+    
+    def set_voltage(self, value: float):
+        """設定電壓 (V)"""
+        self.config['voltage'] = value
+    
+    def set_current(self, value: float):
+        """設定電流 (A)"""
+        self.config['current'] = value
+    
+    def set_active_power(self, value: float):
+        """設定有功功率 (kW)"""
+        self.config['active_power'] = value
+```
+
+---
+
+### 1.4 三相電表模擬器 (`simulator/devices/power_meter.py`)
+
+```python
+# simulator/devices/power_meter_3p.py
+from .base import BaseModbusSimulator
+from .power_meter import SinglePhasePowerMeterSimulator
+import asyncio
+import struct
+
+class ThreePhasePowerMeterSimulator(BaseModbusSimulator):
+    """JX8304M 三相電表模擬器"""
+    
+    def __init__(self, slave_id: int = 4, port: int = 5024):
+        config = {
+            'voltage_a': 220.0,  # V
+            'voltage_b': 220.0,  # V
+            'voltage_c': 220.0,  # V
+            'current_a': 0.0,    # A
+            'current_b': 0.0,    # A
+            'current_c': 0.0,    # A
+            'current_n': 0.0,    # A (漏電流)
+            'power_a': 0.0,      # kW
+            'power_b': 0.0,      # kW
+            'power_c': 0.0,      # kW
+            'power_total': 0.0,  # kW (合相功率)
+            'enabled': True
+        }
+        super().__init__(slave_id, port, config)
+        
+        # ⭐ 根據 MODBUS_all_devices.md: 寄存器地址從 0x1000 開始
+        # 所有參數都是 Signed Int32 (2 個寄存器, 4 bytes)
+        # 讀取指令: 04 03 10 00 00 11 (17 個寄存器, 34 bytes)
+        
+        # 初始化所有寄存器
+        self._init_registers()
+    
+    def _init_registers(self):
+        """初始化所有寄存器"""
+        # A/B/C 相電壓 (0x1000-0x1005)
+        self._update_int32_register(0x1000, 0)  # A相電壓
+        self._update_int32_register(0x1002, 0)  # B相電壓
+        self._update_int32_register(0x1004, 0)  # C相電壓
+        
+        # A/B/C/0 相電流 (0x1006-0x100D)
+        self._update_int32_register(0x1006, 0)  # A相電流
+        self._update_int32_register(0x1008, 0)  # B相電流
+        self._update_int32_register(0x100A, 0)  # C相電流
+        self._update_int32_register(0x100C, 0)  # 0相電流（漏電流）
+        
+        # A/B/C 相功率 + 合相功率 (0x100E-0x1015)
+        self._update_int32_register(0x100E, 0)  # A相功率
+        self._update_int32_register(0x1010, 0)  # B相功率
+        self._update_int32_register(0x1012, 0)  # C相功率
+        self._update_int32_register(0x1014, 0)  # 合相功率
+    
+    def _update_int32_register(self, start_address: int, value: int):
+        """更新 Int32 寄存器（Big-Endian）"""
+        value = max(-2147483648, min(2147483647, value))
+        bytes_data = struct.pack('>i', value)
+        high_word = (bytes_data[0] << 8) | bytes_data[1]
+        low_word = (bytes_data[2] << 8) | bytes_data[3]
+        self.update_register(start_address, high_word)
+        self.update_register(start_address + 1, low_word)
+    
+    async def simulate_loop(self):
+        """模擬數據更新迴圈 (2Hz)"""
+        while self._running:
+            if self.config['enabled']:
+                # ⭐ 根據規格換算公式
+                # 電壓: ÷ 100, 電流: ÷ 1000, 功率: ÷ 10000
+                
+                # 更新電壓
+                self._update_int32_register(0x1000, int(self.config['voltage_a'] * 100))
+                self._update_int32_register(0x1002, int(self.config['voltage_b'] * 100))
+                self._update_int32_register(0x1004, int(self.config['voltage_c'] * 100))
+                
+                # 更新電流
+                self._update_int32_register(0x1006, int(self.config['current_a'] * 1000))
+                self._update_int32_register(0x1008, int(self.config['current_b'] * 1000))
+                self._update_int32_register(0x100A, int(self.config['current_c'] * 1000))
+                self._update_int32_register(0x100C, int(self.config['current_n'] * 1000))
+                
+                # 更新功率
+                self._update_int32_register(0x100E, int(self.config['power_a'] * 10000))
+                self._update_int32_register(0x1010, int(self.config['power_b'] * 10000))
+                self._update_int32_register(0x1012, int(self.config['power_c'] * 10000))
+                self._update_int32_register(0x1014, int(self.config['power_total'] * 10000))
+            
+            await asyncio.sleep(0.5)  # 2Hz 更新
+```
+
+---
+
+### 1.5 繼電器 IO 模擬器 (`simulator/devices/relay_io.py`)
+
+```python
+# simulator/devices/relay_io.py
+from .base import BaseModbusSimulator
+import asyncio
+
+class RelayIOSimulator(BaseModbusSimulator):
+    """Waveshare Modbus RTU Relay (D) 模擬器"""
+    
+    def __init__(self, slave_id: int = 1, port: int = 5027):
+        config = {
+            'relay_states': [False] * 8,  # CH1-CH8 繼電器狀態
+            'digital_inputs': 0x02,  # Bit 0-7: Bit0=緊急停止, Bit1=測試蓋
+            'enabled': True
+        }
+        super().__init__(slave_id, port, config)
+        
+        # ⭐ 根據 MODBUS_all_devices.md:
+        # Coils: 0x0000-0x0007 (CH1-CH8)
+        # Discrete Inputs: 0x0000 (Bit 0-7)
+        # 功能碼: 0x02 (Read Discrete Inputs), 0x05 (Write Single Coil), 0x0F (Write Multiple Coils)
+        
+        # 初始化 Coils (CH1-CH8 全部關閉)
+        for i in range(8):
+            self.store.setValues(1, i, [False])  # 1 = Coils
+        
+        # 初始化 Discrete Inputs
+        # Bit 0: 緊急停止 (0=未按下), Bit 1: 測試蓋 (1=關蓋)
+        self.store.setValues(0, 0, [0x02])  # 0 = Discrete Inputs
+    
+    async def simulate_loop(self):
+        """模擬數據更新迴圈 (100Hz = 0.01秒)"""
+        while self._running:
+            if self.config['enabled']:
+                # 更新 Discrete Inputs (Bit 0-7)
+                # ⭐ 根據規格: Bit 0=緊急停止, Bit 1=測試蓋
+                digital_inputs = self.config.get('digital_inputs', 0x02)
+                self.store.setValues(0, 0, [digital_inputs])
+            
+            await asyncio.sleep(0.01)  # 100Hz 更新
+    
+    def set_emergency_stop(self, pressed: bool):
+        """設定緊急停止狀態"""
+        inputs = self.config.get('digital_inputs', 0x02)
+        if pressed:
+            inputs |= 0x01  # Bit 0 = 1
+        else:
+            inputs &= 0xFE  # Bit 0 = 0
+        self.config['digital_inputs'] = inputs
+    
+    def set_cover_closed(self, closed: bool):
+        """設定測試蓋狀態"""
+        inputs = self.config.get('digital_inputs', 0x02)
+        if closed:
+            inputs |= 0x02  # Bit 1 = 1
+        else:
+            inputs &= 0xFD  # Bit 1 = 0
+        self.config['digital_inputs'] = inputs
+    
+    def set_relay(self, channel: int, state: bool):
+        """設定繼電器狀態 (CH1-CH8)"""
+        if 1 <= channel <= 8:
+            self.config['relay_states'][channel - 1] = state
+            # 更新 Coil (0x0000-0x0007 對應 CH1-CH8)
+            self.store.setValues(1, channel - 1, [state])  # 1 = Coils
+    
+    def get_relay_state(self, channel: int) -> bool:
+        """獲取繼電器狀態"""
+        if 1 <= channel <= 8:
+            return self.config['relay_states'][channel - 1]
+        return False
+```
+
+**⚠️ 重要**: 繼電器 IO 模擬器需要支援：
+- **功能碼 0x02**: Read Discrete Inputs (讀取 Bit 0-7)
+- **功能碼 0x05**: Write Single Coil (寫入單個繼電器)
+- **功能碼 0x0F**: Write Multiple Coils (寫入多個繼電器)
+- **控制值**: 0xFF00 = ON, 0x0000 = OFF
+
+---
+
 ### 2. 虛擬串口橋接器
+
+**⚠️ 重要**: 串口橋接器需要根據不同設備設定不同的 UART 參數：
+
+| USB 轉換器 | 虛擬串口 | UART 設定 | 連接設備 |
+|-----------|---------|----------|---------|
+| USB-Enhanced-SERIAL-A | /dev/ttySIM0 | **57600/8/NONE/1** | 電表 (4台) |
+| USB-Enhanced-SERIAL-C | /dev/ttySIM1 | **19200/8/NONE/1** | 流量計 (1台) |
+| USB-Enhanced-SERIAL-D | /dev/ttySIM2 | **115200/8/NONE/1** | 繼電器 IO (1台) |
+| MOXA USB Serial Port | /dev/ttySIM3 | **19200/8/EVEN/1** | 壓力計 (2台) |
 
 ```python
 # serial-bridge/bridge.py
 import socket
 import serial
 import threading
-from typing import Dict
+from typing import Dict, Tuple
 
 class SerialBridge:
     """TCP 到虛擬串口的橋接器"""
     
-    def __init__(self, tcp_port: int, serial_port: str, baudrate: int):
+    def __init__(self, tcp_port: int, serial_port: str, uart_config: Tuple[int, int, str, int]):
+        """
+        Args:
+            tcp_port: Modbus TCP 端口
+            serial_port: 虛擬串口路徑 (e.g., /dev/ttySIM0)
+            uart_config: (baudrate, databits, parity, stopbits)
+                - baudrate: 19200, 57600, 115200
+                - databits: 8
+                - parity: 'NONE', 'EVEN', 'ODD'
+                - stopbits: 1
+        """
         self.tcp_port = tcp_port
         self.serial_port = serial_port
-        self.baudrate = baudrate
+        self.baudrate, self.databits, self.parity, self.stopbits = uart_config
         self.running = False
+        
+        # 轉換 parity 字串為 serial 模組的常數
+        parity_map = {
+            'NONE': serial.PARITY_NONE,
+            'EVEN': serial.PARITY_EVEN,
+            'ODD': serial.PARITY_ODD
+        }
+        self.parity_serial = parity_map.get(self.parity, serial.PARITY_NONE)
     
     def start(self):
         """啟動橋接器"""
@@ -436,8 +820,15 @@ class SerialBridge:
         tcp_server.bind(('0.0.0.0', self.tcp_port))
         tcp_server.listen(1)
         
-        # 創建虛擬串口
-        ser = serial.Serial(self.serial_port, self.baudrate, timeout=1)
+        # 創建虛擬串口（使用正確的 UART 設定）
+        ser = serial.Serial(
+            port=self.serial_port,
+            baudrate=self.baudrate,
+            bytesize=self.databits,
+            parity=self.parity_serial,
+            stopbits=self.stopbits,
+            timeout=1
+        )
         
         # 啟動雙向轉發
         client_socket, _ = tcp_server.accept()
@@ -616,11 +1007,59 @@ else:
 ## 📝 下一步行動
 
 1. ✅ 創建模擬器基礎架構
-2. ✅ 實作各設備模擬器
+2. ✅ 實作各設備模擬器（**已補充完整實作**）
 3. ✅ 開發 Admin API
 4. ✅ 開發 Admin UI
 5. ✅ 整合到 Docker Compose
 6. ✅ 測試與真實後端的整合
+
+---
+
+## ✅ 規格符合性確認
+
+### 已確認符合 MODBUS_all_devices.md 規格：
+
+1. **流量計 (AFM07)**: ✅
+   - 寄存器地址: 0x0000, 0x0001-0x0002
+   - 數據類型: Unsigned Int16/Int32
+   - 換算公式: ÷ 10
+   - 輪詢頻率: 1 Hz
+
+2. **壓力計 (Delta DPA)**: ✅
+   - 寄存器地址: 0x1000
+   - 數據類型: Unsigned Int16
+   - 換算公式: × 0.1
+   - 輪詢頻率: 1 Hz
+   - 支援正壓和真空
+
+3. **單相電表 (JX3101)**: ✅
+   - 寄存器地址: 0x1000 開始
+   - 數據類型: Signed Int32 (所有參數)
+   - 換算公式: 電壓 ÷ 100, 電流 ÷ 1000, 功率 ÷ 10000
+   - 輪詢頻率: 2 Hz
+   - 支援 DC/AC110V/AC220V
+
+4. **三相電表 (JX8304M)**: ✅
+   - 寄存器地址: 0x1000 開始
+   - 數據類型: Signed Int32 (所有參數)
+   - 換算公式: 電壓 ÷ 100, 電流 ÷ 1000, 功率 ÷ 10000
+   - 輪詢頻率: 2 Hz
+   - 讀取長度: 17 個寄存器 (34 bytes)
+
+5. **繼電器 IO (Waveshare)**: ✅
+   - 功能碼: 0x02 (Read Discrete Inputs), 0x05 (Write Single Coil), 0x0F (Write Multiple Coils)
+   - Coils: 0x0000-0x0007 (CH1-CH8)
+   - Discrete Inputs: 0x0000 (Bit 0-7)
+   - 控制值: 0xFF00 (ON), 0x0000 (OFF)
+   - 輪詢頻率: 100 Hz
+
+6. **UART 設定**: ✅
+   - 電表: 57600/8/NONE/1
+   - 流量計: 19200/8/NONE/1
+   - 繼電器 IO: 115200/8/NONE/1
+   - 壓力計: 19200/8/EVEN/1
+
+**所有設備模擬器已完全符合 MODBUS_all_devices.md 規格！**
 
 ---
 

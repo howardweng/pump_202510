@@ -9,18 +9,18 @@ function RealtimeValueCard({
   size = 'lg'    // 'md' | 'lg' | 'xl'
 }) {
   const sizeClasses = {
-    md: 'text-5xl',
-    lg: 'text-6xl',
-    xl: 'text-7xl'
+    md: 'text-4xl',
+    lg: 'text-5xl',
+    xl: 'text-6xl'
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg border-2 border-slate-300 text-center">
-      <h3 className="text-lg font-bold text-slate-800">{title}</h3>
-      <p className={`${sizeClasses[size]} font-bold ${valueColor} mt-2`}>
+    <div className="bg-white p-3 rounded-lg shadow-lg border-2 border-slate-300 text-center">
+      <h3 className="text-xs font-bold text-slate-400">{title}</h3>
+      <p className={`${sizeClasses[size]} font-bold ${valueColor} mt-1`}>
         {value}
       </p>
-      <p className="text-2xl font-semibold text-slate-700">{unit}</p>
+      <p className="text-sm font-semibold text-slate-400">{unit}</p>
     </div>
   );
 }

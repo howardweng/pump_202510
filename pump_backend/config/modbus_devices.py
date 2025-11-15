@@ -12,75 +12,92 @@ def get_device_config() -> Dict[str, Dict[str, Any]]:
         設備配置字典
     """
     if settings.USE_SIMULATOR:
-        # 模擬器模式：使用虛擬串口
+        # 模擬器模式：使用 Modbus TCP（因為 serial-bridge 暫時停用）
+        tcp_host = os.getenv("MODBUS_SIMULATOR_HOST", "localhost")
         return {
             "flow_meter": {
-                "port": os.getenv("FLOW_METER_PORT", "/dev/ttySIM1"),
-                "baudrate": int(os.getenv("FLOW_METER_BAUDRATE", "19200")),
-                "parity": os.getenv("FLOW_METER_PARITY", "N"),
+                "port": tcp_host,
+                "tcp_port": int(os.getenv("FLOW_METER_TCP_PORT", "5020")),
+                "use_tcp": True,
+                "baudrate": 19200,  # 保留用於兼容性
+                "parity": "N",
                 "stopbits": 1,
                 "bytesize": 8,
                 "slave_id": int(os.getenv("FLOW_METER_SLAVE_ID", "1")),
                 "timeout": 1.0
             },
             "dc_meter": {
-                "port": os.getenv("DC_METER_PORT", "/dev/ttySIM0"),
-                "baudrate": int(os.getenv("DC_METER_BAUDRATE", "57600")),
-                "parity": os.getenv("DC_METER_PARITY", "N"),
+                "port": tcp_host,
+                "tcp_port": int(os.getenv("DC_METER_TCP_PORT", "5021")),
+                "use_tcp": True,
+                "baudrate": 57600,
+                "parity": "N",
                 "stopbits": 1,
                 "bytesize": 8,
                 "slave_id": int(os.getenv("DC_METER_SLAVE_ID", "1")),
                 "timeout": 1.0
             },
             "ac110v_meter": {
-                "port": os.getenv("AC110V_METER_PORT", "/dev/ttySIM0_1"),
-                "baudrate": int(os.getenv("AC110V_METER_BAUDRATE", "57600")),
-                "parity": os.getenv("AC110V_METER_PARITY", "N"),
+                "port": tcp_host,
+                "tcp_port": int(os.getenv("AC110V_METER_TCP_PORT", "5022")),
+                "use_tcp": True,
+                "baudrate": 57600,
+                "parity": "N",
                 "stopbits": 1,
                 "bytesize": 8,
                 "slave_id": int(os.getenv("AC110V_METER_SLAVE_ID", "2")),
                 "timeout": 1.0
             },
             "ac220v_meter": {
-                "port": os.getenv("AC220V_METER_PORT", "/dev/ttySIM0_2"),
-                "baudrate": int(os.getenv("AC220V_METER_BAUDRATE", "57600")),
-                "parity": os.getenv("AC220V_METER_PARITY", "N"),
+                "port": tcp_host,
+                "tcp_port": int(os.getenv("AC220V_METER_TCP_PORT", "5023")),
+                "use_tcp": True,
+                "baudrate": 57600,
+                "parity": "N",
                 "stopbits": 1,
                 "bytesize": 8,
                 "slave_id": int(os.getenv("AC220V_METER_SLAVE_ID", "3")),
                 "timeout": 1.0
             },
             "ac220v_3p_meter": {
-                "port": os.getenv("AC220V_3P_METER_PORT", "/dev/ttySIM0_3"),
-                "baudrate": int(os.getenv("AC220V_3P_METER_BAUDRATE", "57600")),
-                "parity": os.getenv("AC220V_3P_METER_PARITY", "N"),
+                "port": tcp_host,
+                "tcp_port": int(os.getenv("AC220V_3P_METER_TCP_PORT", "5024")),
+                "use_tcp": True,
+                "baudrate": 57600,
+                "parity": "N",
                 "stopbits": 1,
                 "bytesize": 8,
                 "slave_id": int(os.getenv("AC220V_3P_METER_SLAVE_ID", "4")),
                 "timeout": 1.0
             },
             "relay_io": {
-                "port": os.getenv("RELAY_IO_PORT", "/dev/ttySIM2"),
-                "baudrate": int(os.getenv("RELAY_IO_BAUDRATE", "115200")),
-                "parity": os.getenv("RELAY_IO_PARITY", "N"),
+                "port": tcp_host,
+                "tcp_port": int(os.getenv("RELAY_IO_TCP_PORT", "5027")),
+                "use_tcp": True,
+                "baudrate": 115200,
+                "parity": "N",
                 "stopbits": 1,
                 "bytesize": 8,
                 "slave_id": int(os.getenv("RELAY_IO_SLAVE_ID", "1")),
                 "timeout": 1.0
             },
             "pressure_positive": {
-                "port": os.getenv("PRESSURE_POSITIVE_PORT", "/dev/ttySIM3"),
-                "baudrate": int(os.getenv("PRESSURE_POSITIVE_BAUDRATE", "19200")),
-                "parity": os.getenv("PRESSURE_POSITIVE_PARITY", "E"),
+                "port": tcp_host,
+                "tcp_port": int(os.getenv("PRESSURE_POSITIVE_TCP_PORT", "5025")),
+                "use_tcp": True,
+                "baudrate": 19200,
+                "parity": "E",
                 "stopbits": 1,
                 "bytesize": 8,
                 "slave_id": int(os.getenv("PRESSURE_POSITIVE_SLAVE_ID", "2")),
                 "timeout": 1.0
             },
             "pressure_vacuum": {
-                "port": os.getenv("PRESSURE_VACUUM_PORT", "/dev/ttySIM3_1"),
-                "baudrate": int(os.getenv("PRESSURE_VACUUM_BAUDRATE", "19200")),
-                "parity": os.getenv("PRESSURE_VACUUM_PARITY", "E"),
+                "port": tcp_host,
+                "tcp_port": int(os.getenv("PRESSURE_VACUUM_TCP_PORT", "5026")),
+                "use_tcp": True,
+                "baudrate": 19200,
+                "parity": "E",
                 "stopbits": 1,
                 "bytesize": 8,
                 "slave_id": int(os.getenv("PRESSURE_VACUUM_SLAVE_ID", "3")),

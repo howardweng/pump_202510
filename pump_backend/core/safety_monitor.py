@@ -39,8 +39,9 @@ class SafetyMonitor:
 
     async def start(self):
         """啟動安全監控"""
-        # 1. 連線 IO 驅動
-        if not self.io_driver.connect():
+        # 1. 連線 IO 驅動（支援 TCP）
+        result = await self.io_driver.connect()
+        if not result:
             logger.critical("❌ IO 模組連線失敗，安全監控無法啟動！")
             return False
 

@@ -21,12 +21,14 @@ class RelayIODriver(ModbusDevice):
         config = get_device_config()["relay_io"]
         super().__init__(
             port=config["port"],
-            baudrate=config["baudrate"],
-            parity=config["parity"],
-            stopbits=config["stopbits"],
-            bytesize=config["bytesize"],
+            baudrate=config.get("baudrate", 115200),
+            parity=config.get("parity", "N"),
+            stopbits=config.get("stopbits", 1),
+            bytesize=config.get("bytesize", 8),
             slave_id=config["slave_id"],
-            timeout=config["timeout"]
+            timeout=config["timeout"],
+            use_tcp=config.get("use_tcp", False),
+            tcp_port=config.get("tcp_port", 502)
         )
         
         # 繼電器通道映射（CH1-CH8 對應 Coil 0x0000-0x0007）
@@ -125,31 +127,54 @@ class RelayIODriver(ModbusDevice):
 
     async def read_digital_inputs(self) -> Optional[int]:
         """
-        讀取數位輸入
+        讀取數位輸入（異步）
         
         Returns:
             8 位元整數，Bit0=緊急停止, Bit1=測試蓋狀態
             None 表示讀取失敗
         """
         try:
-            loop = asyncio.get_event_loop()
-            result = await loop.run_in_executor(
-                self._executor,
-                self._read_discrete_inputs_sync
-            )
-            if result is not None:
+            if self.use_tcp:
+                # TCP 讀取（異步）
+                result = await self.client.read_discrete_inputs(
+                    address=0x0000,
+                    count=8,
+                    slave=self.slave_id
+                )
+                
+                if result.isError():
+                    raise Exception(f"讀取數位輸入失敗: {result}")
+                
+                # 轉換為 8 位元整數
+                bits = result.bits[:8] if hasattr(result, 'bits') else []
+                value = sum(bit << i for i, bit in enumerate(bits))
                 self.status.update_success()
-            return result
+                return value
+            else:
+                # 串口讀取（同步，在執行緒池中執行）
+                loop = asyncio.get_event_loop()
+                result = await loop.run_in_executor(
+                    self._executor,
+                    self._read_discrete_inputs_sync
+                )
+                if result is not None:
+                    self.status.update_success()
+                return result
         except Exception as e:
             self.status.update_error()
             logger.error(f"❌ 讀取數位輸入失敗: {e}")
             return None
 
     def _read_discrete_inputs_sync(self) -> Optional[int]:
-        """讀取離散輸入（同步）"""
+        """讀取離散輸入（同步，僅用於串口）"""
+        # 注意：此方法僅在串口模式下使用
+        # TCP 模式使用異步方法 read_digital_inputs()
         if not self.connected:
-            if not self.connect():
+            # 同步連接（僅串口）
+            if not self.client.connect():
+                self.connected = False
                 return None
+            self.connected = True
         
         # 功能碼 0x02 (Read Discrete Inputs)
         # 讀取 Bit 0-7 (地址 0x0000-0x0007)
@@ -163,7 +188,7 @@ class RelayIODriver(ModbusDevice):
             raise Exception(f"讀取數位輸入失敗: {result}")
         
         # 轉換為 8 位元整數
-        bits = result.bits[:8]  # 只取前 8 位
+        bits = result.bits[:8] if hasattr(result, 'bits') else []  # 只取前 8 位
         value = sum(bit << i for i, bit in enumerate(bits))
         return value
 
@@ -184,9 +209,28 @@ class RelayIODriver(ModbusDevice):
             是否成功
         """
         try:
+            if self.use_tcp:
+                # TCP 模式：需要異步調用，但這裡是同步方法
+                # 安全監控器在專用執行緒中運行，需要特殊處理
+                import asyncio
+                try:
+                    loop = asyncio.get_event_loop()
+                    if loop.is_running():
+                        future = asyncio.run_coroutine_threadsafe(
+                            self.all_relays_off(),
+                            loop
+                        )
+                        return future.result(timeout=1.0)
+                    else:
+                        return loop.run_until_complete(self.all_relays_off())
+                except RuntimeError:
+                    return asyncio.run(self.all_relays_off())
+            
+            # 串口模式
             if not self.connected:
-                if not self.connect():
+                if not self.client.connect():
                     return False
+                self.connected = True
             
             # 使用功能碼 0x0F 寫入 8 個線圈為 False
             result = self.client.write_coils(
@@ -216,9 +260,27 @@ class RelayIODriver(ModbusDevice):
             是否成功
         """
         try:
+            if self.use_tcp:
+                # TCP 模式：需要異步調用
+                import asyncio
+                try:
+                    loop = asyncio.get_event_loop()
+                    if loop.is_running():
+                        future = asyncio.run_coroutine_threadsafe(
+                            self.set_relays({1: A, 2: B, 3: C, 4: D}),
+                            loop
+                        )
+                        return future.result(timeout=1.0)
+                    else:
+                        return loop.run_until_complete(self.set_relays({1: A, 2: B, 3: C, 4: D}))
+                except RuntimeError:
+                    return asyncio.run(self.set_relays({1: A, 2: B, 3: C, 4: D}))
+            
+            # 串口模式
             if not self.connected:
-                if not self.connect():
+                if not self.client.connect():
                     return False
+                self.connected = True
             
             # CH1-CH4 對應電磁閥 A-D
             values = [A, B, C, D] + [False] * 4  # 只設定前 4 個，其他保持關閉
@@ -246,9 +308,27 @@ class RelayIODriver(ModbusDevice):
             是否成功
         """
         try:
+            if self.use_tcp:
+                # TCP 模式：需要異步調用
+                import asyncio
+                try:
+                    loop = asyncio.get_event_loop()
+                    if loop.is_running():
+                        future = asyncio.run_coroutine_threadsafe(
+                            self.set_relays({5: False, 6: False, 7: False, 8: False}),
+                            loop
+                        )
+                        return future.result(timeout=1.0)
+                    else:
+                        return loop.run_until_complete(self.set_relays({5: False, 6: False, 7: False, 8: False}))
+                except RuntimeError:
+                    return asyncio.run(self.set_relays({5: False, 6: False, 7: False, 8: False}))
+            
+            # 串口模式
             if not self.connected:
-                if not self.connect():
+                if not self.client.connect():
                     return False
+                self.connected = True
             
             # CH5-CH8 對應電源開關
             values = [False] * 4 + [False] * 4  # 關閉所有電源

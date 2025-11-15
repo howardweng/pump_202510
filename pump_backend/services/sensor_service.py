@@ -59,7 +59,10 @@ class SensorService:
         
         connected = []
         for name, device in devices:
-            if device.connect():
+            # 使用異步連接（支援 TCP）
+            result = await device.connect()
+            
+            if result:
                 connected.append(name)
                 logger.info(f"✅ {name} 已連線")
             else:

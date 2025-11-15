@@ -19,12 +19,14 @@ class FlowMeterDriver(ModbusDevice):
         config = get_device_config()["flow_meter"]
         super().__init__(
             port=config["port"],
-            baudrate=config["baudrate"],
-            parity=config["parity"],
-            stopbits=config["stopbits"],
-            bytesize=config["bytesize"],
+            baudrate=config.get("baudrate", 19200),
+            parity=config.get("parity", "N"),
+            stopbits=config.get("stopbits", 1),
+            bytesize=config.get("bytesize", 8),
             slave_id=config["slave_id"],
-            timeout=config["timeout"]
+            timeout=config["timeout"],
+            use_tcp=config.get("use_tcp", False),
+            tcp_port=config.get("tcp_port", 502)
         )
 
     async def read_instantaneous_flow(self) -> Optional[float]:

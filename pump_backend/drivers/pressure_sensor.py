@@ -27,12 +27,14 @@ class PressureSensorDriver(ModbusDevice):
         
         super().__init__(
             port=config["port"],
-            baudrate=config["baudrate"],
-            parity=config["parity"],
-            stopbits=config["stopbits"],
-            bytesize=config["bytesize"],
+            baudrate=config.get("baudrate", 19200),
+            parity=config.get("parity", "E"),
+            stopbits=config.get("stopbits", 1),
+            bytesize=config.get("bytesize", 8),
             slave_id=config["slave_id"],
-            timeout=config["timeout"]
+            timeout=config["timeout"],
+            use_tcp=config.get("use_tcp", False),
+            tcp_port=config.get("tcp_port", 502)
         )
         self.sensor_type = sensor_type
 

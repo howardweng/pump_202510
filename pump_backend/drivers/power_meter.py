@@ -54,12 +54,14 @@ class SinglePhasePowerMeterDriver(ModbusDevice):
         
         super().__init__(
             port=config["port"],
-            baudrate=config["baudrate"],
-            parity=config["parity"],
-            stopbits=config["stopbits"],
-            bytesize=config["bytesize"],
+            baudrate=config.get("baudrate", 57600),
+            parity=config.get("parity", "N"),
+            stopbits=config.get("stopbits", 1),
+            bytesize=config.get("bytesize", 8),
             slave_id=config["slave_id"],
-            timeout=config["timeout"]
+            timeout=config["timeout"],
+            use_tcp=config.get("use_tcp", False),
+            tcp_port=config.get("tcp_port", 502)
         )
         self.meter_type = meter_type
 
@@ -169,12 +171,14 @@ class ThreePhasePowerMeterDriver(ModbusDevice):
         config = get_device_config()["ac220v_3p_meter"]
         super().__init__(
             port=config["port"],
-            baudrate=config["baudrate"],
-            parity=config["parity"],
-            stopbits=config["stopbits"],
-            bytesize=config["bytesize"],
+            baudrate=config.get("baudrate", 57600),
+            parity=config.get("parity", "N"),
+            stopbits=config.get("stopbits", 1),
+            bytesize=config.get("bytesize", 8),
             slave_id=config["slave_id"],
-            timeout=config["timeout"]
+            timeout=config["timeout"],
+            use_tcp=config.get("use_tcp", False),
+            tcp_port=config.get("tcp_port", 502)
         )
 
     async def read_voltage_phase(self, phase: str) -> Optional[float]:

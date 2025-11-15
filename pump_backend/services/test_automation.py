@@ -187,23 +187,44 @@ class TestAutomation:
         logger.info("🔧 測試初始化中...")
         
         try:
-            # TODO: 執行初始化操作
-            # 1. 檢查所有感測器連線
-            # 2. 設定測試參數
-            # 3. 準備數據記錄
+            # 1. 檢查所有感測器連線狀態
+            sensor_status = {
+                "flow_meter": self.sensors.flow_meter.connected if hasattr(self.sensors.flow_meter, 'connected') else False,
+                "pressure_positive": self.sensors.pressure_positive.connected if hasattr(self.sensors.pressure_positive, 'connected') else False,
+                "pressure_vacuum": self.sensors.pressure_vacuum.connected if hasattr(self.sensors.pressure_vacuum, 'connected') else False,
+            }
             
-            # 開始數據記錄
+            connected_sensors = [name for name, status in sensor_status.items() if status]
+            if not connected_sensors:
+                logger.warning("⚠️ 沒有感測器連線，但繼續初始化")
+            else:
+                logger.info(f"✅ 感測器連線狀態: {', '.join(connected_sensors)}")
+            
+            # 2. 檢查控制服務連線狀態
+            control_ready = self.control.io_driver.connected if hasattr(self.control.io_driver, 'connected') else False
+            if not control_ready:
+                logger.warning("⚠️ 控制服務未就緒，但繼續初始化")
+            else:
+                logger.info("✅ 控制服務已就緒")
+            
+            # 3. 設定測試參數（從 context 中讀取）
+            if context:
+                self.current_test_config = context
+                logger.info(f"📋 測試配置已載入: {context.get('test_id', 'N/A')}")
+            
+            # 4. 準備數據記錄
             if self.data_logger:
-                test_id = context.get("test_id", f"test_{int(time.time())}")
+                test_id = context.get("test_id", f"test_{int(time.time())}") if context else f"test_{int(time.time())}"
                 self.data_logger.start_test_logging(test_id)
+                logger.info(f"📝 數據記錄已準備: {test_id}")
             
-            await asyncio.sleep(0.5)  # 模擬初始化時間
+            await asyncio.sleep(0.5)  # 初始化完成延遲
             
             await self.state_machine.transition_to(TestState.READY)
             
         except Exception as e:
             logger.exception(f"❌ 初始化失敗: {e}")
-            await self.state_machine.transition_to(TestState.FAILED)
+            await self.state_machine.transition_to(TestState.FAILED, {"error": str(e)})
 
     async def _handle_ready(self, context: Optional[Dict] = None):
         """處理準備就緒狀態"""
@@ -231,15 +252,59 @@ class TestAutomation:
             "start_time": self.test_start_time
         })
         
-        # TODO: 執行測試流程
-        # 這裡應該根據測試配置執行具體的測試步驟
-        # 例如：啟動電源、監控數據、記錄結果等
-        
-        # 暫時：運行一段時間後自動完成
-        if context and context.get("duration"):
-            duration = context.get("duration", 60)
-            await asyncio.sleep(duration)
-            await self.state_machine.transition_to(TestState.COMPLETED)
+        # 執行測試流程
+        try:
+            config = context or self.current_test_config or {}
+            
+            # 1. 根據配置啟動電源（如果需要）
+            if config.get("power_on"):
+                power_type = config.get("power_type", "dc")
+                logger.info(f"🔌 啟動電源: {power_type}")
+                # 電源控制通過控制服務的 MQTT 命令處理，這裡只記錄日誌
+            
+            # 2. 根據配置控制閥門（如果需要）
+            if config.get("valve_state"):
+                valve_state = config.get("valve_state")
+                logger.info(f"🚰 設定閥門狀態: {valve_state}")
+                # 閥門控制通過控制服務的 MQTT 命令處理，這裡只記錄日誌
+            
+            # 3. 監控數據並記錄結果
+            # 數據記錄由數據記錄器自動從 MQTT 接收並記錄
+            logger.info("📊 開始監控感測器數據...")
+            
+            # 4. 運行指定時長或直到手動停止
+            duration = config.get("duration", 60)  # 預設 60 秒
+            
+            if duration > 0:
+                logger.info(f"⏱️ 測試將運行 {duration} 秒")
+                elapsed = 0
+                check_interval = 1.0  # 每秒檢查一次
+                
+                while elapsed < duration and self._running:
+                    await asyncio.sleep(check_interval)
+                    elapsed += check_interval
+                    
+                    # 定期發布狀態更新
+                    if int(elapsed) % 10 == 0:  # 每 10 秒更新一次
+                        await self.mqtt.publish(TEST_STATUS, {
+                            "state": TestState.RUNNING.value,
+                            "message": f"測試運行中 ({int(elapsed)}/{duration} 秒)",
+                            "elapsed": elapsed,
+                            "duration": duration
+                        })
+                
+                if elapsed >= duration:
+                    logger.info("✅ 測試時長已達到，完成測試")
+                    await self.state_machine.transition_to(TestState.COMPLETED)
+            else:
+                # 無時長限制，等待手動停止
+                logger.info("⏸️ 測試運行中（無時長限制，等待手動停止）")
+                while self._running:
+                    await asyncio.sleep(1.0)
+                    
+        except Exception as e:
+            logger.exception(f"❌ 測試運行異常: {e}")
+            await self.state_machine.transition_to(TestState.FAILED, {"error": str(e)})
 
     async def _handle_paused(self, context: Optional[Dict] = None):
         """處理暫停狀態"""

@@ -53,7 +53,7 @@ async def main():
     watchdog = Watchdog(mqtt_client=mqtt)
     sensors = SensorService(mqtt)
     control = ControlService(mqtt, safety)
-    data_logger = DataLogger()
+    data_logger = DataLogger(mqtt)
     automation = TestAutomation(mqtt, control, sensors, data_logger)
 
     try:

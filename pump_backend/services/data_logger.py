@@ -4,7 +4,7 @@ import csv
 import os
 import time
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Optional, Any
 from datetime import datetime
 from loguru import logger
 from core.mqtt_client import MQTTClient
@@ -27,7 +27,8 @@ class DataLogger:
     負責將感測器數據記錄到 CSV 文件
     """
 
-    def __init__(self, data_dir: str = "./data/test_records"):
+    def __init__(self, mqtt_client: MQTTClient, data_dir: str = "./data/test_records"):
+        self.mqtt = mqtt_client
         self.data_dir = Path(data_dir)
         self.data_dir.mkdir(parents=True, exist_ok=True)
         
@@ -35,6 +36,9 @@ class DataLogger:
         self.csv_file: Optional[csv.writer] = None
         self.csv_handle: Optional[file] = None
         self._running = False
+        
+        # 用於聚合感測器數據
+        self._sensor_data_cache: Dict[str, Any] = {}
 
     async def logging_loop(self):
         """
@@ -44,7 +48,19 @@ class DataLogger:
         """
         logger.info("🔄 數據記錄迴圈已啟動")
         
+        # 訂閱所有感測器主題
+        self.mqtt.subscribe(SENSOR_FLOW, self._handle_flow_data)
+        self.mqtt.subscribe(SENSOR_PRESSURE_POSITIVE, self._handle_pressure_positive_data)
+        self.mqtt.subscribe(SENSOR_PRESSURE_VACUUM, self._handle_pressure_vacuum_data)
+        self.mqtt.subscribe(SENSOR_POWER_DC, self._handle_power_dc_data)
+        self.mqtt.subscribe(SENSOR_POWER_AC110, self._handle_power_ac110_data)
+        self.mqtt.subscribe(SENSOR_POWER_AC220, self._handle_power_ac220_data)
+        self.mqtt.subscribe(SENSOR_POWER_AC220_3P, self._handle_power_ac220_3p_data)
+        
+        logger.info("📥 已訂閱所有感測器數據主題")
+        
         # 保持運行，等待測試開始
+        self._running = True
         while self._running:
             await asyncio.sleep(1.0)
 
@@ -66,6 +82,9 @@ class DataLogger:
         try:
             self.csv_handle = open(filename, 'w', newline='', encoding='utf-8')
             self.csv_file = csv.writer(self.csv_handle)
+            
+            # 清空數據緩存
+            self._sensor_data_cache.clear()
             
             # 寫入標題行
             self.csv_file.writerow([
@@ -104,16 +123,87 @@ class DataLogger:
             self.csv_handle = None
             self.csv_file = None
         
+        # 清空數據緩存
+        self._sensor_data_cache.clear()
+        
         if self.current_test_id:
             logger.info(f"✅ 測試記錄已停止: {self.current_test_id}")
             self.current_test_id = None
 
-    def log_sensor_data(self, data: Dict):
+    def _handle_flow_data(self, payload: Dict):
+        """處理流量計數據"""
+        self._sensor_data_cache.update({
+            "flow_instantaneous": payload.get("instantaneous"),
+            "flow_cumulative": payload.get("cumulative"),
+            "timestamp": payload.get("timestamp", time.time())
+        })
+        self._flush_data()
+
+    def _handle_pressure_positive_data(self, payload: Dict):
+        """處理正壓感測器數據"""
+        self._sensor_data_cache.update({
+            "pressure_positive": payload.get("pressure"),
+            "timestamp": payload.get("timestamp", time.time())
+        })
+        self._flush_data()
+
+    def _handle_pressure_vacuum_data(self, payload: Dict):
+        """處理負壓感測器數據"""
+        self._sensor_data_cache.update({
+            "pressure_vacuum": payload.get("pressure"),
+            "timestamp": payload.get("timestamp", time.time())
+        })
+        self._flush_data()
+
+    def _handle_power_dc_data(self, payload: Dict):
+        """處理 DC 電表數據"""
+        self._sensor_data_cache.update({
+            "dc_voltage": payload.get("voltage"),
+            "dc_current": payload.get("current"),
+            "dc_power": payload.get("power"),
+            "timestamp": payload.get("timestamp", time.time())
+        })
+        self._flush_data()
+
+    def _handle_power_ac110_data(self, payload: Dict):
+        """處理 AC110V 電表數據"""
+        self._sensor_data_cache.update({
+            "ac110_voltage": payload.get("voltage"),
+            "ac110_current": payload.get("current"),
+            "ac110_power": payload.get("power"),
+            "timestamp": payload.get("timestamp", time.time())
+        })
+        self._flush_data()
+
+    def _handle_power_ac220_data(self, payload: Dict):
+        """處理 AC220V 電表數據"""
+        self._sensor_data_cache.update({
+            "ac220_voltage": payload.get("voltage"),
+            "ac220_current": payload.get("current"),
+            "ac220_power": payload.get("power"),
+            "timestamp": payload.get("timestamp", time.time())
+        })
+        self._flush_data()
+
+    def _handle_power_ac220_3p_data(self, payload: Dict):
+        """處理 AC220V 3P 電表數據"""
+        self._sensor_data_cache.update({
+            "ac220_3p_voltage_a": payload.get("voltage_a"),
+            "ac220_3p_voltage_b": payload.get("voltage_b"),
+            "ac220_3p_voltage_c": payload.get("voltage_c"),
+            "ac220_3p_current_a": payload.get("current_a"),
+            "ac220_3p_current_b": payload.get("current_b"),
+            "ac220_3p_current_c": payload.get("current_c"),
+            "ac220_3p_total_power": payload.get("total_power"),
+            "timestamp": payload.get("timestamp", time.time())
+        })
+        self._flush_data()
+
+    def _flush_data(self):
         """
-        記錄感測器數據
+        將緩存的感測器數據寫入 CSV
         
-        Args:
-            data: 感測器數據字典
+        當有新的感測器數據到達時，將所有緩存的數據寫入一行
         """
         if not self.csv_file or not self.current_test_id:
             return
@@ -121,27 +211,27 @@ class DataLogger:
         try:
             # 提取數據
             row = [
-                data.get("timestamp", time.time()),
-                data.get("flow_instantaneous"),
-                data.get("flow_cumulative"),
-                data.get("pressure_positive"),
-                data.get("pressure_vacuum"),
-                data.get("dc_voltage"),
-                data.get("dc_current"),
-                data.get("dc_power"),
-                data.get("ac110_voltage"),
-                data.get("ac110_current"),
-                data.get("ac110_power"),
-                data.get("ac220_voltage"),
-                data.get("ac220_current"),
-                data.get("ac220_power"),
-                data.get("ac220_3p_voltage_a"),
-                data.get("ac220_3p_voltage_b"),
-                data.get("ac220_3p_voltage_c"),
-                data.get("ac220_3p_current_a"),
-                data.get("ac220_3p_current_b"),
-                data.get("ac220_3p_current_c"),
-                data.get("ac220_3p_total_power")
+                self._sensor_data_cache.get("timestamp", time.time()),
+                self._sensor_data_cache.get("flow_instantaneous"),
+                self._sensor_data_cache.get("flow_cumulative"),
+                self._sensor_data_cache.get("pressure_positive"),
+                self._sensor_data_cache.get("pressure_vacuum"),
+                self._sensor_data_cache.get("dc_voltage"),
+                self._sensor_data_cache.get("dc_current"),
+                self._sensor_data_cache.get("dc_power"),
+                self._sensor_data_cache.get("ac110_voltage"),
+                self._sensor_data_cache.get("ac110_current"),
+                self._sensor_data_cache.get("ac110_power"),
+                self._sensor_data_cache.get("ac220_voltage"),
+                self._sensor_data_cache.get("ac220_current"),
+                self._sensor_data_cache.get("ac220_power"),
+                self._sensor_data_cache.get("ac220_3p_voltage_a"),
+                self._sensor_data_cache.get("ac220_3p_voltage_b"),
+                self._sensor_data_cache.get("ac220_3p_voltage_c"),
+                self._sensor_data_cache.get("ac220_3p_current_a"),
+                self._sensor_data_cache.get("ac220_3p_current_b"),
+                self._sensor_data_cache.get("ac220_3p_current_c"),
+                self._sensor_data_cache.get("ac220_3p_total_power")
             ]
             
             self.csv_file.writerow(row)
@@ -149,6 +239,16 @@ class DataLogger:
             
         except Exception as e:
             logger.error(f"❌ 記錄數據失敗: {e}")
+
+    def log_sensor_data(self, data: Dict):
+        """
+        記錄感測器數據（保留此方法以向後兼容）
+        
+        Args:
+            data: 感測器數據字典
+        """
+        self._sensor_data_cache.update(data)
+        self._flush_data()
 
     def stop(self):
         """停止數據記錄服務"""

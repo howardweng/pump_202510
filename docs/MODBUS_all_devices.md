@@ -9,7 +9,15 @@
 
 ## 系統設備總覽
 
-系統共有 **8 台 MODBUS RTU 設備**，透過 **3 個 USB-RS485 轉換器** 連接至控制電腦。
+系統共有 **8 台 MODBUS RTU 設備**，透過 **4 個 USB-RS485 轉換器** 連接至控制電腦。
+
+| USB 轉換器 | 連接設備 | 數量 |
+|-----------|---------|------|
+| USB-Enhanced-SERIAL-A (CH344) | 電表 (DC/AC110/AC220/AC220-3P) | 4 台 |
+| USB-Enhanced-SERIAL-C (CH344) | 流量計 | 1 台 |
+| USB-Enhanced-SERIAL-D (CH344) | 繼電器 IO 模組 | 1 台 |
+| MOXA USB Serial Port | 壓力計 (正壓/真空) | 2 台 |
+| **總計** | **8 台設備** | **4 個轉換器** |
 
 ---
 

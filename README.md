@@ -27,8 +27,24 @@ pump_202510/
 ├── pump_app/                   # 前端應用
 │   └── ...
 │
-├── simulator/                  # 模擬器服務 (TODO)
+├── simulator/                  # MODBUS 模擬器服務
+│   ├── devices/                # 設備模擬器實作
+│   ├── config/                 # 配置文件
 │   └── ...
+│
+├── serial-bridge/              # 串口橋接器 (RTU 到 TCP)
+│   └── ...
+│
+├── admin-api/                  # 模擬器管理 API (FastAPI)
+│   ├── models/                 # 數據模型
+│   ├── routers/                # API 路由
+│   └── ...
+│
+└── admin-ui/                   # 模擬器管理 UI (React)
+    ├── src/
+    │   ├── pages/              # 頁面組件
+    │   └── api/                # API 客戶端
+    └── ...
 │
 └── docs/                       # 文檔
     ├── PRD.md                  # 產品需求文檔
@@ -51,10 +67,10 @@ cp env.example .env
 nano .env
 ```
 
-### 2. 啟動基礎設施
+### 2. 啟動服務
 
 ```bash
-# 啟動所有基礎設施服務（MQTT + PostgreSQL）
+# 啟動所有服務（基礎設施 + 模擬器）
 docker compose up -d
 
 # 查看服務狀態
@@ -69,6 +85,9 @@ docker compose logs -f
 ```bash
 # 只啟動基礎設施
 docker compose up -d mqtt-broker postgres
+
+# 啟動模擬器系統
+docker compose up -d modbus-simulator simulator-admin-api simulator-admin-ui
 
 # 啟動包含 pgAdmin（資料庫管理工具）
 docker compose --profile tools up -d
@@ -96,6 +115,20 @@ docker compose down -v
 | **PostgreSQL** | 5432 | 資料庫，儲存測試數據和歷史記錄 |
 | **pgAdmin** | 5050 | 資料庫管理工具（可選） |
 
+### 模擬器服務 ✅
+
+| 服務 | 端口 | 說明 |
+|------|------|------|
+| **MODBUS 模擬器** | 5020-5027 | 8 台 MODBUS 設備模擬器（流量計、電表、壓力計、繼電器 IO） |
+| **Admin API** | 8001 | FastAPI 管理介面，設備和場景管理 |
+| **Admin UI** | 3001 | React Web 管理介面 |
+
+**功能**:
+- ✅ 8 台設備模擬器（完全符合 MODBUS_all_devices.md 規格）
+- ✅ 設備狀態總覽和配置管理
+- ✅ 場景管理（創建、更新、刪除測試場景）
+- ✅ 串口橋接器（RTU 到 TCP）
+
 ### 後端服務 (TODO)
 
 - Python 後端服務
@@ -107,12 +140,6 @@ docker compose down -v
 - React 前端應用
 - 即時數據顯示
 - 測試控制介面
-
-### 模擬器服務 (TODO)
-
-- MODBUS 設備模擬器
-- 虛擬串口橋接器
-- Admin UI
 
 ---
 
@@ -133,6 +160,8 @@ docker compose down -v
 - MQTT Broker: `mqtt-broker`
 - PostgreSQL: `postgres`
 - pgAdmin: `pgadmin`
+- MODBUS 模擬器: `modbus-simulator`
+- Admin API: `simulator-admin-api`
 
 ---
 
@@ -177,6 +206,37 @@ conn = await asyncpg.connect(
 )
 ```
 
+### MODBUS 模擬器
+
+**Modbus TCP 連接**:
+```
+Host: localhost (從主機) 或 modbus-simulator (從容器內)
+Port: 5020-5027 (每台設備獨立端口)
+```
+
+**設備端口映射**:
+- 5020: 流量計
+- 5021: DC 電表
+- 5022: AC110V 電表
+- 5023: AC220V 電表
+- 5024: AC220V 3P 電表
+- 5025: 壓力計 (正壓)
+- 5026: 壓力計 (真空)
+- 5027: 繼電器 IO 模組
+
+### Admin API
+
+**API 端點**:
+- Base URL: http://localhost:8001
+- API 文檔: http://localhost:8001/docs
+- 健康檢查: http://localhost:8001/health
+
+### Admin UI
+
+**Web 介面**:
+- URL: http://localhost:3001
+- 功能: 設備狀態總覽、設備配置、場景管理
+
 ---
 
 ## 📚 文檔
@@ -212,15 +272,24 @@ docker compose exec postgres psql -U pump_user -d pump_testing -c "SELECT versio
 ## ⚠️ 注意事項
 
 1. **數據持久化**: 所有數據都保存在 Docker volumes 中
-2. **端口衝突**: 確保端口 1883, 8083, 5432, 5050 未被佔用
+2. **端口衝突**: 確保以下端口未被佔用：
+   - 基礎設施: 1883, 8083, 5432, 5050
+   - 模擬器: 5020-5027, 8001, 3001
 3. **環境變數**: 生產環境請修改 `.env` 中的預設密碼
 4. **網路隔離**: 所有服務都在 `pump-network` 網路中
+5. **模擬器使用**: 模擬器用於開發和測試，可通過 Admin UI 管理設備配置
 
 ---
 
 ## 📝 更新日誌
 
-- **2025.11.15**: 創建統一 Docker Compose 配置，整合基礎設施服務
+- **2025.11.15**: 
+  - ✅ 完成 MODBUS 模擬器系統實作
+    - MODBUS 模擬器服務（8台設備）
+    - 串口橋接器（RTU 到 TCP）
+    - Admin API（FastAPI）
+    - Admin UI（React）
+  - ✅ 創建統一 Docker Compose 配置，整合基礎設施服務
 
 ---
 

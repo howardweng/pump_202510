@@ -31,7 +31,8 @@ class PressureSensorSimulator(BaseModbusSimulator):
         }
         super().__init__(slave_id, port, config)
         
-        # 初始化寄存器 0x1000
+        # 初始化寄存器 0x1000（設置初始值為 0）
+        # 注意：update_register 可以在任何時候調用，因為它只是更新數據存儲
         self.update_register(0x1000, 0)
     
     async def simulate_loop(self):

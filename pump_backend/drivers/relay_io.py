@@ -72,15 +72,43 @@ class RelayIODriver(ModbusDevice):
             是否成功
         """
         try:
-            loop = asyncio.get_event_loop()
-            success = await loop.run_in_executor(
-                self._executor,
-                self._write_multiple_coils_sync,
-                states
-            )
-            if success:
+            if self.use_tcp:
+                # TCP 模式：使用異步方法
+                # 轉換為地址列表和值列表
+                addresses = []
+                values = []
+                for channel, state in sorted(states.items()):
+                    if 1 <= channel <= 8:
+                        addresses.append(channel - 1)
+                        values.append(state)
+                
+                if not addresses:
+                    return False
+                
+                # 使用功能碼 0x0F (Write Multiple Coils)
+                # 注意：pymodbus 3.11+ 使用 device_id 參數
+                result = await self.client.write_coils(
+                    address=addresses[0],
+                    values=values,
+                    device_id=self.slave_id
+                )
+                
+                if result.isError():
+                    raise Exception(f"寫入多個繼電器失敗: {result}")
+                
                 self.status.update_success()
-            return success
+                return True
+            else:
+                # 串口模式：使用同步方法（在執行緒池中執行）
+                loop = asyncio.get_event_loop()
+                success = await loop.run_in_executor(
+                    self._executor,
+                    self._write_multiple_coils_sync,
+                    states
+                )
+                if success:
+                    self.status.update_success()
+                return success
         except Exception as e:
             self.status.update_error()
             logger.error(f"❌ 設定多個繼電器失敗: {e}")
@@ -136,10 +164,11 @@ class RelayIODriver(ModbusDevice):
         try:
             if self.use_tcp:
                 # TCP 讀取（異步）
+                # 注意：pymodbus 3.11+ 使用 device_id 參數
                 result = await self.client.read_discrete_inputs(
                     address=0x0000,
                     count=8,
-                    slave=self.slave_id
+                    device_id=self.slave_id
                 )
                 
                 if result.isError():

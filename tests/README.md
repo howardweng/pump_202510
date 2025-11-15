@@ -9,7 +9,7 @@
 - 單元測試
 - 整合測試
 - 異步測試
-- 中文測試報告（帶時間戳）
+- 中文 Markdown 測試報告（帶時間戳）
 
 ---
 
@@ -35,10 +35,13 @@ docker compose up -d mqtt-broker modbus-simulator
 ### 3. 運行所有測試
 
 ```bash
-# 使用測試腳本（推薦）
+# 使用測試腳本（推薦，會生成 Markdown 報告）
 python tests/run_tests.py
 
-# 或直接使用 pytest
+# 或直接使用 pytest（生成 Markdown 報告）
+pytest tests/ -v --md-report=tests/reports/report.md
+
+# 或使用傳統的 HTML 報告（如果仍需要）
 pytest tests/ -v --html=tests/reports/report.html --self-contained-html
 ```
 
@@ -50,10 +53,10 @@ pytest tests/ -v --html=tests/reports/report.html --self-contained-html
 tests/
 ├── conftest.py              # Pytest 配置和共享 Fixtures
 ├── pytest.ini               # Pytest 配置文件
-├── run_tests.py             # 測試運行腳本（生成中文報告）
+├── run_tests.py             # 測試運行腳本（生成 Markdown 報告）
+├── markdown_report.py       # Markdown 報告生成插件
 ├── reports/                 # 測試報告目錄
-│   ├── custom.css          # 報告樣式
-│   └── 測試報告_*.html     # 生成的報告文件
+│   └── 測試報告_*.md       # 生成的 Markdown 報告文件
 │
 ├── test_modbus_base.py      # MODBUS 基礎驅動測試
 ├── test_flow_meter.py       # 流量計驅動測試
@@ -97,16 +100,30 @@ pytest -m "not requires_simulator"
 
 測試報告保存在 `tests/reports/` 目錄，文件名格式：
 ```
-測試報告_YYYYMMDD_HHMMSS.html
+測試報告_YYYYMMDD_HHMMSS.md
 ```
+
+### 報告格式
+
+測試報告以 **Markdown** 格式生成，包含：
+- 📊 測試摘要（總數、通過、失敗、跳過等）
+- 📋 詳細測試結果（按結果分組）
+- ❌ 失敗測試的錯誤詳情和日誌
+- ⏱️ 每個測試的執行時間
 
 ### 查看報告
 
 ```bash
-# 打開最新的報告
-ls -t tests/reports/*.html | head -1 | xargs xdg-open  # Linux
-# 或
-open $(ls -t tests/reports/*.html | head -1)  # Mac
+# 查看最新的 Markdown 報告
+cat $(ls -t tests/reports/*.md | head -1)
+
+# 或在編輯器中打開
+code $(ls -t tests/reports/*.md | head -1)  # VS Code
+vim $(ls -t tests/reports/*.md | head -1)   # Vim
+nano $(ls -t tests/reports/*.md | head -1)  # Nano
+
+# 在瀏覽器中預覽（需要 Markdown 預覽插件）
+xdg-open $(ls -t tests/reports/*.md | head -1)  # Linux
 ```
 
 ---

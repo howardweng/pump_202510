@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""運行測試並生成中文報告"""
+"""運行測試並生成中文 Markdown 報告"""
 import subprocess
 import sys
 from pathlib import Path
@@ -15,7 +15,7 @@ reports_dir.mkdir(parents=True, exist_ok=True)
 
 # 生成時間戳
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-report_file = reports_dir / f"測試報告_{timestamp}.html"
+report_file = reports_dir / f"測試報告_{timestamp}.md"
 
 print("="*60)
 print("🧪 幫浦測試平台 - 自動化測試")
@@ -31,9 +31,7 @@ cmd = [
     str(tests_dir),
     "-v",
     "--tb=short",
-    f"--html={report_file}",
-    "--self-contained-html",
-    "--css=tests/reports/custom.css",
+    f"--md-report={report_file}",
     "--color=yes"
 ]
 
@@ -45,8 +43,8 @@ try:
     if result.returncode == 0:
         print("✅ 所有測試通過！")
     else:
-        print(f"⚠️ 測試完成，但有 {result.returncode} 個失敗項目")
-    print(f"📊 詳細報告: {report_file}")
+        print(f"⚠️ 測試完成，但有失敗項目")
+    print(f"📝 Markdown 報告: {report_file}")
     print("="*60)
     
     sys.exit(result.returncode)

@@ -17,7 +17,7 @@ class BaseModbusSimulator:
         self.store = ModbusDeviceContext(
             di=ModbusSequentialDataBlock(0, [0]*100),  # Discrete Inputs
             co=ModbusSequentialDataBlock(0, [0]*100),  # Coils
-            hr=ModbusSequentialDataBlock(0, [0]*1000), # Holding Registers
+            hr=ModbusSequentialDataBlock(0, [0]*5000), # Holding Registers (支持到 0x1000+)
             ir=ModbusSequentialDataBlock(0, [0]*100)   # Input Registers
         )
         self.context = ModbusServerContext(devices={slave_id: self.store}, single=False)

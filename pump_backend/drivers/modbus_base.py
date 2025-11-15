@@ -7,7 +7,7 @@ from pymodbus.exceptions import ModbusException
 from loguru import logger
 from typing import Optional, List
 from tenacity import retry, stop_after_attempt, wait_fixed
-from models.device_health import DeviceStatus, DeviceHealth
+from pump_backend.models.device_health import DeviceStatus, DeviceHealth
 from config.settings import settings
 
 
@@ -94,6 +94,8 @@ class ModbusDevice:
                 await self.client.connect()
                 if hasattr(self.client, 'connected') and self.client.connected:
                     self.connected = True
+                    # 連接成功後更新健康狀態
+                    self.status.update_success()
                     logger.info(
                         f"✅ MODBUS TCP 已連線: {self.port}:{self.tcp_port} "
                         f"(Slave ID: {self.slave_id})"
@@ -119,6 +121,8 @@ class ModbusDevice:
         try:
             if self.client.connect():
                 self.connected = True
+                # 連接成功後更新健康狀態
+                self.status.update_success()
                 logger.info(
                     f"✅ MODBUS RTU 已連線: {self.port} "
                     f"(Slave ID: {self.slave_id})"
@@ -142,10 +146,11 @@ class ModbusDevice:
         try:
             if self.use_tcp:
                 # TCP 讀取（異步）
+                # 注意：pymodbus 3.11+ 使用 device_id 參數
                 result = await self.client.read_holding_registers(
                     address=address,
                     count=count,
-                    slave=self.slave_id
+                    device_id=self.slave_id
                 )
             else:
                 # 串口讀取（同步，在執行緒池中執行）
@@ -219,10 +224,11 @@ class ModbusDevice:
         try:
             if self.use_tcp:
                 # TCP 寫入（異步）
+                # 注意：pymodbus 3.11+ 使用 device_id 參數
                 result = await self.client.write_coil(
                     address=address,
                     value=value,
-                    slave=self.slave_id
+                    device_id=self.slave_id
                 )
             else:
                 # 串口寫入（同步，在執行緒池中執行）
@@ -266,10 +272,11 @@ class ModbusDevice:
         try:
             if self.use_tcp:
                 # TCP 讀取（異步）
+                # 注意：pymodbus 3.11+ 使用 device_id 參數
                 result = await self.client.read_discrete_inputs(
                     address=address,
                     count=count,
-                    slave=self.slave_id
+                    device_id=self.slave_id
                 )
             else:
                 # 串口讀取（同步，在執行緒池中執行）

@@ -2,7 +2,7 @@
 from enum import Enum
 from typing import Optional, Callable, Dict, Any
 from loguru import logger
-from models.enums import TestState
+from pump_backend.models.enums import TestState
 
 
 class StateMachine:

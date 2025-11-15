@@ -9,6 +9,9 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(project_root / "pump_backend"))
 
+# 確保 markdown_report 插件被載入
+pytest_plugins = ["tests.markdown_report"]
+
 
 @pytest.fixture(scope="session")
 def event_loop():

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getDevices, updateDevice } from '../api/devices'
 import { useMQTT } from '../hooks/useMQTT'
@@ -8,7 +8,8 @@ function Dashboard() {
   const { data: devices, isLoading, error } = useQuery({
     queryKey: ['devices'],
     queryFn: getDevices,
-    refetchInterval: 2000, // 每 2 秒刷新一次
+    refetchInterval: 5000, // 每 5 秒刷新一次（減少頻率以避免閃爍）
+    staleTime: 3000, // 數據在 3 秒內被視為新鮮，不會自動重新獲取
   })
 
   // 更新設備狀態的 mutation
@@ -112,8 +113,14 @@ function Dashboard() {
   }
 
   // 實時數據顯示組件
-  const RealtimeDataDisplay = ({ device }) => {
+  const RealtimeDataDisplay = React.memo(({ device }) => {
     const { realtimeData, lastUpdate } = useMQTT(device.id, device.type, device.enabled)
+
+    // 使用 useMemo 穩定 raw_registers 數據，避免閃爍
+    // 使用 JSON.stringify 進行深度比較，而不是對象引用比較
+    const stableRawRegisters = useMemo(() => {
+      return realtimeData?.raw_registers || null
+    }, [JSON.stringify(realtimeData?.raw_registers)])
 
     if (!device.enabled) {
       return (
@@ -266,8 +273,8 @@ function Dashboard() {
           </div>
           {renderData()}
           
-          {/* 寄存器原始數據顯示 */}
-          {realtimeData.raw_registers && (
+          {/* 寄存器原始數據顯示 - 使用穩定的數據避免閃爍 */}
+          {stableRawRegisters && (
             <div className="mt-3 pt-3 border-t border-emerald-200">
               <div className="text-xs font-semibold text-emerald-700 mb-2">📡 Modbus 寄存器原始數據</div>
               <div className="space-y-2">
@@ -275,18 +282,18 @@ function Dashboard() {
                 <div className="text-xs">
                   <span className="text-slate-600 font-medium">完整響應 (Slave+FC+Len+Data):</span>
                   <code className="ml-2 px-2 py-1 bg-slate-900 text-emerald-400 font-mono rounded text-xs break-all">
-                    {realtimeData.raw_registers.hex_raw || 'N/A'}
+                    {stableRawRegisters.hex_raw || 'N/A'}
                   </code>
                 </div>
                 
                 {/* 寄存器詳細列表 */}
-                {realtimeData.raw_registers.register_map && realtimeData.raw_registers.register_map.length > 0 && (
+                {stableRawRegisters.register_map && stableRawRegisters.register_map.length > 0 && (
                   <div className="text-xs">
                     <span className="text-slate-600 font-medium mb-1 block">寄存器詳細值:</span>
                     <div className="bg-slate-50 rounded p-2 max-h-32 overflow-y-auto">
                       <div className="grid grid-cols-1 gap-1">
-                        {realtimeData.raw_registers.register_map.map((reg, idx) => (
-                          <div key={idx} className="flex items-center justify-between text-xs font-mono">
+                        {stableRawRegisters.register_map.map((reg, idx) => (
+                          <div key={`${reg.address_hex}-${reg.value}-${idx}`} className="flex items-center justify-between text-xs font-mono">
                             <span className="text-slate-600">
                               {reg.address_hex}:
                             </span>
@@ -302,13 +309,13 @@ function Dashboard() {
                 
                 {/* 元數據 */}
                 <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 pt-1 border-t border-slate-200">
-                  <span>起始: 0x{realtimeData.raw_registers.start_address?.toString(16).toUpperCase().padStart(4, '0') || '0000'}</span>
+                  <span>起始: 0x{stableRawRegisters.start_address?.toString(16).toUpperCase().padStart(4, '0') || '0000'}</span>
                   <span>•</span>
-                  <span>數量: {realtimeData.raw_registers.count || 0}</span>
+                  <span>數量: {stableRawRegisters.count || 0}</span>
                   <span>•</span>
-                  <span>Slave: {realtimeData.raw_registers.slave_id || 'N/A'}</span>
+                  <span>Slave: {stableRawRegisters.slave_id || 'N/A'}</span>
                   <span>•</span>
-                  <span>FC: 0x{(realtimeData.raw_registers.function_code || 3).toString(16).toUpperCase().padStart(2, '0')}</span>
+                  <span>FC: 0x{(stableRawRegisters.function_code || 3).toString(16).toUpperCase().padStart(2, '0')}</span>
                 </div>
               </div>
             </div>
@@ -316,7 +323,11 @@ function Dashboard() {
         </div>
       </div>
     )
-  }
+  }, (prevProps, nextProps) => {
+    // 自定義比較函數，只在設備 ID 或 enabled 狀態改變時重新渲染
+    return prevProps.device.id === nextProps.device.id && 
+           prevProps.device.enabled === nextProps.device.enabled
+  })
 
   return (
     <div>

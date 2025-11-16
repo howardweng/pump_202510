@@ -25,12 +25,14 @@ POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "pump_password_change_me")
 
 async def get_db_connection():
     """獲取資料庫連接"""
+    logger.debug(f"🔌 嘗試連接資料庫: host={POSTGRES_HOST}, port={POSTGRES_PORT}, db={POSTGRES_DB}, user={POSTGRES_USER}")
     return await asyncpg.connect(
         host=POSTGRES_HOST,
         port=POSTGRES_PORT,
         database=POSTGRES_DB,
         user=POSTGRES_USER,
-        password=POSTGRES_PASSWORD
+        password=POSTGRES_PASSWORD,
+        ssl=False  # 本地開發環境不需要 SSL
     )
 
 

@@ -172,8 +172,21 @@ async def update_device(device_id: str, update: DeviceUpdate):
         if update.config is not None:
             device_data["config"].update(update.config)
         
-        # TODO: 發送更新到模擬器服務（通過 MQTT 或直接 API 調用）
-        # 這裡暫時只更新本地配置
+        # 發布更新到 MQTT
+        try:
+            from mqtt_client import mqtt_manager
+            from modbus_reader import modbus_reader
+            # 讀取 Modbus 寄存器原始數據
+            raw_registers = await modbus_reader.read_registers(device_id, device_data)
+            await mqtt_manager.publish_device_data(
+                device_id=device_id,
+                device_type=device_data["type"],
+                config=device_data["config"],
+                enabled=device_data["enabled"],
+                raw_registers=raw_registers
+            )
+        except Exception as e:
+            logger.warning(f"⚠️ 發布 MQTT 數據失敗: {e}")
         
         logger.info(f"設備 {device_id} 已更新: enabled={device_data['enabled']}, config={update.config}")
         

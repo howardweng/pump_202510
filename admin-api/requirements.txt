@@ -6,6 +6,7 @@ asyncpg>=0.29.0
 aiomqtt>=2.0.0
 python-dotenv>=1.0.0
 loguru>=0.7.0
+pymodbus>=3.11.0
 
 
 

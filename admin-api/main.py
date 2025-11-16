@@ -2,15 +2,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from routers import devices, scenarios
-from routers.scenarios import init_db
 from loguru import logger
 import sys
 import os
+import asyncio
 from pathlib import Path
 from dotenv import load_dotenv
 
 # 載入環境變數（優先載入 .env.local，如果不存在則載入 .env）
+# 注意：必須在導入 routers 之前載入環境變數
 env_local = Path(__file__).parent / ".env.local"
 env_file = Path(__file__).parent / ".env"
 if env_local.exists():
@@ -20,15 +20,55 @@ elif env_file.exists():
     load_dotenv(env_file)
     logger.info(f"✅ 已載入環境變數: {env_file}")
 
+# 在載入環境變數後才導入 routers
+from routers import devices, scenarios
+from routers.scenarios import init_db
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """應用生命週期管理"""
     # 啟動時初始化資料庫
     await init_db()
+    
+    # 連接 MQTT
+    from mqtt_client import mqtt_manager
+    from routers.devices import DEVICES
+    try:
+        await mqtt_manager.connect()
+        
+        # 啟動定期發布任務
+        async def periodic_publish():
+            """定期發布所有設備數據（每 2 秒）"""
+            while True:
+                try:
+                    await asyncio.sleep(2.0)
+                    await mqtt_manager.publish_all_devices(DEVICES)
+                except asyncio.CancelledError:
+                    break
+                except Exception as e:
+                    logger.error(f"❌ 定期發布失敗: {e}")
+        
+        publish_task = asyncio.create_task(periodic_publish())
+    except Exception as e:
+        logger.warning(f"⚠️ MQTT 連接失敗，將在需要時重試: {e}")
+        publish_task = None
+    
     logger.info("✅ Admin API 已啟動")
     yield
     # 關閉時清理資源
+    if publish_task:
+        publish_task.cancel()
+        try:
+            await publish_task
+        except asyncio.CancelledError:
+            pass
+    
+    # 關閉 Modbus 連接
+    from modbus_reader import modbus_reader
+    await modbus_reader.close_all()
+    
+    await mqtt_manager.disconnect()
     logger.info("🛑 Admin API 已關閉")
 
 # 配置日誌

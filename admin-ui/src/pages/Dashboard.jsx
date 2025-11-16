@@ -1,5 +1,7 @@
+import React from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getDevices, updateDevice } from '../api/devices'
+import { useMQTT } from '../hooks/useMQTT'
 
 function Dashboard() {
   const queryClient = useQueryClient()
@@ -109,6 +111,213 @@ function Dashboard() {
     }
   }
 
+  // 實時數據顯示組件
+  const RealtimeDataDisplay = ({ device }) => {
+    const { realtimeData, lastUpdate } = useMQTT(device.id, device.type, device.enabled)
+
+    if (!device.enabled) {
+      return (
+        <div className="mt-4 pt-4 border-t border-slate-200">
+          <div className="bg-slate-100 p-3 rounded-lg">
+            <div className="text-sm font-semibold text-slate-500 mb-1">實時數據</div>
+            <div className="text-xs text-slate-400">設備已停止 - 無數據</div>
+          </div>
+        </div>
+      )
+    }
+
+    if (!realtimeData) {
+      return (
+        <div className="mt-4 pt-4 border-t border-slate-200">
+          <div className="bg-amber-50 p-3 rounded-lg border border-amber-200">
+            <div className="text-sm font-semibold text-amber-700 mb-1">實時數據</div>
+            <div className="text-xs text-amber-600">等待數據中...</div>
+          </div>
+        </div>
+      )
+    }
+
+    const formatTime = (date) => {
+      if (!date) return '未知'
+      return date.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+    }
+
+    const renderData = () => {
+      switch (device.type) {
+        case 'flow_meter':
+          return (
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-slate-600">瞬时流量:</span>
+                <span className="text-sm font-bold text-blue-600">
+                  {realtimeData.instantaneous_flow?.toFixed(2) || 'N/A'} L/min
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-slate-600">累積流量:</span>
+                <span className="text-sm font-bold text-indigo-600">
+                  {realtimeData.cumulative_flow?.toFixed(2) || 'N/A'} L
+                </span>
+              </div>
+              <div className="text-xs text-slate-500 mt-2 pt-2 border-t border-slate-200">
+                💡 解釋: 流量計正在讀取水流數據，瞬时流量表示當前流速，累積流量表示總流量
+              </div>
+            </div>
+          )
+        
+        case 'pressure_sensor':
+          const unit = device.id.includes('vacuum') ? 'kPa' : 'kg/cm²'
+          return (
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-slate-600">壓力值:</span>
+                <span className="text-sm font-bold text-rose-600">
+                  {realtimeData.pressure?.toFixed(2) || 'N/A'} {unit}
+                </span>
+              </div>
+              <div className="text-xs text-slate-500 mt-2 pt-2 border-t border-slate-200">
+                💡 解釋: 壓力感測器正在讀取壓力數據，{device.id.includes('vacuum') ? '真空壓力' : '正壓'}值應與配置值一致
+              </div>
+            </div>
+          )
+        
+        case 'single_phase_power_meter':
+          return (
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-slate-600">電壓:</span>
+                <span className="text-sm font-bold text-amber-600">
+                  {realtimeData.voltage?.toFixed(1) || 'N/A'} V
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-slate-600">電流:</span>
+                <span className="text-sm font-bold text-emerald-600">
+                  {realtimeData.current?.toFixed(2) || 'N/A'} A
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-slate-600">功率:</span>
+                <span className="text-sm font-bold text-purple-600">
+                  {realtimeData.active_power?.toFixed(1) || 'N/A'} W
+                </span>
+              </div>
+              <div className="text-xs text-slate-500 mt-2 pt-2 border-t border-slate-200">
+                💡 解釋: 電表正在讀取電力數據，電壓×電流≈功率，數據應與配置值一致
+              </div>
+            </div>
+          )
+        
+        case 'three_phase_power_meter':
+          return (
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-slate-600">合相功率:</span>
+                <span className="text-sm font-bold text-violet-600">
+                  {realtimeData.power_total?.toFixed(2) || 'N/A'} kW
+                </span>
+              </div>
+              <div className="grid grid-cols-3 gap-1 text-xs">
+                <div>
+                  <span className="text-slate-500">A相:</span>
+                  <span className="ml-1 font-semibold text-slate-700">
+                    {realtimeData.voltage_a?.toFixed(0) || 'N/A'}V
+                  </span>
+                </div>
+                <div>
+                  <span className="text-slate-500">B相:</span>
+                  <span className="ml-1 font-semibold text-slate-700">
+                    {realtimeData.voltage_b?.toFixed(0) || 'N/A'}V
+                  </span>
+                </div>
+                <div>
+                  <span className="text-slate-500">C相:</span>
+                  <span className="ml-1 font-semibold text-slate-700">
+                    {realtimeData.voltage_c?.toFixed(0) || 'N/A'}V
+                  </span>
+                </div>
+              </div>
+              <div className="text-xs text-slate-500 mt-2 pt-2 border-t border-slate-200">
+                💡 解釋: 三相電表正在讀取三相電力數據，合相功率為三相功率總和
+              </div>
+            </div>
+          )
+        
+        default:
+          return (
+            <div className="text-xs text-slate-500">
+              <pre className="bg-slate-50 p-2 rounded text-xs overflow-x-auto">
+                {JSON.stringify(realtimeData, null, 2)}
+              </pre>
+            </div>
+          )
+      }
+    }
+
+    return (
+      <div className="mt-4 pt-4 border-t border-slate-200">
+        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 p-3 rounded-lg border border-emerald-200">
+          <div className="flex justify-between items-center mb-2">
+            <div className="text-sm font-semibold text-emerald-700">實時數據</div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+              <span className="text-xs text-emerald-600">{formatTime(lastUpdate)}</span>
+            </div>
+          </div>
+          {renderData()}
+          
+          {/* 寄存器原始數據顯示 */}
+          {realtimeData.raw_registers && (
+            <div className="mt-3 pt-3 border-t border-emerald-200">
+              <div className="text-xs font-semibold text-emerald-700 mb-2">📡 Modbus 寄存器原始數據</div>
+              <div className="space-y-2">
+                {/* 完整響應格式 */}
+                <div className="text-xs">
+                  <span className="text-slate-600 font-medium">完整響應 (Slave+FC+Len+Data):</span>
+                  <code className="ml-2 px-2 py-1 bg-slate-900 text-emerald-400 font-mono rounded text-xs break-all">
+                    {realtimeData.raw_registers.hex_raw || 'N/A'}
+                  </code>
+                </div>
+                
+                {/* 寄存器詳細列表 */}
+                {realtimeData.raw_registers.register_map && realtimeData.raw_registers.register_map.length > 0 && (
+                  <div className="text-xs">
+                    <span className="text-slate-600 font-medium mb-1 block">寄存器詳細值:</span>
+                    <div className="bg-slate-50 rounded p-2 max-h-32 overflow-y-auto">
+                      <div className="grid grid-cols-1 gap-1">
+                        {realtimeData.raw_registers.register_map.map((reg, idx) => (
+                          <div key={idx} className="flex items-center justify-between text-xs font-mono">
+                            <span className="text-slate-600">
+                              {reg.address_hex}:
+                            </span>
+                            <span className="text-slate-800 font-semibold">
+                              {reg.value} (0x{reg.value.toString(16).toUpperCase().padStart(4, '0')})
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {/* 元數據 */}
+                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 pt-1 border-t border-slate-200">
+                  <span>起始: 0x{realtimeData.raw_registers.start_address?.toString(16).toUpperCase().padStart(4, '0') || '0000'}</span>
+                  <span>•</span>
+                  <span>數量: {realtimeData.raw_registers.count || 0}</span>
+                  <span>•</span>
+                  <span>Slave: {realtimeData.raw_registers.slave_id || 'N/A'}</span>
+                  <span>•</span>
+                  <span>FC: 0x{(realtimeData.raw_registers.function_code || 3).toString(16).toUpperCase().padStart(2, '0')}</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div>
       <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">設備狀態總覽</h2>
@@ -123,8 +332,8 @@ function Dashboard() {
               <h3 className="text-xl font-bold text-slate-800">{device.name}</h3>
               <div className="flex items-center gap-3">
                 <div className={`w-4 h-4 rounded-full ${getStatusColor(device.status)} animate-pulse`}></div>
-                {/* 開關切換 */}
-                <label className="relative inline-flex items-center cursor-pointer">
+                {/* 現代化開關切換 */}
+                <label className="relative inline-flex items-center cursor-pointer group">
                   <input
                     type="checkbox"
                     checked={device.enabled}
@@ -132,9 +341,19 @@ function Dashboard() {
                     disabled={updateDeviceMutation.isPending}
                     className="sr-only peer"
                   />
-                  <div className="w-12 h-6 bg-gradient-to-r from-slate-300 to-slate-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-emerald-500 peer-checked:to-teal-500 shadow-lg"></div>
-                  <span className={`ml-3 text-sm font-semibold ${device.enabled ? 'text-emerald-600' : 'text-slate-500'}`}>
-                    {device.enabled ? '開啟' : '關閉'}
+                  {/* 開關背景 */}
+                  <div className="relative w-14 h-7 bg-gradient-to-r from-slate-300 via-slate-400 to-slate-500 rounded-full shadow-inner transition-all duration-300 ease-in-out peer-checked:bg-gradient-to-r peer-checked:from-emerald-400 peer-checked:via-emerald-500 peer-checked:to-teal-500 peer-checked:shadow-lg peer-checked:shadow-emerald-500/50 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300/50 peer-focus:ring-offset-2">
+                    {/* 開關按鈕 */}
+                    <div className="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full shadow-lg transform transition-transform duration-300 ease-in-out peer-checked:translate-x-7 peer-checked:shadow-xl flex items-center justify-center">
+                      {/* 開啟狀態圖標 (✓) */}
+                      <svg className="w-3.5 h-3.5 text-emerald-500 opacity-0 peer-checked:opacity-100 transition-opacity duration-200 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  </div>
+                  {/* 狀態文字 */}
+                  <span className={`ml-3 text-sm font-bold transition-colors duration-200 ${device.enabled ? 'text-emerald-600' : 'text-slate-500'}`}>
+                    {device.enabled ? 'ON' : 'OFF'}
                   </span>
                 </label>
               </div>
@@ -312,6 +531,9 @@ function Dashboard() {
                 )}
               </div>
             </div>
+
+            {/* 實時數據顯示 */}
+            <RealtimeDataDisplay device={device} />
           </div>
         ))}
       </div>

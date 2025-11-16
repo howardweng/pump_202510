@@ -1,11 +1,21 @@
-import { useQuery } from '@tanstack/react-query'
-import { getDevices } from '../api/devices'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { getDevices, updateDevice } from '../api/devices'
 
 function Dashboard() {
+  const queryClient = useQueryClient()
   const { data: devices, isLoading, error } = useQuery({
     queryKey: ['devices'],
     queryFn: getDevices,
     refetchInterval: 2000, // 每 2 秒刷新一次
+  })
+
+  // 更新設備狀態的 mutation
+  const updateDeviceMutation = useMutation({
+    mutationFn: ({ deviceId, enabled }) => updateDevice(deviceId, { enabled }),
+    onSuccess: () => {
+      // 更新成功後，重新獲取設備列表
+      queryClient.invalidateQueries({ queryKey: ['devices'] })
+    },
   })
 
   // 調試信息
@@ -59,6 +69,17 @@ function Dashboard() {
     return typeMap[type] || type
   }
 
+  // 處理開關切換
+  const handleToggle = async (deviceId, currentEnabled) => {
+    const newEnabled = !currentEnabled
+    try {
+      await updateDeviceMutation.mutateAsync({ deviceId, enabled: newEnabled })
+    } catch (error) {
+      console.error('更新設備狀態失敗:', error)
+      alert(`更新設備狀態失敗: ${error.message}`)
+    }
+  }
+
   return (
     <div>
       <h2 className="text-3xl font-bold mb-6 text-gray-900">設備狀態總覽</h2>
@@ -71,7 +92,23 @@ function Dashboard() {
           >
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-semibold">{device.name}</h3>
-              <div className={`w-3 h-3 rounded-full ${getStatusColor(device.status)}`}></div>
+              <div className="flex items-center gap-3">
+                <div className={`w-3 h-3 rounded-full ${getStatusColor(device.status)}`}></div>
+                {/* 開關切換 */}
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={device.enabled}
+                    onChange={() => handleToggle(device.id, device.enabled)}
+                    disabled={updateDeviceMutation.isPending}
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                  <span className="ml-3 text-sm font-medium text-gray-700">
+                    {device.enabled ? '開啟' : '關閉'}
+                  </span>
+                </label>
+              </div>
             </div>
             
             <div className="space-y-2 text-sm text-gray-600">
@@ -83,12 +120,6 @@ function Dashboard() {
               </div>
               <div>
                 <span className="font-medium">端口:</span> {device.port}
-              </div>
-              <div>
-                <span className="font-medium">狀態:</span>{' '}
-                <span className={device.enabled ? 'text-green-600' : 'text-gray-600'}>
-                  {device.enabled ? '啟用' : '停用'}
-                </span>
               </div>
             </div>
 

@@ -22,3 +22,5 @@ EXPOSE 5020-5027
 # 啟動命令
 CMD ["python", "main.py"]
 
+
+

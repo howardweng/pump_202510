@@ -60,3 +60,5 @@ class TestPressureSensor:
         assert pressure_kgcm2 is not None, "應該能夠讀取壓力（kg/cm²）"
         assert isinstance(pressure_kgcm2, float), "壓力值應該是浮點數"
 
+
+

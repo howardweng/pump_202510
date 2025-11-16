@@ -61,3 +61,5 @@ class FlowMeterSimulator(BaseModbusSimulator):
         self.config['cumulative_flow'] = max(0.0, value)
         logger.debug(f"流量計累計流量已更新: {value} L")
 
+
+

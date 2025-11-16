@@ -101,3 +101,5 @@ cp backup_original_ui/tailwind.config.js .
 - 部分未使用的變量警告（setTestMode, setTestType）不影響功能
 - 如需進一步調整顏色或布局，請修改 `tailwind.config.js` 中的 `industrial` 顏色方案
 
+
+

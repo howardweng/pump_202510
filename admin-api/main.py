@@ -7,6 +7,18 @@ from routers.scenarios import init_db
 from loguru import logger
 import sys
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+# 載入環境變數（優先載入 .env.local，如果不存在則載入 .env）
+env_local = Path(__file__).parent / ".env.local"
+env_file = Path(__file__).parent / ".env"
+if env_local.exists():
+    load_dotenv(env_local)
+    logger.info(f"✅ 已載入環境變數: {env_local}")
+elif env_file.exists():
+    load_dotenv(env_file)
+    logger.info(f"✅ 已載入環境變數: {env_file}")
 
 
 @asynccontextmanager

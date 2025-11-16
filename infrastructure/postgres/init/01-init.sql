@@ -20,3 +20,5 @@ INSERT INTO health_check (status) VALUES ('Database initialized successfully');
 -- 顯示資料庫版本
 SELECT version();
 
+
+

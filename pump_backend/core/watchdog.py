@@ -91,3 +91,5 @@ class Watchdog:
         except Exception as e:
             logger.exception(f"❌ 緊急停止執行失敗: {e}")
 
+
+

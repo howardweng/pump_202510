@@ -77,3 +77,5 @@ class TestPowerMeter:
         assert "voltage_c" in data, "應該包含 C 相電壓"
         assert "total_active_power" in data, "應該包含合相功率"
 
+
+

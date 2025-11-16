@@ -36,3 +36,5 @@ class ValveState(Enum):
     MANUAL = "manual"                # 手動模式
     CLOSED = "closed"                # 關閉
 
+
+

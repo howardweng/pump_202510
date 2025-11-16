@@ -186,3 +186,5 @@ async def update_device(device_id: str, update: DeviceUpdate):
         logger.error(f"更新設備 {device_id} 失敗: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+
+

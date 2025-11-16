@@ -85,3 +85,5 @@ class RelayIOSimulator(BaseModbusSimulator):
             self.set_relay(i, False)
         logger.info("所有繼電器已關閉")
 
+
+

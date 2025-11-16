@@ -8,12 +8,31 @@ function Dashboard() {
     refetchInterval: 2000, // 每 2 秒刷新一次
   })
 
+  // 調試信息
+  console.log('Dashboard render:', {
+    isLoading,
+    hasError: !!error,
+    errorMessage: error?.message,
+    devicesCount: devices?.length,
+    devices: devices
+  })
+
   if (isLoading) {
-    return <div className="text-center py-8">載入中...</div>
+    return <div className="text-center py-8 text-gray-900">載入中...</div>
   }
 
   if (error) {
+    console.error('Dashboard error:', error)
     return <div className="text-center py-8 text-red-600">錯誤: {error.message}</div>
+  }
+
+  if (!devices || devices.length === 0) {
+    return (
+      <div>
+        <h2 className="text-3xl font-bold mb-6 text-gray-900">設備狀態總覽</h2>
+        <div className="text-center py-8 text-gray-600">沒有設備數據</div>
+      </div>
+    )
   }
 
   const getStatusColor = (status) => {
@@ -42,7 +61,7 @@ function Dashboard() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold mb-6">設備狀態總覽</h2>
+      <h2 className="text-3xl font-bold mb-6 text-gray-900">設備狀態總覽</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {devices?.map((device) => (
@@ -112,4 +131,6 @@ function Dashboard() {
 }
 
 export default Dashboard
+
+
 

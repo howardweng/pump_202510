@@ -68,3 +68,5 @@ class TestModbusBase:
             registers = await device.read_holding_registers(0x0000, 1)
             assert registers is not None, "應該能夠讀取數據"
 
+
+

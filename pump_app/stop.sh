@@ -43,3 +43,5 @@ rm -f "$PID_FILE"
 
 echo "✅ Pump App 已停止"
 
+
+

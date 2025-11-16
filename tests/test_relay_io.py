@@ -67,3 +67,5 @@ class TestRelayIO:
         assert isinstance(inputs, int), "輸入值應該是整數"
         assert 0 <= inputs <= 255, "輸入值應該在 0-255 範圍內"
 
+
+

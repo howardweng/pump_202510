@@ -10,3 +10,5 @@ mqtt/log/*
 # PostgreSQL data (handled by Docker volume)
 # postgres_data is a Docker volume, not a directory
 
+
+

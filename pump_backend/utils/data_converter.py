@@ -73,3 +73,5 @@ def parse_uint16(register: int) -> int:
     """
     return register & 0xFFFF
 
+
+

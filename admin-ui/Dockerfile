@@ -30,3 +30,5 @@ EXPOSE 80
 # 啟動 nginx
 CMD ["nginx", "-g", "daemon off;"]
 
+
+

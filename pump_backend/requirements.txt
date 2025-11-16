@@ -25,3 +25,5 @@ pytest-mock>=3.11.0           # Mock 工具
 crcmod>=1.7                   # CRC 計算
 tenacity>=8.2.0               # 重試機制
 
+
+

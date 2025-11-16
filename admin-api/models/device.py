@@ -45,3 +45,5 @@ class DeviceResponse(BaseModel):
     device: Optional[Device] = None
     message: Optional[str] = None
 
+
+

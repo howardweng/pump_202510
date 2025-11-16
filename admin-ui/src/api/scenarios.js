@@ -25,3 +25,5 @@ export const deleteScenario = async (scenarioId) => {
   return response.data
 }
 
+
+

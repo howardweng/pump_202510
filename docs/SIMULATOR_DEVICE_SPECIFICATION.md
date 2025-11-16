@@ -188,3 +188,5 @@
 3. 完整的繼電器 IO 模擬器實作（Discrete Inputs + Coils）
 4. 串口橋接器的 UART 設定配置
 
+
+

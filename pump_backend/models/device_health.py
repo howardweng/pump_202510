@@ -57,3 +57,5 @@ class DeviceStatus:
             return 0.0
         return self.successful_requests / self.total_requests
 
+
+

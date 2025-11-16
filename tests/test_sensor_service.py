@@ -69,3 +69,5 @@ class TestSensorService:
         # 應該不拋出異常
         assert True, "輪詢電表應該成功"
 
+
+

@@ -96,3 +96,5 @@ devices:
       relay_states: [false, false, false, false, false, false, false, false]
       digital_inputs: 0x02  # Bit 1 = 1 (測試蓋關閉)
 
+
+
